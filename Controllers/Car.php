@@ -36,7 +36,7 @@ class Car
     {
         if (empty($this->cars)) {
             echo "Voce precisa adicionar carros" . PHP_EOL;
-            return false;
+            exit;
         } else {
             for ($i = 0; $i < $this->size; $i++) {
                 $this->cars[$i]['Posicao'] = $i + 1;
@@ -70,7 +70,7 @@ class Car
 
         } else {
             echo "Adicione carros!" . PHP_EOL;
-            return false;
+            exit;
 
         }
 
@@ -79,12 +79,12 @@ class Car
     public function startRace()
     {
         if (empty($this->cars)) {
-            echo "Voce precisa adicionar carros";
-            return false;
+            echo "Voce precisa adicionar carros" . PHP_EOL;
+            exit;
         }
         if (empty($this->cars['0']['Posicao'])) {
             echo "Voce precisa definir as posicoes" . PHP_EOL;
-            return false;
+            exit;
         } else {
             echo "Corrida Iniciada!" . PHP_EOL;
             $this->start = true;
@@ -95,6 +95,10 @@ class Car
 
     public function overtake($win, $lost)
     {
+        if ($win === $lost) {
+            echo "Impossivel ultrapassar ele mesmo!" . PHP_EOL;
+            exit;
+        }
         if ($this->start == true) {
             for ($i = 0; $i < $this->size; $i++) {
                 switch ($win) {
@@ -102,6 +106,9 @@ class Car
                         $win = $this->cars[$i];
                         $this->cars[$i]['Posicao'] -= 1;
                         break;
+                    default:
+                        echo "Piloto " . $win . " nao encontrado!" . PHP_EOL;
+                        exit;
                 }
 
                 switch ($lost) {
@@ -109,25 +116,28 @@ class Car
                         $lost = $this->cars[$i];
                         $this->cars[$i]['Posicao'] += 1;
                         break;
+                    default:
+                        echo "Piloto " . $lost . " nao encontrado!" . PHP_EOL;
+                        exit;
                 }
             }
 
             foreach ($this->cars as $car) {
                 foreach ($this->cars as $test) {
                     if ($car['Piloto'] != $test['Piloto'] && $car['Posicao'] == $test['Posicao']) {
-                        echo "Ultrapassagem Impossivel" . PHP_EOL;
-                        return false;
+                        echo "Ultrapassagem Impossivel de " . $win['Piloto'] . " para " . $lost['Piloto'] . PHP_EOL;
+                        exit;
                     }
                 }
             }
 
-            $this->report .= PHP_EOL . " - " . $win['Piloto'] . " Ultrapassou " . $lost['Piloto'] . PHP_EOL;
+            $this->report .= PHP_EOL . " - " . $win['Piloto'] . " Ultrapassou " . $lost['Piloto'];
 
             return true;
 
         } else {
             echo "Voce precisa iniciar a corrida" . PHP_EOL;
-            return false;
+            exit;
         }
     }
 
@@ -158,12 +168,8 @@ class Car
                     $p++;
                 }
             }
-
-            echo PHP_EOL;
-
             return true;
         }
-
         return false;
     }
 
@@ -171,9 +177,9 @@ class Car
     {
         if ($this->report == 'Relatorio de Ultrapassagens:') {
             echo "Não houve ultrapassagens" . PHP_EOL;
-            return false;
+            exit;
         } else {
-            echo $this->report;
+            echo PHP_EOL . $this->report . PHP_EOL . PHP_EOL;
             return true;
         }
     }
