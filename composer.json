@@ -1,0 +1,14 @@
+{
+  "autoload": {
+    "classmap": [
+      "Controllers/",
+      "Tests/"
+    ],
+    "psr-4": {
+      "Controllers\\" : "Controllers/"
+    },
+    "require": {
+      "phpunit/phpunit": "^8"
+    }
+  }
+}

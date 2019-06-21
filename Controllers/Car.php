@@ -12,7 +12,7 @@ class Car
     public function __construct()
     {
         $this->start = false;
-        $this->report = "Relatorio de Ultrapassagens:" . PHP_EOL;
+        $this->report = "Relatorio de Ultrapassagens:";
     }
 
     public function newCar($pilot, $make, $model, $color, $year)
@@ -28,13 +28,15 @@ class Car
         $this->cars[] = $array;
 
         $this->size++;
+
+        return $array;
     }
 
     public function setPosition()
     {
         if (empty($this->cars)) {
             echo "Voce precisa adicionar carros" . PHP_EOL;
-            exit;
+            return false;
         } else {
             for ($i = 0; $i < $this->size; $i++) {
                 $this->cars[$i]['Posicao'] = $i + 1;
@@ -44,33 +46,51 @@ class Car
 
     public function showCars()
     {
-        $sortArray = array();
+        if (isset($this->cars)) {
+            $sortArray = array();
 
-        foreach ($this->cars as $car) {
-            foreach ($car as $key => $value) {
-                if (!isset($sortArray[$key])) {
-                    $sortArray[$key] = array();
+            foreach ($this->cars as $car) {
+                foreach ($car as $key => $value) {
+                    if (!isset($sortArray[$key])) {
+                        $sortArray[$key] = array();
+                    }
+                    $sortArray[$key][] = $value;
                 }
-                $sortArray[$key][] = $value;
             }
+
+            if (isset($this->cars[0]['Posicao'])) {
+                $orderby = "Posicao";
+            } else {
+                $orderby = "Piloto";
+            }
+
+            array_multisort($sortArray[$orderby], SORT_ASC, $this->cars);
+            print_r($this->cars);
+            return true;
+
+        } else {
+            echo "Adicione carros!" . PHP_EOL;
+            return false;
+
         }
 
-        $orderby = "Posicao";
-
-        array_multisort($sortArray[$orderby], SORT_ASC, $this->cars);
-
-        print_r($this->cars);
     }
 
     public function startRace()
     {
+        if (empty($this->cars)) {
+            echo "Voce precisa adicionar carros";
+            return false;
+        }
         if (empty($this->cars['0']['Posicao'])) {
             echo "Voce precisa definir as posicoes" . PHP_EOL;
-            exit;
+            return false;
         } else {
             echo "Corrida Iniciada!" . PHP_EOL;
             $this->start = true;
         }
+
+        return $this->start;
     }
 
     public function overtake($win, $lost)
@@ -79,15 +99,9 @@ class Car
             for ($i = 0; $i < $this->size; $i++) {
                 switch ($win) {
                     case $this->cars[$i]['Piloto']:
-                        if ($this->cars[$i]['Posicao'] == 1) {
-                            echo "Ultrapassagem Impossivel" . PHP_EOL;
-                            exit;
-                        } else {
-                            $win = $this->cars[$i];
-                            $this->cars[$i]['Posicao'] -= 1;
-                            break;
-                        }
-
+                        $win = $this->cars[$i];
+                        $this->cars[$i]['Posicao'] -= 1;
+                        break;
                 }
 
                 switch ($lost) {
@@ -102,16 +116,18 @@ class Car
                 foreach ($this->cars as $test) {
                     if ($car['Piloto'] != $test['Piloto'] && $car['Posicao'] == $test['Posicao']) {
                         echo "Ultrapassagem Impossivel" . PHP_EOL;
-                        exit;
+                        return false;
                     }
                 }
             }
 
-            $this->report .= " - " . $win['Piloto'] . " Ultrapassou " . $lost['Piloto'] . PHP_EOL;
+            $this->report .= PHP_EOL . " - " . $win['Piloto'] . " Ultrapassou " . $lost['Piloto'] . PHP_EOL;
+
+            return true;
 
         } else {
             echo "Voce precisa iniciar a corrida" . PHP_EOL;
-            exit;
+            return false;
         }
     }
 
@@ -130,21 +146,35 @@ class Car
             }
 
             $orderby = "Posicao";
+            $p = 1;
 
             array_multisort($sortArray[$orderby], SORT_ASC, $this->cars);
 
             echo "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
             echo "Ganhadores:" . PHP_EOL;
-            echo "1 - " . $this->cars[0]['Piloto']. PHP_EOL;
-            echo "2 - " . $this->cars[1]['Piloto']. PHP_EOL;
-            echo "3 - " . $this->cars[2]['Piloto']. PHP_EOL . PHP_EOL;
+            for ($i = 0; $i < 3; $i++) {
+                if (isset($this->cars[$i])) {
+                    echo $p . "- " . $this->cars[$i]['Piloto'] . PHP_EOL;
+                    $p++;
+                }
+            }
 
+            echo PHP_EOL;
 
+            return true;
         }
+
+        return false;
     }
 
     public function report()
     {
-        echo $this->report;
+        if ($this->report == 'Relatorio de Ultrapassagens:') {
+            echo "Não houve ultrapassagens" . PHP_EOL;
+            return false;
+        } else {
+            echo $this->report;
+            return true;
+        }
     }
 }
