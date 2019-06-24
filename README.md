@@ -1,6 +1,6 @@
 # Projeto TG
 
-Bem vindo ao Repositório do Projeto TG, esse projeto consiste em uma corrida de carros!
+Bem vindo ao Repositório do Projeto TG, esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo Formula TG, dentro da pasta Rules.
 
 Para rodar em sua máquina siga os passos abaixo (é necessário ter o docker instalado e composer):
 
