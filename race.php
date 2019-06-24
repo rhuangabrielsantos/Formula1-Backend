@@ -13,9 +13,8 @@ $car->newCar('Vandin', 'Renault', 'X', 'Preto', '2019');
 $car->setPosition();
 $car->startRace();
 
-$car->overtake('Gabriela', 'Rhuan');
-$car->overtake('Vandin', 'Rhuan');
-$car->overtake('Rhuan', 'Vandin');
+$car->overtake('Gabriela', 'Eloah');
+$car->overtake('Vandin', 'Eloah');
 
 $car->finishRace();
 

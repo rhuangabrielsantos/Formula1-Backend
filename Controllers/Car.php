@@ -106,9 +106,6 @@ class Car
                         $win = $this->cars[$i];
                         $this->cars[$i]['Posicao'] -= 1;
                         break;
-                    default:
-                        echo "Piloto " . $win . " nao encontrado!" . PHP_EOL;
-                        exit;
                 }
 
                 switch ($lost) {
@@ -116,9 +113,6 @@ class Car
                         $lost = $this->cars[$i];
                         $this->cars[$i]['Posicao'] += 1;
                         break;
-                    default:
-                        echo "Piloto " . $lost . " nao encontrado!" . PHP_EOL;
-                        exit;
                 }
             }
 
