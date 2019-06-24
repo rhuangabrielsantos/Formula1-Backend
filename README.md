@@ -15,7 +15,7 @@ Para rodar em sua máquina siga os passos abaixo (é necessário ter o docker in
 8 - Você já pode testar a aplicação rodando o comando <pre> php race.php </pre>
 
 
-# Funçes
+# Funções
 
 Para fazer alterações na corrida, abra o arquivo <strong> race.php </strong> em seu software preferido.
 
