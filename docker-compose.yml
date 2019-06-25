@@ -3,7 +3,7 @@ version: '3'
 services:
   php:
     image: 'php:7.3-apache'
-    container_name: TG
+    container_name: ProjetoTG
     ports:
       - "8080:80"
     volumes:
