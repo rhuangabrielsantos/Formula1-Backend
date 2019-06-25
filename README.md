@@ -4,6 +4,10 @@ Bem vindo ao Repositório do Projeto TG,
 esse projeto consiste em uma corrida de carros,
 as regras da corrida estão no arquivo Formula TG, dentro da pasta Rules.
 
+Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se não tiver instalado acesse o link abaixo e faça a instalação. <br>
+
+<a>https://docs.docker.com/install/</a>
+
 # Rodando o Projeto
 
 <h3> Ubuntu: </h3>
@@ -15,50 +19,17 @@ as regras da corrida estão no arquivo Formula TG, dentro da pasta Rules.
 - Pelo terminal entre na pasta criada e rode o comando abaixo para dar permissão ao arquivo e para instalar
 os programas necessários para rodar a aplicação:
 
-<pre> chmod +x install.sh </pre>
+<pre>chmod +x install.sh</pre>
 
-<pre> install.sh </pre>
-
-- Verifique se a instalação ocorreu da maneira certa rodando o comando abaixo:
-
-<pre> docker --version </pre>
-<pre> docker-compose --version </pre>
-
-Agora você já pode rodar o Projeto!
-
-<h3> Windows: </h3>
-
-1 - Faça o download do <a href="https://download.docker.com/win/beta/InstallDocker.msi">Docker</a>. <br>
-2 - Clique duas vezes em InstallDocker.msi para executar o instalador. <br>
-3 - Siga o Assistente de Instalação: aceite a licença, autorize o instalador e continue com a instalação. <br>
-4 - Clique em Concluir para iniciar o Docker. <br>
-5 - O Docker é iniciado automaticamente. <br>
-6 - O Docker carrega uma janela de boas-vindas, fornecendo dicas e acesso à documentação do Docker. <br>
-7 - Abra o terminal de sua preferência e rode o comando abaixo para verificar a versão do Docker:
-
-<pre> docker --version </pre>
-
-8 - Rode o comando abaixo para instalar as dependências do composer:
-
-<pre> docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) composer install </pre>
+<pre>./install.sh</pre>
 
 Agora você já pode rodar o Projeto!
 
 # Rodando a Projeto
 
-Para rodar em sua máquina siga os passos abaixo:
+- Entre no arquivo docker-compose.yml e altere o caminho em volumes para o caminho que sua pasta está. <br>
 
-1 - Abra o terminal e clone o Projeto em sua máquina:
-
-<pre> git clone https://github.com/rhuangabrielsantos/ProjectTG.git </pre>
-
-2 - Entre no arquivo <strong> docker-compose.yml </strong>, e em volumes, altere para o caminho apontando para sua pasta; <br><br>
-
-3 - No terminal rode o comando dentro da pasta criada: 
-
-<pre> composer install </pre>
-
-4 - Após a instalação rode o comando:
+- Pelo terminal entre na pasta do projeto e rode o comando:
 
 <pre> docker-compose up -d </pre>
 
