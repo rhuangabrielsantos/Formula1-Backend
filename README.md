@@ -10,11 +10,9 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 # Rodando o Projeto
 
-<h3> Ubuntu: </h3>
-
 - Abra o terminal e rode o comando abaixo para clonar o projeto:
 
-<pre> git clone https://github.com/rhuangabrielsantos/ProjectTG.git </pre>
+<pre>git clone https://github.com/rhuangabrielsantos/ProjectTG.git</pre>
 
 - Pelo terminal entre na pasta criada e rode o comando abaixo para dar permissão ao arquivo e para instalar
 os programas necessários para rodar a aplicação:
@@ -31,21 +29,21 @@ Agora você já pode rodar o Projeto!
 
 - Pelo terminal entre na pasta do projeto e rode o comando:
 
-<pre> docker-compose up -d </pre>
+<pre>docker-compose up -d</pre>
 
 5 - Dê o comando abaixo para visualizar o container criado.
 
-<pre> docker ps </pre> 
+<pre>docker ps</pre> 
 
 6 - Agora pegue o ID do container e escreva o seguinte comando substituindo o ID CONTAINER: 
 
-<pre> docker exec -it (ID CONTAINER) bash </pre>
+<pre>docker exec -it (ID CONTAINER) bash</pre>
 
 7 - Você está dentro do container! <br><br>
 
 8 - Você já pode testar a aplicação rodando o comando
 
-<pre> php race.php </pre>
+<pre>php race.php</pre>
 
 
 # Funções
