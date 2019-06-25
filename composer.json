@@ -6,9 +6,9 @@
     ],
     "psr-4": {
       "Controllers\\" : "Controllers/"
-    },
-    "require": {
-      "phpunit/phpunit": "^8"
     }
+  },
+  "require": {
+    "phpunit/phpunit": "^8"
   }
 }
