@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+//preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
+
+
+$result = $_SERVER['argv'];
+
+print_r($result[1]);
+echo PHP_EOL;
