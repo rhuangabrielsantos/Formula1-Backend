@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+//preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
+
+use Controllers\Race;
+
+$result = $_SERVER['argv'];
+
+$race = new Race();
+
+$race->startRace();

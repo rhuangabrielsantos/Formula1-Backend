@@ -3,8 +3,10 @@
 
 //preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
 
+use Controllers\Race;
 
 $result = $_SERVER['argv'];
 
-print_r($result[1]);
-echo PHP_EOL;
+$race = new Race();
+
+$race->report();

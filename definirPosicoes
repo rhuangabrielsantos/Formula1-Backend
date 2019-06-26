@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+//preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
+
+use Controllers\Car;
+
+$result = $_SERVER['argv'];
+
+$car = new Car();
+
+$car->setPosition();
