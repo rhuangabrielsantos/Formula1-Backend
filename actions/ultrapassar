@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-//preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
+require_once __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\Race;
+use Models\Race;
 
 $result = $_SERVER['argv'];
 

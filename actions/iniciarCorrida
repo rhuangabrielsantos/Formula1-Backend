@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . "/../vendor/autoload.php";
+
+use Models\Race;
+
+$race = new Race();
+
+$race->startRace();

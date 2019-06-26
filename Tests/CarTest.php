@@ -2,7 +2,7 @@
 
 require __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\Car;
+use Model\Car;
 use PHPUnit\Framework\TestCase;
 
 class CarTest extends TestCase

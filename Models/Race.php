@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers;
+namespace Models;
 
-class Race extends Car
+class Race
 {
     private $start;
     private $report;

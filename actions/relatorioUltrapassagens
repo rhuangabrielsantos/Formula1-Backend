@@ -3,7 +3,7 @@
 
 //preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
 
-use Controllers\Race;
+use Model\Race;
 
 $result = $_SERVER['argv'];
 
