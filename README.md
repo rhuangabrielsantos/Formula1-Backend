@@ -25,16 +25,16 @@ os programas necessários para rodar a aplicação:
 
 <pre>docker-compose up -d</pre>
 
-5 - Dê o comando abaixo para visualizar o container criado.
+- Dê o comando abaixo para visualizar o container criado.
 
 <pre>docker ps</pre> 
 
-6 - Agora pegue o ID do container e escreva o seguinte comando substituindo o ID CONTAINER: 
+- Agora pegue o ID do container e escreva o seguinte comando substituindo o ID CONTAINER: 
 
 <pre>docker exec -it (ID CONTAINER) bash</pre>
 
-7 - Você está dentro do container! <br><br>
+- Você está dentro do container! <br><br>
 
-8 - Você já pode testar a aplicação rodando o comando
+- Você já pode testar a aplicação rodando o comando
 
 <pre>./verificarComandos</pre>
