@@ -79,6 +79,9 @@ class Race
                     $cars[$key]['Posicao'] -= 1;
                     $cars[$anterior]['Posicao'] += 1;
                     $lost = $cars[$anterior];
+                } else {
+                    echo "Piloto nao encontrado" . PHP_EOL;
+                    exit;
                 }
             }
 
