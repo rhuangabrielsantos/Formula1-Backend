@@ -9,49 +9,49 @@ if (!empty($result[1])) {
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando adiciona um novo carro a corrida." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - adicionarCarros (Piloto) (Marca) (Modelo) (Cor) (Ano)" . PHP_EOL;
+                . " - /.adicionarCarros (Piloto) (Marca) (Modelo) (Cor) (Ano)" . PHP_EOL;
             break;
 
         case 'definirPosicoes':
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando define as posicoes dos carros na corrida." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - definirPosicoes" . PHP_EOL;
+                . " - /.definirPosicoes" . PHP_EOL;
             break;
 
         case 'exibirCarros':
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando exibe todos os carros cadastrados." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - exibirCarros" . PHP_EOL;
+                . " - /.exibirCarros" . PHP_EOL;
             break;
 
         case 'iniciarCorrida':
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando inicia a Corrida, ele so funciona se existir carros com posicoes definidas." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - iniciarCorrida" . PHP_EOL;
+                . " - /.iniciarCorrida" . PHP_EOL;
             break;
 
         case 'finalizarCorrida':
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando encerra a corrida e exibe os tres primeiros colocados." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - finalizarCorrida" . PHP_EOL;
+                . " - /.finalizarCorrida" . PHP_EOL;
             break;
 
         case 'ultrapassar':
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando faz as ultrapassagens na corrida, o piloto passado no comando ira ultrapassar o piloto a sua frente." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - ultrapassar (Piloto)" . PHP_EOL;
+                . " - /.ultrapassar (Piloto)" . PHP_EOL;
             break;
 
         case 'relatorioUltrapassagens':
             echo "Descricao:" . PHP_EOL
                 . " - Esse comando exibe um relatorio com todas as ultrapassagens da corrida." . PHP_EOL . PHP_EOL
                 . "Como usar:" . PHP_EOL
-                . " - relatorioUltrapassagens" . PHP_EOL;
+                . " - /.relatorioUltrapassagens" . PHP_EOL;
             break;
     }
 } else {
