@@ -2,35 +2,20 @@
 
 namespace Models;
 
-class Car
+class ModelCar
 {
     public $dataCars;
+    public $dataRace;
 
     public function __construct()
     {
         $this->dataCars = file_get_contents(__DIR__ . '/../filesJson/dataCars.json');
+        $this->dataRace = file_get_contents(__DIR__ . '/../filesJson/dataRace.json');
     }
 
-    public function newCar($pilot, $make, $model, $color, $year)
+    public function newCar($cars)
     {
-        $race = json_decode(file_get_contents(__DIR__ . '/../filesJson/dataRace.json'), true);
-
-        if ($race['Start'] == true) {
-            echo "A corrida foi Iniciada, voce nao pode adicionar carros" . PHP_EOL;
-            exit;
-        }
-
-        $cars = json_decode($this->dataCars);
         unlink(__DIR__ . "/../filesJson/dataCars.json");
-
-        $cars[] = [
-            'Piloto' => $pilot,
-            'Marca' => $make,
-            'Modelo' => $model,
-            'Cor' => $color,
-            'Ano' => $year,
-        ];
-
         $json = json_encode($cars, JSON_PRETTY_PRINT);
         $fp = fopen(__DIR__ . "/../filesJson/dataCars.json", "a");
         fwrite($fp, $json);

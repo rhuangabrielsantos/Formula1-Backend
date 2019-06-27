@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class Race
+class ModelRace
 {
     public $start;
     public $report;

@@ -3,8 +3,8 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Models\Race;
+use Models\ModelRace;
 
-$race = new Race();
+$race = new ModelRace();
 
 $race->startRace();
