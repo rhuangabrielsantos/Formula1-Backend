@@ -12,9 +12,9 @@ class Race
     public function __construct()
     {
         $this->start = false;
-        $this->report = "Relatorio de Ultrapassagens:";
         $this->dataCars = file_get_contents(__DIR__ . '/../filesJson/dataCars.json');
         $this->dataRace = file_get_contents(__DIR__ . '/../filesJson/dataRace.json');
+        $this->report = file_get_contents(__DIR__ . '/../filesJson/report.json');
     }
 
     public function startRace()
@@ -41,8 +41,13 @@ class Race
         $race = json_decode($this->dataRace, true);
 
         if ($race['Start'] == true) {
-            echo "Voce já iniciou a corrida!";
+            echo "Voce já iniciou a corrida!" . PHP_EOL;
+            exit;
         }
+
+        unlink(__DIR__ . "/../filesJson/report.json");
+        $fp = fopen(__DIR__ . "/../filesJson/report.json", "a");
+        fclose($fp);
 
         echo "Corrida Iniciada!" . PHP_EOL;
 
@@ -57,44 +62,54 @@ class Race
         fclose($fp);
     }
 
-    public function overtake($win, $lost)
+    public function overtake($win)
     {
         $cars = json_decode($this->dataCars, true);
         $race = json_decode($this->dataRace, true);
+        $report = json_decode($this->report, true);
 
-        if ($win === $lost) {
-            echo "Impossivel ultrapassar ele mesmo!" . PHP_EOL;
-            exit;
-        }
         if ($race['Start'] == true) {
-            for ($i = 0; $i < count($cars); $i++) {
-                switch ($win) {
-                    case $cars[$i]['Piloto']:
-                        $win = $cars[$i];
-                        $cars[$i]['Posicao'] -= 1;
-                        break;
-                }
-
-                switch ($lost) {
-                    case $cars[$i]['Piloto']:
-                        $lost = $cars[$i];
-                        $cars[$i]['Posicao'] += 1;
-                        break;
-                }
-            }
-
-            foreach ($cars as $car) {
-                foreach ($cars as $test) {
-                    if ($car['Piloto'] != $test['Piloto'] && $car['Posicao'] == $test['Posicao']) {
-                        echo "Ultrapassagem Impossivel de " . $win['Piloto'] . " para " . $lost['Piloto'] . PHP_EOL;
+            foreach ($cars as $key => $car) {
+                if ($car['Piloto'] == $win) {
+                    if ($car['Posicao'] == 1) {
+                        echo $car['Piloto'] . " esta em primeiro lugar" . PHP_EOL;
                         exit;
                     }
+                    $anterior = $key - 1;
+                    $cars[$key]['Posicao'] -= 1;
+                    $cars[$anterior]['Posicao'] += 1;
+                    $lost = $cars[$anterior];
                 }
             }
 
-            $this->report .= PHP_EOL . " - " . $win['Piloto'] . " Ultrapassou " . $lost['Piloto'];
+            $sortArray = array();
+            foreach ($cars as $car) {
+                foreach ($car as $key => $value) {
+                    if (!isset($sortArray[$key])) {
+                        $sortArray[$key] = array();
+                    }
+                    $sortArray[$key][] = $value;
+                }
+            }
+            $orderby = "Posicao";
+            array_multisort($sortArray[$orderby], SORT_ASC, $cars);
 
-            return true;
+
+            unlink(__DIR__ . "/../filesJson/dataCars.json");
+            $json = json_encode($cars, JSON_PRETTY_PRINT);
+            $fp = fopen(__DIR__ . "/../filesJson/dataCars.json", "a");
+            fwrite($fp, $json);
+            fclose($fp);
+
+            echo $win . " ultrapassou " . $lost['Piloto'] . "!!" . PHP_EOL;
+
+            $report[] = $win . " ultrapassou " . $lost['Piloto'] . "!!" . PHP_EOL;
+
+            unlink(__DIR__ . "/../filesJson/report.json");
+            $json = json_encode($report, JSON_PRETTY_PRINT);
+            $fp = fopen(__DIR__ . "/../filesJson/report.json", "a");
+            fwrite($fp, $json);
+            fclose($fp);
 
         } else {
             echo "Voce precisa iniciar a corrida" . PHP_EOL;
@@ -108,25 +123,11 @@ class Race
         $race = json_decode($this->dataRace, true);
 
         if ($race['Start'] == true) {
-            $sortArray = array();
-
-            foreach ($cars as $car) {
-                foreach ($car as $key => $value) {
-                    if (!isset($sortArray[$key])) {
-                        $sortArray[$key] = array();
-                    }
-                    $sortArray[$key][] = $value;
-                }
-            }
-
-            $orderby = "Posicao";
             $p = 1;
-
-            array_multisort($sortArray[$orderby], SORT_ASC, $cars);
 
             echo "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
             echo "Ganhadores:" . PHP_EOL;
-            for ($i = 0; $i < count($cars); $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 echo $p . "- " . $cars[$i]['Piloto'] . PHP_EOL;
                 $p++;
             }
@@ -148,12 +149,10 @@ class Race
 
     public function report()
     {
-        if ($this->report == 'Relatorio de Ultrapassagens:') {
-            echo "N�o houve ultrapassagens" . PHP_EOL;
-            exit;
-        } else {
-            echo PHP_EOL . $this->report . PHP_EOL . PHP_EOL;
-            return true;
+        $report = json_decode($this->report, true);
+
+        foreach ($report as $item) {
+            echo $item;
         }
     }
 }

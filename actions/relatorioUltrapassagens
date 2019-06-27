@@ -1,11 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-//preg_match('/^--([\w-]+)(?:=(.*))?$/', $param, $matches);
+require_once __DIR__ . "/../vendor/autoload.php";
 
-use Model\Race;
-
-$result = $_SERVER['argv'];
+use Models\Race;
 
 $race = new Race();
 

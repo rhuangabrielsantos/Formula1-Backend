@@ -9,4 +9,12 @@ $result = $_SERVER['argv'];
 
 $car = new Car();
 
+for ($i = 1; $i <= 5; $i++) {
+    if (!isset ($result[$i])) {
+        echo "Adicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
+        . "\033[01;32mcomando\033[01;37m: adicionarCarros Piloto Marca Modelo Cor Ano" . PHP_EOL . PHP_EOL;
+        exit;
+    }
+}
+
 $car->newCar($result[1], $result[2], $result[3], $result[4], $result[5]);

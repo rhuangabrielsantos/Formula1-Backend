@@ -9,4 +9,8 @@ $result = $_SERVER['argv'];
 
 $race = new Race();
 
-$race->overtake($result[1], $result[2]);
+if(isset($result[1])) {
+    $race->overtake($result[1]);
+} else {
+    echo "Identifique quem ultrapassou!" . PHP_EOL;
+}
