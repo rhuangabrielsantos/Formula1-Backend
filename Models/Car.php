@@ -4,11 +4,17 @@ namespace Models;
 
 class Car
 {
+    public $dataCars;
+
+    public function __construct()
+    {
+        $this->dataCars = file_get_contents(__DIR__ . '/../filesJson/dataCars.json');
+    }
+
     public function newCar($pilot, $make, $model, $color, $year)
     {
-        $file = file_get_contents(__DIR__ . '/../filesJson/cars.json');
-        $cars = json_decode($file);
-        unlink(__DIR__ . "/../filesJson/cars.json");
+        $cars = json_decode($this->dataCars);
+        unlink(__DIR__ . "/../filesJson/dataCars.json");
 
         $cars[] = [
             'Piloto' => $pilot,
@@ -19,7 +25,7 @@ class Car
         ];
 
         $json = json_encode($cars, JSON_PRETTY_PRINT);
-        $fp = fopen(__DIR__ . "/../filesJson/cars.json", "a");
+        $fp = fopen(__DIR__ . "/../filesJson/dataCars.json", "a");
         fwrite($fp, $json);
         fclose($fp);
 
@@ -28,9 +34,8 @@ class Car
 
     public function setPosition()
     {
-        $file = file_get_contents(__DIR__ . '/../filesJson/cars.json');
-        $cars = json_decode($file, true);
-        unlink(__DIR__ . "/../filesJson/cars.json");
+        $cars = json_decode($this->dataCars, true);
+        unlink(__DIR__ . "/../filesJson/dataCars.json");
 
         if (empty($cars)) {
             echo "Voce precisa adicionar carros" . PHP_EOL;
@@ -42,7 +47,7 @@ class Car
         }
 
         $json = json_encode($cars, JSON_PRETTY_PRINT);
-        $fp = fopen(__DIR__ . "/../filesJson/cars.json", "a");
+        $fp = fopen(__DIR__ . "/../filesJson/dataCars.json", "a");
         fwrite($fp, $json);
         fclose($fp);
 
@@ -51,19 +56,18 @@ class Car
 
     public function showCars()
     {
-        $file = file_get_contents(__DIR__ . '/../filesJson/cars.json');
-        $cars = json_decode($file, true);
+        $cars = json_decode($this->dataCars, true);
 
         foreach ($cars as $key=>$car) {
             $key = $key + 1;
-            echo "Carro n ". $key . PHP_EOL
+            echo "-----------------------------" . PHP_EOL
+                . "Carro n ". $key . PHP_EOL
                 . "Piloto - " . $car['Piloto'] . PHP_EOL
                 . "Marca - " . $car['Marca'] . PHP_EOL
                 . "Modelo - " . $car['Modelo'] . PHP_EOL
                 . "Cor - " . $car['Cor'] . PHP_EOL
                 . "Ano - " . $car['Ano'] . PHP_EOL
                 . "Posicao - " . $car['Posicao'] . PHP_EOL . PHP_EOL;
-
         }
     }
 }

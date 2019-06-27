@@ -5,8 +5,6 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Models\Race;
 
-$result = $_SERVER['argv'];
-
 $race = new Race();
 
 $race->finishRace();
