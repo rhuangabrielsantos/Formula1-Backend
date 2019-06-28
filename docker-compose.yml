@@ -3,3 +3,11 @@ version: '3'
 services:
   php:
     build: .
+    container_name: ProjetoTG
+    ports:
+      - 8080:80
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+    tty: true
+    volumes:
+      - /home/rhuan.santos@db1.com.br/Project/TG:/var/www/html
