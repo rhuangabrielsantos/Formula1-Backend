@@ -12,18 +12,18 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 <pre>git clone https://github.com/rhuangabrielsantos/ProjectTG.git</pre>
 
-- Pelo terminal entre na pasta criada e rode o comando abaixo para dar permissão ao arquivo e para instalar
-os programas necessários para rodar a aplicação:
-
-<pre>chmod +x install.sh</pre>
-
-<pre>./install.sh</pre>
-
 - Entre no arquivo docker-compose.yml e altere o caminho em volumes para o caminho que sua pasta está. <br>
 
 - Pelo terminal entre na pasta do projeto e rode o comando:
 
 <pre>docker-compose up -d</pre>
+
+- Agora rode o comando abaixo para dar permissão ao arquivo e para instalar
+as dependências necessárias para rodar a aplicação:
+
+<pre>chmod +x install.sh</pre>
+
+<pre>./install.sh</pre>
 
 - Dê o comando abaixo para visualizar o container criado.
 
