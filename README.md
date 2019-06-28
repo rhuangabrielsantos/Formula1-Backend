@@ -18,22 +18,23 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 <pre>docker-compose up -d</pre>
 
-- Agora rode o comando abaixo para dar permissão ao arquivo e para instalar
-as dependências necessárias para rodar a aplicação:
-
-<pre>chmod +x install.sh</pre>
-
-<pre>./install.sh</pre>
-
 - Dê o comando abaixo para visualizar o container criado.
 
-<pre>docker ps</pre> 
+<pre>docker ps</pre>
 
 - Agora pegue o ID do container e escreva o seguinte comando substituindo o ID CONTAINER: 
 
 <pre>docker exec -it (ID CONTAINER) bash</pre>
 
 - Você está dentro do container! <br><br>
+
+- Rode o comando a seguir para instalar as dependências do projeto:
+
+<pre>composer install</pre>
+
+- Entre na pasta actions com o comando a seguir:
+
+<pre>cd actions</pre>
 
 - Você já pode testar a aplicação rodando o comando
 
