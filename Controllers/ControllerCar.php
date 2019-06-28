@@ -11,7 +11,7 @@ class ControllerCar
 
     public function __construct()
     {
-        $this->dataCars = json_decode(file_get_contents(__DIR__ . '/../filesJson/dataCars.json'));
+        $this->dataCars = json_decode(file_get_contents(__DIR__ . '/../filesJson/dataCars.json'), true);
         $this->dataRace = json_decode(file_get_contents(__DIR__ . '/../filesJson/dataRace.json'), true);
     }
 
@@ -32,5 +32,20 @@ class ControllerCar
 
         $car = new ModelCar();
         $car->newCar($this->dataCars);
+    }
+
+    public function setPosition()
+    {
+        if (empty($this->dataCars)) {
+            echo "Voce precisa adicionar carros" . PHP_EOL;
+            exit;
+        }
+
+        for ($i = 0; $i < count($this->dataCars); $i++) {
+            $this->dataCars[$i]['Posicao'] = $i + 1;
+        }
+
+        $car = new ModelCar();
+        $car->setPosition($this->dataCars);
     }
 }

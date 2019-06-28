@@ -24,20 +24,9 @@ class ModelCar
         echo "Carro Salvo com Sucesso!" . PHP_EOL;
     }
 
-    public function setPosition()
+    public function setPosition($cars)
     {
-        $cars = json_decode($this->dataCars, true);
         unlink(__DIR__ . "/../filesJson/dataCars.json");
-
-        if (empty($cars)) {
-            echo "Voce precisa adicionar carros" . PHP_EOL;
-            exit;
-        }
-
-        for ($i = 0; $i < count($cars); $i++) {
-            $cars[$i]['Posicao'] = $i + 1;
-        }
-
         $json = json_encode($cars, JSON_PRETTY_PRINT);
         $fp = fopen(__DIR__ . "/../filesJson/dataCars.json", "a");
         fwrite($fp, $json);
