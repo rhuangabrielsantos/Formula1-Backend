@@ -3,11 +3,11 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Models\ModelRace;
+use Controllers\ControllerRace;
 
 $result = $_SERVER['argv'];
 
-$race = new ModelRace();
+$race = new ControllerRace();
 
 if(isset($result[1])) {
     $race->overtake($result[1]);

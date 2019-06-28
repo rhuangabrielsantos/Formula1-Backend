@@ -7,4 +7,4 @@ use Models\ModelRace;
 
 $race = new ModelRace();
 
-$race->report();
+$race->getReport();

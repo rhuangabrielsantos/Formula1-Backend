@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Lib\JSON;
 use Models\ModelCar;
 
 class ControllerCar
@@ -11,8 +12,8 @@ class ControllerCar
 
     public function __construct()
     {
-        $this->dataCars = json_decode(file_get_contents(__DIR__ . '/../filesJson/dataCars.json'), true);
-        $this->dataRace = json_decode(file_get_contents(__DIR__ . '/../filesJson/dataRace.json'), true);
+        $this->dataRace = JSON::getDataRace();
+        $this->dataCars = JSON::getDataCars();
     }
 
     public function newCar($pilot, $make, $model, $color, $year)
@@ -30,8 +31,9 @@ class ControllerCar
             'Ano' => $year,
         ];
 
-        $car = new ModelCar();
-        $car->newCar($this->dataCars);
+        ModelCar::setJson('dataCars', $this->dataCars);
+
+        echo "Carro Salvo com Sucesso!" . PHP_EOL;
     }
 
     public function setPosition()
@@ -45,7 +47,28 @@ class ControllerCar
             $this->dataCars[$i]['Posicao'] = $i + 1;
         }
 
-        $car = new ModelCar();
-        $car->setPosition($this->dataCars);
+        ModelCar::setJson('dataCars', $this->dataCars);
+
+        echo "Posicoes Definidas com Sucesso!" . PHP_EOL;
+    }
+
+    public function showCars()
+    {
+        foreach ($this->dataCars as $key => $car) {
+            $key = $key + 1;
+            echo "-----------------------------" . PHP_EOL
+                . "Carro n " . $key . PHP_EOL
+                . "Piloto - " . $car['Piloto'] . PHP_EOL
+                . "Marca - " . $car['Marca'] . PHP_EOL
+                . "Modelo - " . $car['Modelo'] . PHP_EOL
+                . "Cor - " . $car['Cor'] . PHP_EOL
+                . "Ano - " . $car['Ano'] . PHP_EOL;
+
+            if (!empty($car['Posicao'])) {
+                echo "Posicao - " . $car['Posicao'] . PHP_EOL . PHP_EOL;
+            } else {
+                echo PHP_EOL;
+            }
+        }
     }
 }
