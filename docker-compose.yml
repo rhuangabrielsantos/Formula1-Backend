@@ -2,9 +2,4 @@ version: '3'
 
 services:
   php:
-    image: 'php:7.3-apache'
-    container_name: ProjetoTG
-    ports:
-      - "8080:80"
-    volumes:
-      - /home/rhuan.santos@db1.com.br/Project/TG:/var/www/html
+    build: .
