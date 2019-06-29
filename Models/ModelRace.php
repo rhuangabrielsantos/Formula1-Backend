@@ -54,13 +54,4 @@ class ModelRace
 
         ModelRace::addReport($report);
     }
-
-    public function getReport()
-    {
-        $report = json_decode($this->report, true);
-
-        foreach ($report as $item) {
-            echo $item;
-        }
-    }
 }

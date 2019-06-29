@@ -4,39 +4,42 @@ namespace Controllers;
 
 use Lib\JSON;
 use Models\ModelRace;
+use View\View;
 
 class ControllerRace
 {
     public $dataCars;
     public $dataRace;
+    public $report;
 
     public function __construct()
     {
         $this->dataRace = JSON::getDataRace();
         $this->dataCars = JSON::getDataCars();
+        $this->report = JSON::getReport();
     }
 
     public function startRace()
     {
         if (empty($this->dataCars)) {
-            echo "Adicione carros para iniciar a corrida" . PHP_EOL;
+            View::errorMessageNeedAddCars();
             exit;
         }
 
         if (count($this->dataCars) == 1) {
-            echo "Impossivel comecar corrida com apenas um carro" . PHP_EOL;
+            View::errorMessageOneCar();
             exit;
         }
 
         foreach ($this->dataCars as $car) {
             if (empty($car['Posicao'])) {
-                echo "Voce precisa definir as posicoes" . PHP_EOL;
+                View::errorMessageNeedDefinePosition();
                 exit;
             }
         }
 
         if ($this->dataRace['Start'] == true) {
-            echo "Voce ja iniciou a corrida!" . PHP_EOL;
+            View::errorMessageStartAgain();
             exit;
         }
 
@@ -45,21 +48,14 @@ class ControllerRace
         ];
 
         ModelRace::startRace($start);
-
-        echo "Corrida Iniciada!" . PHP_EOL;
+        View::successMessageStartRace();
     }
 
     public function finishRace()
     {
         if ($this->dataRace['Start'] == true) {
-            $p = 1;
 
-            echo "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
-            echo "Ganhadores:" . PHP_EOL;
-            for ($i = 0; $i < 3; $i++) {
-                echo $p . "- " . $this->dataCars[$i]['Piloto'] . PHP_EOL;
-                $p++;
-            }
+            View::podium($this->dataCars);
 
             $start = [
                 "Start" => false
@@ -68,7 +64,7 @@ class ControllerRace
             ModelRace::setRace($start);
 
         } else {
-            echo "Voce precisa iniciar a corrida!" . PHP_EOL;
+            View::errorMessageNeedStart();
         }
     }
 
@@ -78,7 +74,7 @@ class ControllerRace
             foreach ($this->dataCars as $key => $car) {
                 if ($car['Piloto'] == $win) {
                     if ($car['Posicao'] == 1) {
-                        echo $car['Piloto'] . " esta em primeiro lugar" . PHP_EOL;
+                        View::errorMessageOvertakingFirsPlace($car);
                         exit;
                     }
                     $anterior = $key - 1;
@@ -88,15 +84,20 @@ class ControllerRace
                 }
             }
 
-            $report[] = $win . " ultrapassou " . $lost['Piloto'] . "!!" . PHP_EOL;
+            if (!isset($anterior)) {
+                View::errorMessageNotFoundPilot();
+                exit;
+            }
+
+            $this->report[] = $win . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
 
             $carsOrdered = ControllerRace::orderCars($this->dataCars);
-            ModelRace::overtake($carsOrdered, $report);
+            ModelRace::overtake($carsOrdered, $this->report);
 
-            echo $win . " ultrapassou " . $lost['Piloto'] . "!!" . PHP_EOL;
+            View::successMessageOvertaking($win, $lost);
 
         } else {
-            echo "Voce precisa iniciar a corrida" . PHP_EOL;
+            View::errorMessageNeedStart();
             exit;
         }
     }
@@ -116,5 +117,12 @@ class ControllerRace
         array_multisort($sortArray[$orderby], SORT_ASC, $cars);
 
         return $cars;
+    }
+
+    public function getReport()
+    {
+        foreach ($this->report as $item) {
+            View::report($item);
+        }
     }
 }
