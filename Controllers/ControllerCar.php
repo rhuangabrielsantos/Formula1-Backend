@@ -20,7 +20,7 @@ class ControllerCar
     public function newCar($pilot, $make, $model, $color, $year)
     {
         if ($this->dataRace['Start'] == true) {
-            View::errorMessageNewCar();
+            View::errorMessageNewCarRaceStart();
             exit;
         }
 

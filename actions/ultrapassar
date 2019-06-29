@@ -4,6 +4,7 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controllers\ControllerRace;
+use View\View;
 
 $result = $_SERVER['argv'];
 
@@ -12,5 +13,5 @@ $race = new ControllerRace();
 if(isset($result[1])) {
     $race->overtake($result[1]);
 } else {
-    echo "Identifique quem ultrapassou!" . PHP_EOL;
+    View::errorMessageOvertakeNull();
 }
