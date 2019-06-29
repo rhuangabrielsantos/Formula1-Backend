@@ -1,10 +1,10 @@
 {
   "autoload": {
-    "classmap": [
-      "Tests/"
-    ],
     "psr-4": {
-      "Models\\" : "Models/"
+      "Controllers\\": "Controllers/",
+      "Models\\": "Models/",
+      "Lib\\": "Lib/",
+      "View\\": "View/"
     }
   },
   "require": {
