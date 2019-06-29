@@ -10,37 +10,30 @@ $result = $_SERVER['argv'];
 if (!empty($result[1])) {
     switch ($result[1]) {
         case 'adicionarCarros':
-            View::logo();
             View::descNewCar();
             break;
 
         case 'definirPosicoes':
-            View::logo();
             View::descSetPosition();
             break;
 
         case 'exibirCarros':
-            View::logo();
             View::descShowCars();
             break;
 
         case 'iniciarCorrida':
-            View::logo();
             View::descStartRace();
             break;
 
         case 'finalizarCorrida':
-            View::logo();
             View::descFinishRace();
             break;
 
         case 'ultrapassar':
-            View::logo();
             View::descOvertake();
             break;
 
         case 'relatorioUltrapassagens':
-            View::logo();
             View::descReport();
             break;
     }
