@@ -28,14 +28,11 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 - Você está dentro do container! <br><br>
 
-- Rode o comando a seguir para instalar as dependências do projeto:
+- Rode os comandos a seguir para instalar as dependências do projeto e acicionar os comandos:
 
 <pre>composer install</pre>
-
-- Entre na pasta actions com o comando a seguir:
-
-<pre>cd actions</pre>
+<pre>mv actions/* /usr/local/bin/</pre>
 
 - Você já pode testar a aplicação rodando o comando
 
-<pre>./verificarComandos</pre>
+<pre>verificarComandos</pre>
