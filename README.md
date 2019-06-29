@@ -12,13 +12,6 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 <pre>git clone https://github.com/rhuangabrielsantos/ProjectTG.git</pre>
 
-- Pelo terminal entre na pasta criada e rode o comando abaixo para dar permissão ao arquivo e para instalar
-os programas necessários para rodar a aplicação:
-
-<pre>chmod +x install.sh</pre>
-
-<pre>./install.sh</pre>
-
 - Entre no arquivo docker-compose.yml e altere o caminho em volumes para o caminho que sua pasta está. <br>
 
 - Pelo terminal entre na pasta do projeto e rode o comando:
@@ -27,13 +20,21 @@ os programas necessários para rodar a aplicação:
 
 - Dê o comando abaixo para visualizar o container criado.
 
-<pre>docker ps</pre> 
+<pre>docker ps</pre>
 
 - Agora pegue o ID do container e escreva o seguinte comando substituindo o ID CONTAINER: 
 
 <pre>docker exec -it (ID CONTAINER) bash</pre>
 
 - Você está dentro do container! <br><br>
+
+- Rode o comando a seguir para instalar as dependências do projeto:
+
+<pre>composer install</pre>
+
+- Entre na pasta actions com o comando a seguir:
+
+<pre>cd actions</pre>
 
 - Você já pode testar a aplicação rodando o comando
 

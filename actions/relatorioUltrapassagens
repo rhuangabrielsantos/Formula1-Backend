@@ -3,8 +3,8 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Models\Race;
+use Controllers\ControllerRace;
 
-$race = new Race();
+$race = new ControllerRace();
 
-$race->report();
+$race->getReport();

@@ -3,8 +3,8 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Models\Car;
+use Controllers\ControllerCar;
 
-$car = new Car();
+$car = new ControllerCar();
 
 $car->showCars();
