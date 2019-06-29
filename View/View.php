@@ -7,22 +7,22 @@ class View
     public static function errorMessageNewCarRaceStart()
     {
         View::logo();
-        echo "\e[00;31mA corrida foi Iniciada, para adicionar novos carros a corrida precisa ser encerrada" . PHP_EOL
-            . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mA corrida foi Iniciada, para adicionar novos carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public function errorMessageNewCarExistPilot()
     {
         View::logo();
-        echo "\e[00;31mO Piloto já existe!" . PHP_EOL
-            . "\e[00;33mVerifique os pilotos existentes com o comando exibirCarros\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mO Piloto já existe!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mVerifique os pilotos existentes com o comando exibirCarros\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageCommands()
     {
         View::logo();
-        echo "\e[00;31mComando nao encontrado" . PHP_EOL
-            . "\e[00;33mPara para verificar comandos disponiveis digite verificarComandos\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mComando nao encontrado" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara para verificar comandos disponiveis digite verificarComandos\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNewCar()
@@ -35,80 +35,80 @@ class View
     public static function errorMessageOvertakeNull()
     {
         View::logo();
-        echo "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL
-            ."\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL . PHP_EOL
+            ."\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNeedAddCars()
     {
         View::logo();
-        echo "\e[00;31mVoce precisa adicionar carros" . PHP_EOL
-            . "\e[00;33mPara adicionar carros use o comando adicionarCarros\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mVoce precisa adicionar carros" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara adicionar carros use o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageOneCar()
     {
         View::logo();
-        echo "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL
-            . "\e[00;33mAdicione novos carros com o comando adicionarCarros\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL . PHP_EOL
+            . "\e[00;33mAdicione novos carros com o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNeedDefinePosition()
     {
         View::logo();
-        echo "\e[00;31mPara iniciar a corrida, os carros precisam de posicoes definidas" . PHP_EOL
-            . "\e[00;33mDefina as posicoes com o comando definirPosicoes \e[00;37m" . PHP_EOL;
+        echo "\e[00;31mPara iniciar a corrida, os carros precisam de posicoes definidas" . PHP_EOL . PHP_EOL
+            . "\e[00;33mDefina as posicoes com o comando definirPosicoes \e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageStartAgain()
     {
         View::logo();
-        echo "\e[00;31mVoce ja iniciou a corrida!\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mVoce ja iniciou a corrida!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNeedStart()
     {
         View::logo();
-        echo "\e[00;31mVoce precisa iniciar a corrida!" . PHP_EOL
-            . "\e[00;33mPara iniciar uma corrida use o comando iniciarCorrida\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mVoce precisa iniciar a corrida!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara iniciar uma corrida use o comando iniciarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageOvertakingFirsPlace($car)
     {
         View::logo();
-        echo "\e[00;31m" . $car['Piloto'] . " esta em primeiro lugar\e[00;37m" . PHP_EOL;
+        echo "\e[00;31m" . $car['Piloto'] . " esta em primeiro lugar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNotFoundPilot()
     {
         View::logo();
-        echo "\e[00;31mPiloto nao encontrado!". PHP_EOL
-            ."\e[00;33mVerifique o nome do piloto e escreva novamente\e[00;37m" . PHP_EOL;
+        echo "\e[00;31mPiloto nao encontrado!". PHP_EOL . PHP_EOL
+            ."\e[00;33mVerifique o nome do piloto e escreva novamente\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageNewCar()
     {
         View::logo();
-        echo "\e[00;32mCarro Salvo com Sucesso!" . PHP_EOL
-            . "\e[00;33mLembre-se de definir a posicao do seu carro com o comando definirPosicoes\033[00;37m" . PHP_EOL;
+        echo "\e[00;32mCarro Salvo com Sucesso!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mLembre-se de definir a posicao do seu carro com o comando definirPosicoes\033[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageSetPosition()
     {
         View::logo();
-        echo "\e[00;32mAs posicoes foram definidas com Sucesso!\e[00;37m" . PHP_EOL;
+        echo "\e[00;32mAs posicoes foram definidas com Sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageStartRace()
     {
         View::logo();
-        echo "\e[00;32mCorrida Iniciada!\e[00;37m" . PHP_EOL;
+        echo "\e[00;32mCorrida Iniciada!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageOvertaking($win, $lost)
     {
         View::logo();
-        echo "\e[00;32m" . $win . " ultrapassou " . $lost['Piloto'] . "!\e[00;37m" . PHP_EOL;
+        echo "\e[00;32m" . $win . " ultrapassou " . $lost['Piloto'] . "!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function showCars($car)
