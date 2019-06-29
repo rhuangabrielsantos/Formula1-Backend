@@ -36,6 +36,11 @@ if (!empty($result[1])) {
         case 'relatorioUltrapassagens':
             View::descReport();
             break;
+
+        case 'excluirCarro':
+            View::descDeleteCar();
+            break;
+
         default:
             View::errorMessageCommands();
     }

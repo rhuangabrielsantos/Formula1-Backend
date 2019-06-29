@@ -36,6 +36,25 @@ class ControllerCar
         View::successMessageNewCar();
     }
 
+    public function deleteCar($pilot)
+    {
+        if ($this->dataRace['Start'] == true) {
+            View::errorMessageDeleteCarStartRace();
+            exit;
+        }
+        for ($i = 0; $i <= count($this->dataCars); $i++) {
+            if ($pilot == $this->dataCars[$i]['Piloto']) {
+                unset($this->dataCars[$i]);
+                ModelCar::setJson($this->dataCars);
+                View::successMessageDeleteCar();
+                exit;
+            }
+        }
+
+        View::errorMessageNotFoundPilot();
+        exit;
+    }
+
     public function setPosition()
     {
         if (empty($this->dataCars)) {
