@@ -121,6 +121,8 @@ class ControllerRace
 
     public function getReport()
     {
+        View::logo();
+
         foreach ($this->report as $item) {
             View::report($item);
         }
