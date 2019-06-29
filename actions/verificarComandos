@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
 
 use View\View;
 
@@ -36,6 +36,8 @@ if (!empty($result[1])) {
         case 'relatorioUltrapassagens':
             View::descReport();
             break;
+        default:
+            View::errorMessageCommands();
     }
 } else {
     View::defaultMessageCommands();
