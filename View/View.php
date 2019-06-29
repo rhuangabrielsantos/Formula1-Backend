@@ -11,6 +11,13 @@ class View
             . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL;
     }
 
+    public function errorMessageNewCarExistPilot()
+    {
+        View::logo();
+        echo "\e[00;31mO Piloto já existe!" . PHP_EOL
+            . "\e[00;33mVerifique os pilotos existentes com o comando exibirCarros\e[00;37m" . PHP_EOL;
+    }
+
     public static function errorMessageCommands()
     {
         View::logo();
@@ -106,7 +113,6 @@ class View
 
     public static function showCars($car)
     {
-        View::logo();
         echo "-----------------------------" . PHP_EOL
             . "Piloto - " . $car['Piloto'] . PHP_EOL
             . "Marca - " . $car['Marca'] . PHP_EOL

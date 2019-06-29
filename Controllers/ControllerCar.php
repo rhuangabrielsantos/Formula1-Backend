@@ -54,6 +54,7 @@ class ControllerCar
     public function showCars()
     {
         if (!empty($this->dataCars)) {
+            View::logo();
             foreach ($this->dataCars as $car) {
                 View::showCars($car);
             }
