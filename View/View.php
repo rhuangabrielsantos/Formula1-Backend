@@ -196,17 +196,16 @@ class View
     public static function defaultMessageCommands()
     {
         View::logo();
-        echo PHP_EOL
-            . "Lista dos comandos:" . PHP_EOL . PHP_EOL
-            . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando)" . PHP_EOL . PHP_EOL
-            . " - adicionarCarros" . PHP_EOL
-            . " - definirPosicoes" . PHP_EOL
-            . " - exibirCarros" . PHP_EOL
-            . " - iniciarCorrida" . PHP_EOL
-            . " - finalizarCorrida" . PHP_EOL
-            . " - ultrapassar" . PHP_EOL
-            . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
-            . "\e[00;37m";
+        echo . "Lista dos comandos:" . PHP_EOL . PHP_EOL
+             . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando)" . PHP_EOL . PHP_EOL
+             . " - adicionarCarros" . PHP_EOL
+             . " - definirPosicoes" . PHP_EOL
+             . " - exibirCarros" . PHP_EOL
+             . " - iniciarCorrida" . PHP_EOL
+             . " - finalizarCorrida" . PHP_EOL
+             . " - ultrapassar" . PHP_EOL
+             . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
+             . "\e[00;37m";
     }
 
     public static function logo()
