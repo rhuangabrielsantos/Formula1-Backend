@@ -15,14 +15,14 @@ class View
     {
         View::logo();
         echo "\e[00;31mAdicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
-            . "\e[00;33mComando: ./adicionarCarros Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mComando: adicionarCarros Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageOvertakeNull()
     {
         View::logo();
         echo "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL
-            ."\e[00;33mComando: ./ultrapassager Piloto\e[00;37m" . PHP_EOL;
+            ."\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL;
     }
 
     public static function errorMessageNeedAddCars()
@@ -136,7 +136,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando adiciona um novo carro a corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.adicionarCarros (Piloto) (Marca) (Modelo) (Cor) (Ano)\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- adicionarCarros (Piloto) (Marca) (Modelo) (Cor) (Ano)\e[00;37m" . PHP_EOL;
     }
 
     public static function descSetPosition()
@@ -145,7 +145,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando define as posicoes dos carros na corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.definirPosicoes\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- definirPosicoes\e[00;37m" . PHP_EOL;
     }
 
     public static function descShowCars()
@@ -154,7 +154,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando exibe todos os carros cadastrados." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.exibirCarros\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- exibirCarros\e[00;37m" . PHP_EOL;
     }
 
     public static function descStartRace()
@@ -163,7 +163,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando inicia a Corrida, ele so funciona se existir carros com posicoes definidas." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.iniciarCorrida\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- iniciarCorrida\e[00;37m" . PHP_EOL;
     }
 
     public static function descFinishRace()
@@ -172,7 +172,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando encerra a corrida e exibe os tres primeiros colocados." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.finalizarCorrida\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- finalizarCorrida\e[00;37m" . PHP_EOL;
     }
 
     public static function descOvertake()
@@ -181,7 +181,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando faz as ultrapassagens na corrida, o piloto passado no comando ira ultrapassar o piloto a sua frente." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.ultrapassar (Piloto)\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- ultrapassar (Piloto)\e[00;37m" . PHP_EOL;
     }
 
     public static function descReport()
@@ -190,7 +190,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando exibe um relatorio com todas as ultrapassagens da corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- /.relatorioUltrapassagens\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- relatorioUltrapassagens\e[00;37m" . PHP_EOL;
     }
 
     public static function defaultMessageCommands()
