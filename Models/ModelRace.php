@@ -2,23 +2,8 @@
 
 namespace Models;
 
-use Lib\JSON;
-
 class ModelRace
 {
-    public $start;
-    public $report;
-    public $dataCars;
-    public $dataRace;
-
-    public function __construct()
-    {
-        $this->start = false;
-        $this->dataRace = JSON::getDataRace();
-        $this->dataCars = JSON::getDataCars();
-        $this->report = JSON::getReport();
-    }
-
     public static function startRace($array)
     {
         ModelRace::newReport();

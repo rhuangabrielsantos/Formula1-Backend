@@ -2,22 +2,13 @@
 
 namespace Controllers;
 
-use Lib\JSON;
 use Models\ModelRace;
+use Traits\TraitGetData;
 use View\View;
 
 class ControllerRace
 {
-    public $dataCars;
-    public $dataRace;
-    public $report;
-
-    public function __construct()
-    {
-        $this->dataRace = JSON::getDataRace();
-        $this->dataCars = JSON::getDataCars();
-        $this->report = JSON::getReport();
-    }
+    use TraitGetData;
 
     public function startRace()
     {

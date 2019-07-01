@@ -2,20 +2,13 @@
 
 namespace Controllers;
 
-use Lib\JSON;
 use Models\ModelCar;
+use Traits\TraitGetData;
 use View\View;
 
 class ControllerCar
 {
-    public $dataCars;
-    public $dataRace;
-
-    public function __construct()
-    {
-        $this->dataRace = JSON::getDataRace();
-        $this->dataCars = JSON::getDataCars();
-    }
+    use TraitGetData;
 
     public function newCar($pilot, $make, $model, $color, $year)
     {
@@ -42,6 +35,7 @@ class ControllerCar
             View::errorMessageDeleteCarStartRace();
             exit;
         }
+
         for ($i = 0; $i <= count($this->dataCars); $i++) {
             if ($pilot == $this->dataCars[$i]['Piloto']) {
                 unset($this->dataCars[$i]);
@@ -51,7 +45,7 @@ class ControllerCar
             }
         }
 
-        View::errorMessageNotFoundPilot();
+        View::errorMessageNotFoundCar();
         exit;
     }
 

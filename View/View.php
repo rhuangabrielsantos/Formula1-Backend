@@ -18,7 +18,7 @@ class View
             . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public function errorMessageNewCarExistPilot()
+    public static function errorMessageNewCarExistPilot()
     {
         View::logo();
         echo "\e[00;31mO Piloto já existe!" . PHP_EOL . PHP_EOL
@@ -50,6 +50,13 @@ class View
     {
         View::logo();
         echo "\e[00;31mVoce precisa adicionar carros" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara adicionar carros use o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
+    public static function errorMessageNotFoundCar()
+    {
+        View::logo();
+        echo "\e[00;31mNenhum carro encontrado" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
