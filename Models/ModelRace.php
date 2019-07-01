@@ -2,6 +2,8 @@
 
 namespace Models;
 
+use Lib\JSON;
+
 class ModelRace
 {
     public static function startRace($array)
@@ -12,31 +14,22 @@ class ModelRace
 
     public static function newReport()
     {
-        unlink(__DIR__ . "/../filesJson/report.json");
-        $fp = fopen(__DIR__ . "/../filesJson/report.json", "a");
-        fclose($fp);
+        JSON::setJson('report', null);
     }
 
     public static function setRace($array)
     {
-        $path = __DIR__ . "/../filesJson/dataRace.json";
-        $json = json_encode($array, JSON_PRETTY_PRINT);
-        file_put_contents($path, $json);
+        JSON::setJson('dataRace', $array);
     }
 
     public static function addReport($array)
     {
-        $path = __DIR__ . "/../filesJson/report.json";
-        $json = json_encode($array, JSON_PRETTY_PRINT);
-        file_put_contents($path, $json);
+        JSON::setJson('report', $array);
     }
 
     public static function overtake($array, $report)
     {
-        $path = __DIR__ . "/../filesJson/dataCars.json";
-        $json = json_encode($array, JSON_PRETTY_PRINT);
-        file_put_contents($path, $json);
-
+        JSON::setJson('dataCars', $array);
         ModelRace::addReport($report);
     }
 }
