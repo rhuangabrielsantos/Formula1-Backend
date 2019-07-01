@@ -150,13 +150,13 @@ class View
         echo "\e[00;32mCarro deletado com sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageGodModeOn()
+    public static function messageGodModeOn()
     {
         View::logo();
         echo "\e[00;33mModo Teste Ativado!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageGodModeOff()
+    public static function messageGodModeOff()
     {
         View::logo();
         echo "\e[00;32mModo Teste Desativado!\e[00;37m" . PHP_EOL . PHP_EOL;

@@ -6,6 +6,7 @@ use Lib\JSON;
 use Models\ModelCar;
 use PHPUnit\Framework\TestCase;
 use Controllers\ControllerCar;
+use View\View;
 
 class CarTest extends TestCase
 {
@@ -16,7 +17,7 @@ class CarTest extends TestCase
     {
         $this->godMode = JSON::getGodMode();
 
-        if ($this->godMode == true) {
+        if ($this->godMode['Status'] == true) {
 
             $car = new ControllerCar();
             $car->newCar('Rhuan', 'Ferrari', '450', 'Red', '2018');
@@ -41,6 +42,9 @@ class CarTest extends TestCase
             unset($this->dataCars[0]);
             unset($this->dataCars[1]);
             ModelCar::setJson($this->dataCars);
+        } else {
+            View::messageGodModeOff();
+            exit;
         }
     }
 
@@ -48,7 +52,7 @@ class CarTest extends TestCase
     {
         $this->godMode = JSON::getGodMode();
 
-        if ($this->godMode == true) {
+        if ($this->godMode['Status'] == true) {
             $car = new ControllerCar();
             $car->newCar('Rhuan', 'Ferrari', '450', 'Red', '2018');
 
@@ -62,6 +66,9 @@ class CarTest extends TestCase
             $this->dataCars = JSON::getDataCars();
 
             $this->assertEquals(0, count($this->dataCars));
+        } else {
+            View::messageGodModeOff();
+            exit;
         }
     }
 
@@ -69,7 +76,7 @@ class CarTest extends TestCase
     {
         $this->godMode = JSON::getGodMode();
 
-        if ($this->godMode == true) {
+        if ($this->godMode['Status'] == true) {
             $car = new ControllerCar();
             $car->newCar('Rhuan', 'Ferrari', '450', 'Red', '2018');
 
@@ -86,6 +93,9 @@ class CarTest extends TestCase
 
             unset($this->dataCars[0]);
             ModelCar::setJson($this->dataCars);
+        } else {
+            View::messageGodModeOff();
+            exit;
         }
     }
 }

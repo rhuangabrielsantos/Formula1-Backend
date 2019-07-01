@@ -20,13 +20,13 @@ $godMode = JSON::getGodMode();
 
 if ($result[1] == 1234 && $godMode['Status'] == 0) {
     JSON::setJson('godMode', $true);
-    View::successMessageGodModeOn();
+    View::messageGodModeOn();
     exit;
 }
 
 if ($result[1] == 1234 && $godMode['Status'] == 1) {
     JSON::setJson('godMode', $false);
-    View::successMessageGodModeOff();
+    View::messageGodModeOff();
     exit;
 }
 
