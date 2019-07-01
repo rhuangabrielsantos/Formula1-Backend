@@ -39,14 +39,19 @@ class ControllerRace
         ];
 
         ModelRace::startRace($start);
-        View::successMessageStartRace();
+
+        if ($this->godMode['Status'] == false) {
+            View::successMessageStartRace();
+        }
     }
 
     public function finishRace()
     {
         if ($this->dataRace['Start'] == true) {
 
-            View::podium($this->dataCars);
+            if ($this->godMode['Status'] == false) {
+                View::podium($this->dataCars);
+            }
 
             $start = [
                 "Start" => false
