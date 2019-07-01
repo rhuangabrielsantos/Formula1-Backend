@@ -8,19 +8,20 @@ use Lib\JSON;
 use View\View;
 
 $result = $_SERVER['argv'];
-
 $cars = JSON::getDataCars();
 
-foreach ($cars as $car) {
-    if ($result[1] == $car['Piloto']) {
-        View::errorMessageNewCarExistPilot();
-        exit;
+if (!empty($cars)) {
+    foreach ($cars as $car) {
+        if ($result[1] == $car['Piloto']) {
+            View::errorMessageNewCarExistPilot();
+            exit;
+        }
     }
 }
 
 for ($i = 1; $i <= 5; $i++) {
     if (!isset ($result[$i])) {
-            View::errorMessageNewCar();
+        View::errorMessageNewCar();
         exit;
     }
 }

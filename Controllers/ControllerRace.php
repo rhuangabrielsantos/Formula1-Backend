@@ -114,8 +114,12 @@ class ControllerRace
     {
         View::logo();
 
-        foreach ($this->report as $item) {
-            View::report($item);
+        if (!empty($this->report)) {
+            foreach ($this->report as $item) {
+                View::report($item);
+            }
+        } else {
+            View::errorMessageEmptyReport();
         }
     }
 }

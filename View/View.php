@@ -107,6 +107,12 @@ class View
             ."\e[00;33mPara executar esse comando digite excluirCarro Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
+    public static function errorMessageEmptyReport()
+    {
+        echo "\e[00;31mRelatorio vazio!". PHP_EOL . PHP_EOL
+            ."\e[00;33mNenhuma ultrapassagem realizada, use o comando ultrapassar\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
     public static function successMessageNewCar()
     {
         View::logo();

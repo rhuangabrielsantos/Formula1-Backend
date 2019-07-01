@@ -47,5 +47,3 @@ if (!empty($result[1])) {
 } else {
     View::defaultMessageCommands();
 }
-
-
