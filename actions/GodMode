@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
+
+use Lib\JSON;
+use View\View;
+
+$result = $_SERVER['argv'];
+
+$true = [
+    'Status' => true
+];
+
+$false = [
+    'Status' => false
+];
+
+$godMode = JSON::getGodMode();
+
+if ($result[1] == 1234 && $godMode['Status'] == 0) {
+    JSON::setJson('godMode', $true);
+    View::successMessageGodModeOn();
+    exit;
+}
+
+if ($result[1] == 1234 && $godMode['Status'] == 1) {
+    JSON::setJson('godMode', $false);
+    View::successMessageGodModeOff();
+    exit;
+}
+
+View::errorMessageInvalidPassword();

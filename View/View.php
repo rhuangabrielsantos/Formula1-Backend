@@ -107,6 +107,12 @@ class View
             ."\e[00;33mPara executar esse comando digite excluirCarro Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
+    public static function errorMessageInvalidPassword()
+    {
+        View::logo();
+        echo "\e[00;31mSenha invalida!\e[00;37m". PHP_EOL . PHP_EOL;
+    }
+
     public static function errorMessageEmptyReport()
     {
         echo "\e[00;31mRelatorio vazio!". PHP_EOL . PHP_EOL
@@ -142,6 +148,18 @@ class View
     {
         View::logo();
         echo "\e[00;32mCarro deletado com sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
+    public static function successMessageGodModeOn()
+    {
+        View::logo();
+        echo "\e[00;33mModo Teste Ativado!\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
+    public static function successMessageGodModeOff()
+    {
+        View::logo();
+        echo "\e[00;32mModo Teste Desativado!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function showCars($car)

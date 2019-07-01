@@ -26,7 +26,10 @@ class ControllerCar
         ];
 
         ModelCar::setJson($this->dataCars);
-        View::successMessageNewCar();
+
+        if ($this->godMode['Status'] == false) {
+            View::successMessageNewCar();
+        }
     }
 
     public function deleteCar($pilot)
@@ -40,13 +43,14 @@ class ControllerCar
             if ($pilot == $this->dataCars[$i]['Piloto']) {
                 unset($this->dataCars[$i]);
                 ModelCar::setJson($this->dataCars);
-                View::successMessageDeleteCar();
+                if ($this->godMode['Status'] == false) {
+                    View::successMessageDeleteCar();
+                }
+            } else {
+                View::errorMessageNotFoundCar();
                 exit;
             }
         }
-
-        View::errorMessageNotFoundCar();
-        exit;
     }
 
     public function setPosition()
@@ -61,7 +65,9 @@ class ControllerCar
         }
 
         ModelCar::setJson($this->dataCars);
-        View::successMessageSetPosition();
+        if ($this->godMode['Status'] == false) {
+            View::successMessageSetPosition();
+        }
     }
 
     public function showCars()
