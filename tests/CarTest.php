@@ -43,7 +43,7 @@ class CarTest extends TestCase
             unset($this->dataCars[1]);
             ModelCar::setJson($this->dataCars);
         } else {
-            View::messageGodModeOff();
+            View::errorMessageTests();
             exit;
         }
     }
@@ -67,7 +67,7 @@ class CarTest extends TestCase
 
             $this->assertEquals(0, count($this->dataCars));
         } else {
-            View::messageGodModeOff();
+            View::errorMessageTests();
             exit;
         }
     }
@@ -94,7 +94,7 @@ class CarTest extends TestCase
             unset($this->dataCars[0]);
             ModelCar::setJson($this->dataCars);
         } else {
-            View::messageGodModeOff();
+            View::errorMessageTests();
             exit;
         }
     }

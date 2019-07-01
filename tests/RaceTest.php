@@ -33,7 +33,7 @@ class RaceTest extends TestCase
 
             JSON::setJson('dataCars', $empty);
         } else {
-            View::messageGodModeOff();
+            View::errorMessageTests();
             exit;
         }
     }
@@ -50,7 +50,7 @@ class RaceTest extends TestCase
             $start = JSON::getDataRace();
             $this->assertEquals(false, $start['Start']);
         } else {
-            View::messageGodModeOff();
+            View::errorMessageTests();
             exit;
         }
     }

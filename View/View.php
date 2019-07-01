@@ -119,6 +119,13 @@ class View
             ."\e[00;33mNenhuma ultrapassagem realizada, use o comando ultrapassar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
+    public static function errorMessageTests()
+    {
+        View::logo();
+        echo "\e[00;33mModo Teste Desativado\e[00;37m" . PHP_EOL . PHP_EOL
+            ."\e[00;33mPor favor ative para realizar os testes!\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
     public static function successMessageNewCar()
     {
         View::logo();
