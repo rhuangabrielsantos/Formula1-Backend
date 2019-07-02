@@ -188,10 +188,17 @@ class View
     {
         View::logo();
         $p = 1;
+
+        $colors = [
+            0 => "\e[00;32m",
+            1 => "\e[00;34m",
+            2 => "\e[00;33m"
+        ];
+
         echo "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
         echo "Ganhadores:" . PHP_EOL;
         for ($i = 0; $i < 3; $i++) {
-            echo $p . "- " . $cars[$i]['Piloto'] . PHP_EOL;
+            echo $colors[$i] . $p . "- " . $cars[$i]['Piloto'] . "\e[00;37m" . PHP_EOL;
             $p++;
         }
     }
