@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Lib\JSON;
 use Models\ModelRace;
 use Traits\TraitGetData;
 use View\View;
@@ -57,7 +58,7 @@ class ControllerRace
                 "Start" => false
             ];
 
-            ModelRace::setRace($start);
+            JSON::setJson('dataRace', $start);
 
         } else {
             View::errorMessageNeedStart();
