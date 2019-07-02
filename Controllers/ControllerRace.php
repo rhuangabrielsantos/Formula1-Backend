@@ -90,7 +90,9 @@ class ControllerRace
             $carsOrdered = ControllerRace::orderCars($this->dataCars);
             ModelRace::overtake($carsOrdered, $this->report);
 
-            View::successMessageOvertaking($win, $lost);
+            if ($this->godMode['Status'] == false) {
+                View::successMessageOvertaking($win, $lost);
+            }
 
         } else {
             View::errorMessageNeedStart();

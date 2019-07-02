@@ -17,7 +17,6 @@ class RaceTest extends TestCase
         if ($this->godMode['Status'] == true) {
 
             $car = new ControllerCar();
-            $empty = $car->dataCars;
             $car->newCar('Rhuan', 'Ferrari', '450', 'Red', '2018');
             $car->newCar('Eloah', 'Ferrari', '450', 'Red', '2018');
             $car->setPosition();
@@ -31,7 +30,27 @@ class RaceTest extends TestCase
             $start = JSON::getDataRace();
             $this->assertEquals(true, $start['Start']);
 
-            JSON::setJson('dataCars', $empty);
+        } else {
+            View::errorMessageTests();
+            exit;
+        }
+    }
+
+    public function testOvertake()
+    {
+        $this->godMode = JSON::getGodMode();
+
+        if ($this->godMode['Status'] == true) {
+
+            $cars = JSON::getDataCars();
+            $this->assertEquals('Rhuan', $cars[0]['Piloto']);
+
+            $race = new ControllerRace();
+            $race->overtake('Eloah');
+
+            $cars = JSON::getDataCars();
+            $this->assertEquals('Eloah', $cars[0]['Piloto']);
+
         } else {
             View::errorMessageTests();
             exit;
@@ -44,11 +63,16 @@ class RaceTest extends TestCase
 
         if ($this->godMode['Status'] == true) {
 
-            $car = new ControllerRace();
-            $car->finishRace();
+            $race = new ControllerRace();
+            $race->finishRace();
 
             $start = JSON::getDataRace();
             $this->assertEquals(false, $start['Start']);
+
+            $empty = null;
+
+            JSON:: setJson('report', $empty);
+            JSON::setJson('dataCars', $empty);
         } else {
             View::errorMessageTests();
             exit;
