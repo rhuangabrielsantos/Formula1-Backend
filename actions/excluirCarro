@@ -6,12 +6,7 @@ require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
 use Controllers\ControllerCar;
 use View\View;
 
-$result = $_SERVER['argv'];
-
-if(empty($result[1])) {
-    View::errorMessageDeleteCar();
-    exit;
-}
+$input = $_SERVER['argv'];
 
 $car = new ControllerCar();
-$car->deleteCar($result[1]);
+$car->deleteCar($input[1]);

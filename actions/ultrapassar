@@ -6,12 +6,12 @@ require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
 use Controllers\ControllerRace;
 use View\View;
 
-$result = $_SERVER['argv'];
+$input = $_SERVER['argv'];
 
 $race = new ControllerRace();
 
-if(isset($result[1])) {
-    $race->overtake($result[1]);
+if(isset($input[1])) {
+    $race->overtake($input[1]);
 } else {
     View::errorMessageOvertakeNull();
 }

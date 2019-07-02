@@ -6,7 +6,7 @@ require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
 use Lib\JSON;
 use View\View;
 
-$result = $_SERVER['argv'];
+$input = $_SERVER['argv'];
 
 $true = [
     'Status' => true
@@ -18,13 +18,15 @@ $false = [
 
 $godMode = JSON::getGodMode();
 
-if ($result[1] == 1234 && $godMode['Status'] == 0) {
+$password = '81dc9bdb52d04dc20036dbd8313ed055';
+
+if (md5($input[1]) === $password && $godMode['Status'] == 0) {
     JSON::setJson('godMode', $true);
     View::messageGodModeOn();
     exit;
 }
 
-if ($result[1] == 1234 && $godMode['Status'] == 1) {
+if (md5($input[1]) === $password && $godMode['Status'] == 1) {
     JSON::setJson('godMode', $false);
     View::messageGodModeOff();
     exit;

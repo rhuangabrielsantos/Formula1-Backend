@@ -5,10 +5,10 @@ require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
 
 use View\View;
 
-$result = $_SERVER['argv'];
+$input = $_SERVER['argv'];
 
-if (!empty($result[1])) {
-    switch ($result[1]) {
+if (!empty($input[1])) {
+    switch ($input[1]) {
         case 'adicionarCarros':
             View::descNewCar();
             break;

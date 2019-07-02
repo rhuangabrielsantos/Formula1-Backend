@@ -17,6 +17,15 @@ class ControllerCar
             exit;
         }
 
+        if (!empty($cars)) {
+            foreach ($cars as $car) {
+                if ($pilot == $car['Piloto']) {
+                    View::errorMessageNewCarExistPilot();
+                    exit;
+                }
+            }
+        }
+
         $this->dataCars[] = [
             'Piloto' => $pilot,
             'Marca' => $make,
@@ -36,6 +45,11 @@ class ControllerCar
     {
         if ($this->dataRace['Start'] == true) {
             View::errorMessageDeleteCarStartRace();
+            exit;
+        }
+
+        if(empty($pilot)) {
+            View::errorMessageDeleteCar();
             exit;
         }
 

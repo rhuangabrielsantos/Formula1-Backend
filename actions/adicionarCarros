@@ -4,27 +4,16 @@
 require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
 
 use Controllers\ControllerCar;
-use Lib\JSON;
 use View\View;
 
-$result = $_SERVER['argv'];
-$cars = JSON::getDataCars();
-
-if (!empty($cars)) {
-    foreach ($cars as $car) {
-        if ($result[1] == $car['Piloto']) {
-            View::errorMessageNewCarExistPilot();
-            exit;
-        }
-    }
-}
+$input = $_SERVER['argv'];
 
 for ($i = 1; $i <= 5; $i++) {
-    if (!isset ($result[$i])) {
+    if (!isset ($input[$i])) {
         View::errorMessageNewCar();
         exit;
     }
 }
 
 $car = new ControllerCar();
-$car->newCar($result[1], $result[2], $result[3], $result[4], $result[5]);
+$car->newCar($input[1], $input[2], $input[3], $input[4], $input[5]);
