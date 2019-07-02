@@ -3,7 +3,7 @@
 require __DIR__ . "/../vendor/autoload.php";
 
 use Lib\JSON;
-use Models\ModelCar;
+use Models\Model;
 use PHPUnit\Framework\TestCase;
 use Controllers\ControllerCar;
 use View\View;
@@ -41,7 +41,7 @@ class CarTest extends TestCase
 
             unset($this->dataCars[0]);
             unset($this->dataCars[1]);
-            ModelCar::setJson($this->dataCars);
+            Model::setJson($this->dataCars);
         } else {
             View::errorMessageTests();
             exit;
@@ -92,7 +92,7 @@ class CarTest extends TestCase
             $this->assertEquals('1', $this->dataCars[0]['Posicao']);
 
             unset($this->dataCars[0]);
-            ModelCar::setJson($this->dataCars);
+            Model::setJson($this->dataCars);
         } else {
             View::errorMessageTests();
             exit;

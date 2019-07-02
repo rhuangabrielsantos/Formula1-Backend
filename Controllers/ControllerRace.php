@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Lib\JSON;
-use Models\ModelRace;
+use Models\Model;
 use Traits\TraitGetData;
 use View\View;
 
@@ -39,7 +39,7 @@ class ControllerRace
             "Start" => true
         ];
 
-        ModelRace::startRace($start);
+        Model::startRace($start);
 
         if ($this->godMode['Status'] == false) {
             View::successMessageStartRace();
@@ -89,7 +89,7 @@ class ControllerRace
             $this->report[] = $win . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
 
             $carsOrdered = ControllerRace::orderCars($this->dataCars);
-            ModelRace::overtake($carsOrdered, $this->report);
+            Model::overtake($carsOrdered, $this->report);
 
             if ($this->godMode['Status'] == false) {
                 View::successMessageOvertaking($win, $lost);

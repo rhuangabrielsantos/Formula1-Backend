@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Models\ModelCar;
+use Models\Model;
 use Traits\TraitGetData;
 use View\View;
 
@@ -34,7 +34,7 @@ class ControllerCar
             'Ano' => $year,
         ];
 
-        ModelCar::setJson($this->dataCars);
+        Model::setJson($this->dataCars);
 
         if ($this->godMode['Status'] == false) {
             View::successMessageNewCar();
@@ -56,7 +56,7 @@ class ControllerCar
         for ($i = 0; $i <= count($this->dataCars); $i++) {
             if ($pilot == $this->dataCars[$i]['Piloto']) {
                 unset($this->dataCars[$i]);
-                ModelCar::setJson($this->dataCars);
+                Model::setJson($this->dataCars);
                 if ($this->godMode['Status'] == false) {
                     View::successMessageDeleteCar();
                 }
@@ -78,7 +78,7 @@ class ControllerCar
             $this->dataCars[$i]['Posicao'] = $i + 1;
         }
 
-        ModelCar::setJson($this->dataCars);
+        Model::setJson($this->dataCars);
         if ($this->godMode['Status'] == false) {
             View::successMessageSetPosition();
         }
