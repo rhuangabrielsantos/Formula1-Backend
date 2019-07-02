@@ -1,4 +1,5 @@
 .idea
-.filesJson
-.vendor
+filesJson
+vendor
+
 docker-compose.yml
