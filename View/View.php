@@ -43,7 +43,7 @@ class View
     {
         View::logo();
         echo "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL . PHP_EOL
-            ."\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNeedAddCars()
@@ -96,34 +96,34 @@ class View
     public static function errorMessageNotFoundPilot()
     {
         View::logo();
-        echo "\e[00;31mPiloto nao encontrado!". PHP_EOL . PHP_EOL
-            ."\e[00;33mVerifique o nome do piloto e escreva novamente\e[00;37m" . PHP_EOL . PHP_EOL;
+        echo "\e[00;31mPiloto nao encontrado!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mVerifique o nome do piloto e escreva novamente\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageDeleteCar()
     {
         View::logo();
-        echo "\e[00;31mDigite o nome do piloto!". PHP_EOL . PHP_EOL
-            ."\e[00;33mPara executar esse comando digite excluirCarro Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
+        echo "\e[00;31mDigite o nome do piloto!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara executar esse comando digite excluirCarro Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageInvalidPassword()
     {
         View::logo();
-        echo "\e[00;31mSenha invalida!\e[00;37m". PHP_EOL . PHP_EOL;
+        echo "\e[00;31mSenha invalida!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageEmptyReport()
     {
-        echo "\e[00;31mRelatorio vazio!". PHP_EOL . PHP_EOL
-            ."\e[00;33mNenhuma ultrapassagem realizada, use o comando ultrapassar\e[00;37m" . PHP_EOL . PHP_EOL;
+        echo "\e[00;31mRelatorio vazio!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mNenhuma ultrapassagem realizada, use o comando ultrapassar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageTests()
     {
         View::logo();
         echo "\e[00;33mModo Teste Desativado\e[00;37m" . PHP_EOL . PHP_EOL
-            ."\e[00;33mPor favor ative para realizar os testes!\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mPor favor ative para realizar os testes!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageNewCar()
@@ -205,7 +205,7 @@ class View
 
     public static function report($item)
     {
-        echo "\e[00;36m" . $item . "\e[00;37m" ;
+        echo "\e[00;36m" . $item . "\e[00;37m";
     }
 
     public static function descNewCar()
@@ -284,30 +284,30 @@ class View
     {
         View::logo();
         echo "Lista dos comandos:" . PHP_EOL . PHP_EOL
-             . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando)" . PHP_EOL . PHP_EOL
-             . " - adicionarCarros" . PHP_EOL
-             . " - excluirCarro" . PHP_EOL
-             . " - definirPosicoes" . PHP_EOL
-             . " - exibirCarros" . PHP_EOL
-             . " - iniciarCorrida" . PHP_EOL
-             . " - finalizarCorrida" . PHP_EOL
-             . " - ultrapassar" . PHP_EOL
-             . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
-             . "\e[00;37m";
+            . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando), lembre-se sempre de adicionar o php antes de cada comando" . PHP_EOL . PHP_EOL
+            . " - adicionarCarros" . PHP_EOL
+            . " - excluirCarro" . PHP_EOL
+            . " - definirPosicoes" . PHP_EOL
+            . " - exibirCarros" . PHP_EOL
+            . " - iniciarCorrida" . PHP_EOL
+            . " - finalizarCorrida" . PHP_EOL
+            . " - ultrapassar" . PHP_EOL
+            . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
+            . "\e[00;37m";
     }
 
     public static function logo()
     {
         echo "\e[01;34;47mP"
-               ."\e[01;31mr"
-               ."\e[01;33mo"
-               ."\e[01;34mj"
-               ."\e[01;32me"
-               ."\e[01;31mt"
-               ."\e[01;31mo "
-               ."\e[01;34mT"
-               ."\e[01;31mG"
-               ."\e[00;37m"
-               . PHP_EOL . PHP_EOL;
+            . "\e[01;31mr"
+            . "\e[01;33mo"
+            . "\e[01;34mj"
+            . "\e[01;32me"
+            . "\e[01;31mt"
+            . "\e[01;31mo "
+            . "\e[01;34mT"
+            . "\e[01;31mG"
+            . "\e[00;37m"
+            . PHP_EOL . PHP_EOL;
     }
 }

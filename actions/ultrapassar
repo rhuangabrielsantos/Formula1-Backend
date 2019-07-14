@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . "/../../../var/www/html/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controllers\ControllerRace;
 use View\View;

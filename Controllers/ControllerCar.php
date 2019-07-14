@@ -17,8 +17,8 @@ class ControllerCar
             exit;
         }
 
-        if (!empty($cars)) {
-            foreach ($cars as $car) {
+        if (!empty($this->dataCars)) {
+            foreach ($this->dataCars as $car) {
                 if ($pilot == $car['Piloto']) {
                     View::errorMessageNewCarExistPilot();
                     exit;
