@@ -39,6 +39,9 @@ class ControllerRace
             "Start" => true
         ];
 
+        sort($this->dataCars);
+
+        Model::setJson($this->dataCars);
         Model::startRace($start);
 
         if ($this->godMode['Status'] == false) {
@@ -74,14 +77,14 @@ class ControllerRace
                         View::errorMessageOvertakingFirsPlace($car);
                         exit;
                     }
-                    $anterior = $key - 1;
+                    $carLost = $key - 1;
                     $this->dataCars[$key]['Posicao'] -= 1;
-                    $this->dataCars[$anterior]['Posicao'] += 1;
-                    $lost = $this->dataCars[$anterior];
+                    $this->dataCars[$carLost]['Posicao'] += 1;
+                    $lost = $this->dataCars[$carLost];
                 }
             }
 
-            if (!isset($anterior)) {
+            if (!isset($carLost)) {
                 View::errorMessageNotFoundPilot();
                 exit;
             }
