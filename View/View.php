@@ -39,6 +39,13 @@ class View
             . "\e[00;33mComando: adicionarCarros Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
+    public static function errorMessageParameters()
+    {
+        View::logo();
+        echo "\e[00;31mPara adicionar um carro, você deve preencher somente essas informacoes" . PHP_EOL . PHP_EOL
+            . "\e[00;33mComando: adicionarCarros Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
     public static function errorMessageOvertakeNull()
     {
         View::logo();
