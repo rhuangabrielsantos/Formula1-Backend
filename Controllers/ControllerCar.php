@@ -56,7 +56,9 @@ class ControllerCar
         foreach ($this->dataCars as $id => $dataCar) {
             if ($pilot == $dataCar['Piloto']) {
                 unset($this->dataCars[$id]);
-                $this->setPosition(false);
+                if (count($this->dataCars) > 0) {
+                    $this->setPosition(false);
+                }
                 Model::setJson($this->dataCars);
                 if ($this->godMode['Status'] == false) {
                     View::successMessageDeleteCar();
