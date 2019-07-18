@@ -15,10 +15,10 @@ class RaceTest extends TestCase
         $this->godMode = JSON::getGodMode();
 
         if ($this->godMode['Status'] == true) {
-
+            ob_start();
             $car = new ControllerCar();
-            $car->newCar('Rhuan', 'Ferrari', '450', 'Red', '2018');
-            $car->newCar('Eloah', 'Ferrari', '450', 'Red', '2018');
+            $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
+            $car->newCar('TestePilotoDois', 'Ferrari', '450', 'Red', '2018');
             $car->setPosition();
 
             $start = JSON::getDataRace();
@@ -29,7 +29,7 @@ class RaceTest extends TestCase
 
             $start = JSON::getDataRace();
             $this->assertEquals(true, $start['Start']);
-
+            ob_end_clean();
         } else {
             View::errorMessageTests();
             exit;
@@ -41,16 +41,16 @@ class RaceTest extends TestCase
         $this->godMode = JSON::getGodMode();
 
         if ($this->godMode['Status'] == true) {
-
+            ob_start();
             $cars = JSON::getDataCars();
-            $this->assertEquals('Rhuan', $cars[0]['Piloto']);
+            $this->assertEquals('TestePilotoUm', $cars[0]['Piloto']);
 
             $race = new ControllerRace();
-            $race->overtake('Eloah');
+            $race->overtake('TestePilotoDois');
 
             $cars = JSON::getDataCars();
-            $this->assertEquals('Eloah', $cars[0]['Piloto']);
-
+            $this->assertEquals('TestePilotoDois', $cars[0]['Piloto']);
+            ob_end_clean();
         } else {
             View::errorMessageTests();
             exit;
@@ -62,7 +62,7 @@ class RaceTest extends TestCase
         $this->godMode = JSON::getGodMode();
 
         if ($this->godMode['Status'] == true) {
-
+            ob_start();
             $race = new ControllerRace();
             $race->finishRace();
 
@@ -73,6 +73,7 @@ class RaceTest extends TestCase
 
             JSON:: setJson('report', $empty);
             JSON::setJson('dataCars', $empty);
+            ob_end_clean();
         } else {
             View::errorMessageTests();
             exit;

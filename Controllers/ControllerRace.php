@@ -40,19 +40,14 @@ class ControllerRace
         ];
 
         Model::startRace($start);
+        View::successMessageStartRace();
 
-        if ($this->godMode['Status'] == false) {
-            View::successMessageStartRace();
-        }
     }
 
     public function finishRace()
     {
         if ($this->dataRace['Start'] == true) {
-
-            if ($this->godMode['Status'] == false) {
-                View::podium($this->dataCars);
-            }
+            View::podium($this->dataCars);
 
             $start = [
                 "Start" => false
@@ -90,10 +85,8 @@ class ControllerRace
 
             $carsOrdered = ControllerRace::orderCars($this->dataCars);
             Model::overtake($carsOrdered, $this->report);
+            View::successMessageOvertaking($win, $lost);
 
-            if ($this->godMode['Status'] == false) {
-                View::successMessageOvertaking($win, $lost);
-            }
 
         } else {
             View::errorMessageNeedStart();
