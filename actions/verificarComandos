@@ -9,7 +9,7 @@ $input = $_SERVER['argv'];
 
 if (!empty($input[1])) {
     switch ($input[1]) {
-        case 'adicionarCarros':
+        case 'adicionarCarro':
             View::descNewCar();
             break;
 

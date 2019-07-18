@@ -36,14 +36,14 @@ class View
     {
         View::logo();
         echo "\e[00;31mAdicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
-            . "\e[00;33mComando: adicionarCarros Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mComando: adicionarCarro Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageParameters()
     {
         View::logo();
         echo "\e[00;31mPara adicionar um carro, você deve preencher somente essas informacoes" . PHP_EOL . PHP_EOL
-            . "\e[00;33mComando: adicionarCarros Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mComando: adicionarCarro Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageOvertakeNull()
@@ -57,21 +57,21 @@ class View
     {
         View::logo();
         echo "\e[00;31mVoce precisa adicionar carros" . PHP_EOL . PHP_EOL
-            . "\e[00;33mPara adicionar carros use o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mPara adicionar carros use o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNotFoundCar()
     {
         View::logo();
         echo "\e[00;31mNenhum carro encontrado" . PHP_EOL . PHP_EOL
-            . "\e[00;33mPara adicionar carros use o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mPara adicionar carros use o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageOneCar()
     {
         View::logo();
         echo "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL . PHP_EOL
-            . "\e[00;33mAdicione novos carros com o comando adicionarCarros\e[00;37m" . PHP_EOL . PHP_EOL;
+            . "\e[00;33mAdicione novos carros com o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function errorMessageNeedDefinePosition()
@@ -221,7 +221,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando adiciona um novo carro a corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- adicionarCarros (Piloto) (Marca) (Modelo) (Cor) (Ano)\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- adicionarCarro (Piloto) (Marca) (Modelo) (Cor) (Ano)\e[00;37m" . PHP_EOL;
     }
 
     public static function descSetPosition()
@@ -292,7 +292,7 @@ class View
         View::logo();
         echo "Lista dos comandos:" . PHP_EOL . PHP_EOL
             . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando), lembre-se sempre de adicionar o php antes de cada comando" . PHP_EOL . PHP_EOL
-            . " - adicionarCarros" . PHP_EOL
+            . " - adicionarCarro" . PHP_EOL
             . " - excluirCarro" . PHP_EOL
             . " - definirPosicoes" . PHP_EOL
             . " - exibirCarros" . PHP_EOL
