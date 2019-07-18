@@ -31,7 +31,7 @@ class ControllerCar
             'Marca' => $make,
             'Modelo' => $model,
             'Cor' => $color,
-            'Ano' => $year,
+            'Ano' => $year
         ];
 
         Model::setJson($this->dataCars);
@@ -50,32 +50,36 @@ class ControllerCar
             exit;
         }
 
-        for ($i = 0; $i <= count($this->dataCars); $i++) {
-            if ($pilot == $this->dataCars[$i]['Piloto']) {
-                unset($this->dataCars[$i]);
+        foreach ($this->dataCars as $id => $dataCar) {
+            if ($pilot == $dataCar['Piloto']) {
+                unset($this->dataCars[$id]);
+                $this->setPosition(false);
                 Model::setJson($this->dataCars);
                 View::successMessageDeleteCar();
-
-            } else {
-                View::errorMessageNotFoundCar();
                 exit;
             }
         }
+        View::errorMessageNotFoundCar();
     }
 
-    public function setPosition()
+    public function setPosition($msg = true)
     {
         if (empty($this->dataCars)) {
             View::errorMessageNeedAddCars();
             exit;
         }
 
-        for ($i = 0; $i < count($this->dataCars); $i++) {
-            $this->dataCars[$i]['Posicao'] = $i + 1;
+        $position = 1;
+
+        foreach ($this->dataCars as $id => $dataCar) {
+            $this->dataCars[$id]['Posicao'] = $position;
+            $position++;
         }
 
         Model::setJson($this->dataCars);
-        View::successMessageSetPosition();
+        if ($msg == true) {
+            View::successMessageSetPosition();
+        }
     }
 
     public function showCars()
