@@ -67,7 +67,7 @@ class ControllerCar
     public function setPosition($msg = true)
     {
         if (empty($this->dataCars)) {
-            View::errorMessageNeedAddCars();
+            View::errorMessageEmpty();
             exit;
         }
 
@@ -92,7 +92,7 @@ class ControllerCar
                 View::showCars($car);
             }
         } else {
-            View::errorMessageNeedAddCars();
+            View::errorMessageEmpty();
         }
     }
 }

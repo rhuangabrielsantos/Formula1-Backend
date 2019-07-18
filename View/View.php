@@ -53,10 +53,10 @@ class View
             . "\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNeedAddCars()
+    public static function errorMessageEmpty()
     {
         View::logo();
-        echo "\e[00;31mVoce precisa adicionar carros" . PHP_EOL . PHP_EOL
+        echo "\e[00;31mNao existem carros." . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 

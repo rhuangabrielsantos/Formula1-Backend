@@ -14,7 +14,7 @@ class ControllerRace
     public function startRace()
     {
         if (empty($this->dataCars)) {
-            View::errorMessageNeedAddCars();
+            View::errorMessageEmpty();
             exit;
         }
 
