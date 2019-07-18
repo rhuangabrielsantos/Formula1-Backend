@@ -10,8 +10,8 @@ $input = $_SERVER['argv'];
 
 $race = new ControllerRace();
 
-if(isset($input[1])) {
+if (isset($input[1])) {
     $race->overtake($input[1]);
-} else {
-    View::errorMessageOvertakeNull();
+    exit;
 }
+View::errorMessageOvertakeNull();

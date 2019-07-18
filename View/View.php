@@ -114,23 +114,10 @@ class View
             . "\e[00;33mPara executar esse comando digite excluirCarro Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageInvalidPassword()
-    {
-        View::logo();
-        echo "\e[00;31mSenha invalida!\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
     public static function errorMessageEmptyReport()
     {
         echo "\e[00;31mRelatorio vazio!" . PHP_EOL . PHP_EOL
             . "\e[00;33mNenhuma ultrapassagem realizada, use o comando ultrapassar\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
-    public static function errorMessageTests()
-    {
-        View::logo();
-        echo "\e[00;33mModo Teste Desativado\e[00;37m" . PHP_EOL . PHP_EOL
-            . "\e[00;33mPor favor ative para realizar os testes!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageNewCar()
@@ -162,18 +149,6 @@ class View
     {
         View::logo();
         echo "\e[00;32mCarro deletado com sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
-    public static function messageGodModeOn()
-    {
-        View::logo();
-        echo "\e[00;33mModo Teste Ativado!\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
-    public static function messageGodModeOff()
-    {
-        View::logo();
-        echo "\e[00;32mModo Teste Desativado!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function showCars($car)

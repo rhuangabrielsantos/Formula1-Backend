@@ -58,7 +58,7 @@ class ControllerCar
                 }
                 Model::setJson($this->dataCars);
                 View::successMessageDeleteCar();
-                exit;
+                return;
             }
         }
         View::errorMessageNotFoundCar();

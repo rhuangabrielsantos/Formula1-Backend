@@ -6,16 +6,14 @@ use Lib\JSON;
 
 trait TraitGetData
 {
-    public $godMode;
     public $dataRace;
     public $dataCars;
     public $report;
 
     public function __construct()
     {
-        $this->dataRace = JSON::getDataRace();
-        $this->dataCars = JSON::getDataCars();
-        $this->report = JSON::getReport();
-        $this->godMode = JSON::getGodMode();
+        $this->dataRace = JSON::getJson('dataRace');
+        $this->dataCars = JSON::getJson('dataCars');
+        $this->report = JSON::getJson('report');
     }
 }

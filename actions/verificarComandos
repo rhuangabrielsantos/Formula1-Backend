@@ -43,6 +43,7 @@ if (!empty($input[1])) {
 
         default:
             View::errorMessageCommands();
+            break;
     }
 } else {
     View::defaultMessageCommands();
