@@ -4,79 +4,57 @@ use Controllers\ControllerCar;
 use Controllers\ControllerRace;
 use Lib\JSON;
 use PHPUnit\Framework\TestCase;
-use View\View;
 
 class RaceTest extends TestCase
 {
-    public $godMode;
+    public $dataCars;
 
     public function testStartRace()
     {
-        $this->godMode = JSON::getGodMode();
+        ob_start();
+        $car = new ControllerCar();
+        $car->newCar('aaaaaa', 'Ferrari', '450', 'Red', '2018');
+        $car->newCar('bbbbbb', 'Mercedes', '500', 'Black', '2018');
+        $car->setPosition(false);
 
-        if ($this->godMode['Status'] == true) {
-            ob_start();
-            $car = new ControllerCar();
-            $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
-            $car->newCar('TestePilotoDois', 'Ferrari', '450', 'Red', '2018');
-            $car->setPosition();
+        $start = JSON::getJson('dataRace');
+        $this->assertEquals(false, $start['Start']);
 
-            $start = JSON::getDataRace();
-            $this->assertEquals(false, $start['Start']);
+        $race = new ControllerRace();
+        $race->startRace();
 
-            $race = new ControllerRace();
-            $race->startRace();
-
-            $start = JSON::getDataRace();
-            $this->assertEquals(true, $start['Start']);
-            ob_end_clean();
-        } else {
-            View::errorMessageTests();
-            exit;
-        }
+        $start = JSON::getJson('dataRace');
+        $this->assertEquals(true, $start['Start']);
+        ob_end_clean();
     }
 
     public function testOvertake()
     {
-        $this->godMode = JSON::getGodMode();
+        ob_start();
+        $this->dataCars = JSON::getJson('dataCars');
+        $this->assertEquals('aaaaaa', $this->dataCars[0]['Piloto']);
 
-        if ($this->godMode['Status'] == true) {
-            ob_start();
-            $cars = JSON::getDataCars();
-            $this->assertEquals('TestePilotoUm', $cars[0]['Piloto']);
+        $race = new ControllerRace();
+        $race->overtake('bbbbbb');
 
-            $race = new ControllerRace();
-            $race->overtake('TestePilotoDois');
-
-            $cars = JSON::getDataCars();
-            $this->assertEquals('TestePilotoDois', $cars[0]['Piloto']);
-            ob_end_clean();
-        } else {
-            View::errorMessageTests();
-            exit;
-        }
+        $this->dataCars = JSON::getJson('dataCars');
+        $this->assertEquals('bbbbbb', $this->dataCars[0]['Piloto']);
+        ob_end_clean();
     }
 
     public function testFinishRace()
     {
-        $this->godMode = JSON::getGodMode();
+        ob_start();
+        $race = new ControllerRace();
+        $race->finishRace();
 
-        if ($this->godMode['Status'] == true) {
-            ob_start();
-            $race = new ControllerRace();
-            $race->finishRace();
+        $start = JSON::getJson('dataRace');
+        $this->assertEquals(false, $start['Start']);
 
-            $start = JSON::getDataRace();
-            $this->assertEquals(false, $start['Start']);
+        $empty = null;
 
-            $empty = null;
-
-            JSON:: setJson('report', $empty);
-            JSON::setJson('dataCars', $empty);
-            ob_end_clean();
-        } else {
-            View::errorMessageTests();
-            exit;
-        }
+        JSON:: setJson('report', $empty);
+        JSON::setJson('dataCars', $empty);
+        ob_end_clean();
     }
 }
