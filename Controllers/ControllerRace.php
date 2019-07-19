@@ -41,7 +41,8 @@ class ControllerRace
 
         sort($this->dataCars);
 
-        Model::setJson($this->dataCars);
+        $carsOrdered = ControllerRace::orderCars($this->dataCars);
+        Model::setJson($carsOrdered);
         Model::startRace($start);
         View::successMessageStartRace();
 
