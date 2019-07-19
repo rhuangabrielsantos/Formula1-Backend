@@ -90,7 +90,6 @@ class ControllerRace
             Model::overtake($carsOrdered, $this->report);
             View::successMessageOvertaking($win, $lost);
 
-
         } else {
             View::errorMessageNeedStart();
             exit;

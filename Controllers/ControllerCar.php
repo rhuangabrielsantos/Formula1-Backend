@@ -78,7 +78,8 @@ class ControllerCar
             $position++;
         }
 
-        Model::setJson($this->dataCars);
+        $carsOrdered = ControllerRace::orderCars($this->dataCars);
+        Model::setJson($carsOrdered);
         if ($msg == true) {
             View::successMessageSetPosition();
         }
