@@ -2,10 +2,10 @@
 
 require __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\ControllerCar;
+use Controllers\CarController;
 use Lib\JSON;
-use Models\Model;
 use PHPUnit\Framework\TestCase;
+use Controllers\TempFileController;
 
 class CarTest extends TestCase
 {
@@ -14,7 +14,9 @@ class CarTest extends TestCase
     public function testNewCar()
     {
         ob_start();
-        $car = new ControllerCar();
+        TempFileController::setTempFiles();
+
+        $car = new CarController();
         $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
         $car->newCar('TestePilotoDois', 'Mercedes', '500', 'Black', '2018');
 
@@ -34,16 +36,16 @@ class CarTest extends TestCase
         $this->assertEquals('Black', $this->dataCars[1]['Cor']);
         $this->assertEquals('2018', $this->dataCars[1]['Ano']);
 
-        unset($this->dataCars[0]);
-        unset($this->dataCars[1]);
-        Model::setJson($this->dataCars);
+        TempFileController::getTempFiles();
         ob_end_clean();
     }
 
     public function testDeleteCar()
     {
         ob_start();
-        $car = new ControllerCar();
+        TempFileController::setTempFiles();
+
+        $car = new CarController();
         $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
 
         $this->dataCars = JSON::getJson('dataCars');
@@ -56,13 +58,17 @@ class CarTest extends TestCase
         $this->dataCars = JSON::getJson('dataCars');
 
         $this->assertEquals(0, count($this->dataCars));
+
+        TempFileController::getTempFiles();
         ob_end_clean();
     }
 
     public function testSetPosition()
     {
         ob_start();
-        $car = new ControllerCar();
+        TempFileController::setTempFiles();
+
+        $car = new CarController();
         $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
 
         $this->dataCars = JSON::getJson('dataCars');
@@ -76,8 +82,7 @@ class CarTest extends TestCase
 
         $this->assertEquals('1', $this->dataCars[0]['Posicao']);
 
-        unset($this->dataCars[0]);
-        Model::setJson($this->dataCars);
+        TempFileController::getTempFiles();
         ob_end_clean();
     }
 }

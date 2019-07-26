@@ -1,7 +1,8 @@
 <?php
 
-use Controllers\ControllerCar;
-use Controllers\ControllerRace;
+use Controllers\CarController;
+use Controllers\RaceController;
+use Controllers\TempFileController;
 use Lib\JSON;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +13,9 @@ class RaceTest extends TestCase
     public function testStartRace()
     {
         ob_start();
-        $car = new ControllerCar();
+        TempFileController::setTempFiles();
+
+        $car = new CarController();
         $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
         $car->newCar('TestePilotoDois', 'Mercedes', '500', 'Black', '2018');
         $car->setPosition(false);
@@ -20,7 +23,7 @@ class RaceTest extends TestCase
         $start = JSON::getJson('dataRace');
         $this->assertEquals(false, $start['Start']);
 
-        $race = new ControllerRace();
+        $race = new RaceController();
         $race->startRace();
 
         $start = JSON::getJson('dataRace');
@@ -34,7 +37,7 @@ class RaceTest extends TestCase
         $this->dataCars = JSON::getJson('dataCars');
         $this->assertEquals('TestePilotoUm', $this->dataCars[0]['Piloto']);
 
-        $race = new ControllerRace();
+        $race = new RaceController();
         $race->overtake('TestePilotoDois');
 
         $this->dataCars = JSON::getJson('dataCars');
@@ -45,7 +48,7 @@ class RaceTest extends TestCase
     public function testFinishRace()
     {
         ob_start();
-        $race = new ControllerRace();
+        $race = new RaceController();
         $race->finishRace();
 
         $start = JSON::getJson('dataRace');
@@ -54,7 +57,7 @@ class RaceTest extends TestCase
         $empty = null;
 
         JSON:: setJson('report', $empty);
-        JSON::setJson('dataCars', $empty);
+        TempFileController::getTempFiles();
         ob_end_clean();
     }
 }
