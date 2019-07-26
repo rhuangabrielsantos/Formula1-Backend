@@ -11,6 +11,21 @@ class View
             . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
+    public static function logo()
+    {
+        echo "\e[01;34;47mP"
+            . "\e[01;31mr"
+            . "\e[01;33mo"
+            . "\e[01;34mj"
+            . "\e[01;32me"
+            . "\e[01;31mt"
+            . "\e[01;31mo "
+            . "\e[01;34mT"
+            . "\e[01;31mG"
+            . "\e[00;37m"
+            . PHP_EOL . PHP_EOL;
+    }
+
     public static function errorMessageDeleteCarStartRace()
     {
         View::logo();
@@ -180,8 +195,10 @@ class View
         echo "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
         echo "Ganhadores:" . PHP_EOL;
         for ($i = 0; $i < 3; $i++) {
-            echo $colors[$i] . $p . "- " . $cars[$i]['Piloto'] . "\e[00;37m" . PHP_EOL;
-            $p++;
+            if (!empty($cars[$i])) {
+                echo $colors[$i] . $p . "- " . $cars[$i]['Piloto'] . "\e[00;37m" . PHP_EOL;
+                $p++;
+            }
         }
     }
 
@@ -276,20 +293,5 @@ class View
             . " - ultrapassar" . PHP_EOL
             . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
             . "\e[00;37m";
-    }
-
-    public static function logo()
-    {
-        echo "\e[01;34;47mP"
-            . "\e[01;31mr"
-            . "\e[01;33mo"
-            . "\e[01;34mj"
-            . "\e[01;32me"
-            . "\e[01;31mt"
-            . "\e[01;31mo "
-            . "\e[01;34mT"
-            . "\e[01;31mG"
-            . "\e[00;37m"
-            . PHP_EOL . PHP_EOL;
     }
 }
