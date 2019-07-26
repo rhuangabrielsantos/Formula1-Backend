@@ -74,7 +74,6 @@ class CarTest extends TestCase
         $this->dataCars = JSON::getJson('dataCars');
 
         $this->assertEquals(1, count($this->dataCars));
-        $this->assertEquals(null, $this->dataCars[0]['Posicao']);
 
         $car->setPosition();
 
