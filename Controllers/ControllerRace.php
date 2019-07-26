@@ -66,6 +66,8 @@ class ControllerRace
 
     public function overtake($win)
     {
+        $lost = null;
+
         if ($this->dataRace['Start'] == true) {
             foreach ($this->dataCars as $key => $car) {
                 if ($car['Piloto'] == $win) {
@@ -108,8 +110,8 @@ class ControllerRace
                 $sortArray[$key][] = $value;
             }
         }
-        $orderby = "Posicao";
-        array_multisort($sortArray[$orderby], SORT_ASC, $cars);
+        $orderBy = "Posicao";
+        array_multisort($sortArray[$orderBy], SORT_ASC, $cars);
 
         return $cars;
     }

@@ -13,8 +13,8 @@ class RaceTest extends TestCase
     {
         ob_start();
         $car = new ControllerCar();
-        $car->newCar('aaaaaa', 'Ferrari', '450', 'Red', '2018');
-        $car->newCar('bbbbbb', 'Mercedes', '500', 'Black', '2018');
+        $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
+        $car->newCar('TestePilotoDois', 'Mercedes', '500', 'Black', '2018');
         $car->setPosition(false);
 
         $start = JSON::getJson('dataRace');
@@ -32,13 +32,13 @@ class RaceTest extends TestCase
     {
         ob_start();
         $this->dataCars = JSON::getJson('dataCars');
-        $this->assertEquals('aaaaaa', $this->dataCars[0]['Piloto']);
+        $this->assertEquals('TestePilotoUm', $this->dataCars[0]['Piloto']);
 
         $race = new ControllerRace();
-        $race->overtake('bbbbbb');
+        $race->overtake('TestePilotoDois');
 
         $this->dataCars = JSON::getJson('dataCars');
-        $this->assertEquals('bbbbbb', $this->dataCars[0]['Piloto']);
+        $this->assertEquals('TestePilotoDois', $this->dataCars[0]['Piloto']);
         ob_end_clean();
     }
 
