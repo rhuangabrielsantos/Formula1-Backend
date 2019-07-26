@@ -8,7 +8,7 @@
       "View\\": "View/"
     }
   },
-  "require": {
+  "require-dev": {
     "phpunit/phpunit": "^8"
   }
 }
