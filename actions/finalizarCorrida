@@ -3,7 +3,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\ControllerRace;
+use Controllers\RaceController;
 
-$race = new ControllerRace();
+$race = new RaceController();
 $race->finishRace();

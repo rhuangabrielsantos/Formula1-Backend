@@ -3,12 +3,12 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\ControllerRace;
+use Controllers\RaceController;
 use View\View;
 
 $input = $_SERVER['argv'];
 
-$race = new ControllerRace();
+$race = new RaceController();
 
 if (isset($input[1])) {
     $race->overtake($input[1]);

@@ -7,7 +7,7 @@ use Models\Model;
 use Traits\TraitGetData;
 use View\View;
 
-class ControllerRace
+class RaceController
 {
     use TraitGetData;
 
@@ -41,7 +41,7 @@ class ControllerRace
 
         sort($this->dataCars);
 
-        $carsOrdered = ControllerRace::orderCars($this->dataCars);
+        $carsOrdered = RaceController::orderCars($this->dataCars);
         Model::setJson($carsOrdered);
         Model::startRace($start);
         View::successMessageStartRace();
@@ -89,7 +89,7 @@ class ControllerRace
 
             $this->report[] = $win . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
 
-            $carsOrdered = ControllerRace::orderCars($this->dataCars);
+            $carsOrdered = RaceController::orderCars($this->dataCars);
             Model::overtake($carsOrdered, $this->report);
             View::successMessageOvertaking($win, $lost);
 

@@ -6,7 +6,7 @@ use Models\Model;
 use Traits\TraitGetData;
 use View\View;
 
-class ControllerCar
+class CarController
 {
     use TraitGetData;
 
@@ -78,7 +78,7 @@ class ControllerCar
             $position++;
         }
 
-        $carsOrdered = ControllerRace::orderCars($this->dataCars);
+        $carsOrdered = RaceController::orderCars($this->dataCars);
         Model::setJson($carsOrdered);
         if ($msg == true) {
             View::successMessageSetPosition();

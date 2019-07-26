@@ -3,9 +3,9 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use Controllers\ControllerCar;
+use Controllers\CarController;
 
 $input = $_SERVER['argv'];
 
-$car = new ControllerCar();
+$car = new CarController();
 $car->deleteCar($input[1]);
