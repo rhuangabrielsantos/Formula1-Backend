@@ -4,169 +4,121 @@ namespace View;
 
 class View
 {
-    public static function errorMessageNewCarRaceStart()
+    public static function errorMessageNewCarRaceStart(): void
     {
-        View::logo();
-        echo "\e[00;31mA corrida foi Iniciada, para adicionar novos carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
+        echo "\e[00;31mA corrida foi Iniciada, para adicionar ou deletar novos carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function logo()
+    public static function errorMessageNewCarExistPilot(): void
     {
-        echo "\e[01;34;47mP"
-            . "\e[01;31mr"
-            . "\e[01;33mo"
-            . "\e[01;34mj"
-            . "\e[01;32me"
-            . "\e[01;31mt"
-            . "\e[01;31mo "
-            . "\e[01;34mT"
-            . "\e[01;31mG"
-            . "\e[00;37m"
-            . PHP_EOL . PHP_EOL;
-    }
-
-    public static function errorMessageDeleteCarStartRace()
-    {
-        View::logo();
-        echo "\e[00;31mA corrida foi Iniciada, para deletar carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
-            . "\e[00;33mPara encerrar uma corrida digite o comando finalizarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
-    public static function errorMessageNewCarExistPilot()
-    {
-        View::logo();
         echo "\e[00;31mO Piloto já existe!" . PHP_EOL . PHP_EOL
             . "\e[00;33mVerifique os pilotos existentes com o comando exibirCarros\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageCommands()
+    public static function errorMessageCommands(): void
     {
-        View::logo();
         echo "\e[00;31mComando nao encontrado" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara para verificar comandos disponiveis digite verificarComandos\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNewCar()
+    public static function errorMessageNewCar(): void
     {
-        View::logo();
         echo "\e[00;31mAdicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
             . "\e[00;33mComando: adicionarCarro Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageParameters()
+    public static function errorMessageParameters(): void
     {
-        View::logo();
         echo "\e[00;31mPara adicionar um carro, você deve preencher somente essas informacoes" . PHP_EOL . PHP_EOL
             . "\e[00;33mComando: adicionarCarro Piloto Marca Modelo Cor Ano\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOvertakeNull()
+    public static function errorMessageOvertakeNull(): void
     {
-        View::logo();
         echo "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL . PHP_EOL
             . "\e[00;33mComando: ultrapassager Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageEmpty()
+    public static function errorMessageEmpty(): void
     {
-        View::logo();
         echo "\e[00;31mNao existem carros." . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNotFoundCar()
+    public static function errorMessageNotFoundCar(): void
     {
-        View::logo();
         echo "\e[00;31mNenhum carro encontrado" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOneCar()
+    public static function errorMessageOneCar(): void
     {
-        View::logo();
         echo "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL . PHP_EOL
             . "\e[00;33mAdicione novos carros com o comando adicionarCarro\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNeedDefinePosition()
+    public static function errorMessageNeedDefinePosition(): void
     {
-        View::logo();
         echo "\e[00;31mPara iniciar a corrida, os carros precisam de posicoes definidas" . PHP_EOL . PHP_EOL
             . "\e[00;33mDefina as posicoes com o comando definirPosicoes \e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageStartAgain()
+    public static function errorMessageStartAgain(): void
     {
-        View::logo();
         echo "\e[00;31mVoce ja iniciou a corrida!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNeedStart()
+    public static function errorMessageNeedStart(): void
     {
-        View::logo();
         echo "\e[00;31mVoce precisa iniciar a corrida!" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara iniciar uma corrida use o comando iniciarCorrida\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOvertakingFirsPlace($car)
+    public static function errorMessageOvertakingFirsPlace(string $pilot): void
     {
-        View::logo();
-        echo "\e[00;31m" . $car['Piloto'] . " esta em primeiro lugar\e[00;37m" . PHP_EOL . PHP_EOL;
+        echo "\e[00;31m" . $pilot . " esta em primeiro lugar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNotFoundPilot()
+    public static function errorMessageDeleteCar(): void
     {
-        View::logo();
-        echo "\e[00;31mPiloto nao encontrado!" . PHP_EOL . PHP_EOL
-            . "\e[00;33mVerifique o nome do piloto e escreva novamente\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
-    public static function errorMessageDeleteCar()
-    {
-        View::logo();
         echo "\e[00;31mDigite o nome do piloto!" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara executar esse comando digite excluirCarro Piloto\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageEmptyReport()
+    public static function errorMessageEmptyReport(): void
     {
         echo "\e[00;31mRelatorio vazio!" . PHP_EOL . PHP_EOL
             . "\e[00;33mNenhuma ultrapassagem realizada, use o comando ultrapassar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageNewCar()
+    public static function successMessageNewCar(): void
     {
-        View::logo();
         echo "\e[00;32mCarro Salvo com Sucesso!" . PHP_EOL . PHP_EOL
             . "\e[00;33mLembre-se de definir a posicao do seu carro com o comando definirPosicoes\033[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageSetPosition()
+    public static function successMessageSetPosition(): void
     {
-        View::logo();
         echo "\e[00;32mAs posicoes foram definidas com Sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageStartRace()
+    public static function successMessageStartRace(): void
     {
-        View::logo();
         echo "\e[00;32mCorrida Iniciada!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageOvertaking($win, $lost)
+    public static function successMessageOvertaking(string $win, string $lost): void
     {
-        View::logo();
-        echo "\e[00;32m" . $win . " ultrapassou " . $lost['Piloto'] . "!\e[00;37m" . PHP_EOL . PHP_EOL;
+        echo "\e[00;32m" . $win . " ultrapassou " . $lost . "!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageDeleteCar()
+    public static function successMessageDeleteCar(): void
     {
-        View::logo();
         echo "\e[00;32mCarro deletado com sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function showCars($car)
+    public static function showCar(array $car): void
     {
         echo "-----------------------------" . PHP_EOL
             . "Piloto - " . $car['Piloto'] . PHP_EOL
@@ -181,9 +133,8 @@ class View
         }
     }
 
-    public static function podium($cars)
+    public static function podium(array $cars): void
     {
-        View::logo();
         $p = 1;
 
         $colors = [
@@ -202,86 +153,77 @@ class View
         }
     }
 
-    public static function report($item)
+    public static function report(string $item): void
     {
         echo "\e[00;36m" . $item . "\e[00;37m";
     }
 
-    public static function descNewCar()
+    public static function descNewCar(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando adiciona um novo carro a corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- adicionarCarro (Piloto) (Marca) (Modelo) (Cor) (Ano)\e[00;37m" . PHP_EOL;
     }
 
-    public static function descSetPosition()
+    public static function descSetPosition(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando define as posicoes dos carros na corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- definirPosicoes\e[00;37m" . PHP_EOL;
     }
 
-    public static function descShowCars()
+    public static function descShowCars(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando exibe todos os carros cadastrados." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- exibirCarros\e[00;37m" . PHP_EOL;
     }
 
-    public static function descStartRace()
+    public static function descStartRace(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando inicia a Corrida, ele so funciona se existir carros com posicoes definidas." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- iniciarCorrida\e[00;37m" . PHP_EOL;
     }
 
-    public static function descFinishRace()
+    public static function descFinishRace(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando encerra a corrida e exibe os tres primeiros colocados." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- finalizarCorrida\e[00;37m" . PHP_EOL;
     }
 
-    public static function descOvertake()
+    public static function descOvertake(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando faz as ultrapassagens na corrida, o piloto passado no comando ira ultrapassar o piloto a sua frente." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- ultrapassar (Piloto)\e[00;37m" . PHP_EOL;
     }
 
-    public static function descReport()
+    public static function descReport(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando exibe um relatorio com todas as ultrapassagens da corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- relatorioUltrapassagens\e[00;37m" . PHP_EOL;
     }
 
-    public static function descDeleteCar()
+    public static function descDeleteCar(): void
     {
-        View::logo();
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando deleta os carro da corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
             . " \e[00;33m- excluirCarro Piloto\e[00;37m" . PHP_EOL;
     }
 
-    public static function defaultMessageCommands()
+    public static function defaultMessageCommands(): void
     {
-        View::logo();
         echo "Lista dos comandos:" . PHP_EOL . PHP_EOL
             . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando), lembre-se sempre de adicionar o php antes de cada comando" . PHP_EOL . PHP_EOL
             . " - adicionarCarro" . PHP_EOL

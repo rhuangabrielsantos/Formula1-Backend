@@ -21,13 +21,13 @@ class RaceTest extends TestCase
         $car->setPosition(false);
 
         $start = JSON::getJson('dataRace');
-        $this->assertEquals(false, $start['Start']);
+        $this->assertEquals('off', $start['Start']);
 
         $race = new RaceController();
         $race->startRace();
 
         $start = JSON::getJson('dataRace');
-        $this->assertEquals(true, $start['Start']);
+        $this->assertEquals('on', $start['Start']);
         ob_end_clean();
     }
 
@@ -52,9 +52,9 @@ class RaceTest extends TestCase
         $race->finishRace();
 
         $start = JSON::getJson('dataRace');
-        $this->assertEquals(false, $start['Start']);
+        $this->assertEquals('off', $start['Start']);
 
-        $empty = null;
+        $empty = [];
 
         JSON:: setJson('report', $empty);
         TempFileController::getTempFiles();
