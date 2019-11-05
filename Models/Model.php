@@ -6,20 +6,34 @@ use Lib\JSON;
 
 class Model
 {
-    public static function setJson($array)
+    public static function setCars(array $data)
     {
-        JSON::setJson('dataCars', $array);
+        JSON::setJson('dataCars', $data);
     }
 
-    public static function startRace($array)
+    public static function startRace()
     {
-        JSON::setJson('report', null);
-        JSON::setJson('dataRace', $array);
+        $emptyArray = [];
+        $start = [
+            "Start" => 'on'
+        ];
+
+        JSON::setJson('report', $emptyArray);
+        JSON::setJson('dataRace', $start);
     }
 
     public static function overtake($array, $report)
     {
         JSON::setJson('dataCars', $array);
         JSON::setJson('report', $report);
+    }
+
+    public static function finishRace()
+    {
+        $finish = [
+            "Start" => 'off'
+        ];
+
+        JSON::setJson('dataRace', $finish);
     }
 }

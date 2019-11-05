@@ -1,6 +1,6 @@
-# Projeto TG
+# Projeto F1
 
-Bem vindo ao Repositório do Projeto TG,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo Formula TG, dentro da pasta Rules.
+Bem vindo ao Repositório do Projeto F1,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo F1, dentro da pasta Rules.
 
 Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se não tiver instalado acesse o link abaixo e faça a instalação. Lembrando que se estiver usando linux é necessário o download do docker-compose também. <br>
 
@@ -10,9 +10,7 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 - Abra o terminal e rode o comando abaixo para clonar o projeto:
 
-<pre>git clone https://github.com/rhuangabrielsantos/ProjectTG.git</pre>
-
-- Entre no arquivo docker-compose.yml e altere o caminho em volumes para o caminho que sua pasta está. <br>
+<pre>git clone https://github.com/rhuangabrielsantos/F1-Project.git</pre>
 
 - Pelo terminal entre na pasta do projeto e rode o comando:
 

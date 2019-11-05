@@ -11,13 +11,17 @@ class TempFileController
 
     public static function setTempFiles()
     {
+        $emptyArray = [];
+
         self::$temp = JSON::getJson('dataCars');
-        JSON::setJson('dataCars', null);
+        JSON::setJson('dataCars', $emptyArray);
     }
 
     public static function getTempFiles()
     {
-        JSON::setJson('dataCars', null);
-        Model::setJson(self::$temp);
+        $emptyArray = [];
+
+        JSON::setJson('dataCars', $emptyArray);
+        Model::setCars(self::$temp);
     }
 }

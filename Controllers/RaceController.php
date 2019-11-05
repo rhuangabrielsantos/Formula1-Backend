@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Lib\JSON;
 use Models\Model;
 use Traits\TraitGetData;
 use View\View;
@@ -11,96 +10,54 @@ class RaceController
 {
     use TraitGetData;
 
-    public function startRace()
+    public function startRace(): void
     {
-        if (empty($this->dataCars)) {
-            View::errorMessageEmpty();
-            exit;
-        }
+        ValidationController::raceAlreadyStarted($this->dataRace['Start']);
+        ValidationController::existsMoreOneCar($this->dataCars);
+        ValidationController::positionsAreSet($this->dataCars);
 
-        if (count($this->dataCars) == 1) {
-            View::errorMessageOneCar();
-            exit;
-        }
+        Model::startRace();
 
-        foreach ($this->dataCars as $car) {
-            if (empty($car['Posicao'])) {
-                View::errorMessageNeedDefinePosition();
-                exit;
-            }
-        }
-
-        if ($this->dataRace['Start'] == true) {
-            View::errorMessageStartAgain();
-            exit;
-        }
-
-        $start = [
-            "Start" => true
-        ];
-
-        sort($this->dataCars);
-
-        $carsOrdered = RaceController::orderCars($this->dataCars);
-        Model::setJson($carsOrdered);
-        Model::startRace($start);
         View::successMessageStartRace();
-
     }
 
-    public function finishRace()
+    public function finishRace(): void
     {
-        if ($this->dataRace['Start'] == true) {
-            View::podium($this->dataCars);
+        ValidationController::raceNotStarted($this->dataRace['Start']);
 
-            $start = [
-                "Start" => false
-            ];
+        Model::finishRace();
 
-            JSON::setJson('dataRace', $start);
-
-        } else {
-            View::errorMessageNeedStart();
-        }
+        View::podium($this->dataCars);
     }
 
-    public function overtake($win)
+    public function overtake(string $winner): void
     {
+        ValidationController::raceNotStarted($this->dataRace['Start']);
         $lost = null;
 
-        if ($this->dataRace['Start'] == true) {
-            foreach ($this->dataCars as $key => $car) {
-                if ($car['Piloto'] == $win) {
-                    if ($car['Posicao'] == 1) {
-                        View::errorMessageOvertakingFirsPlace($car);
-                        exit;
-                    }
-                    $carLost = $key - 1;
-                    $this->dataCars[$key]['Posicao'] -= 1;
-                    $this->dataCars[$carLost]['Posicao'] += 1;
-                    $lost = $this->dataCars[$carLost];
-                }
+        foreach ($this->dataCars as $key => $car) {
+            if ($car['Piloto'] == $winner) {
+                ValidationController::carIsTheFirst($car);
+
+                $carLost = $key - 1;
+                $this->dataCars[$key]['Posicao'] -= 1;
+                $this->dataCars[$carLost]['Posicao'] += 1;
+                $lost = $this->dataCars[$carLost];
             }
-
-            if (!isset($carLost)) {
-                View::errorMessageNotFoundPilot();
-                exit;
-            }
-
-            $this->report[] = $win . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
-
-            $carsOrdered = RaceController::orderCars($this->dataCars);
-            Model::overtake($carsOrdered, $this->report);
-            View::successMessageOvertaking($win, $lost);
-
-        } else {
-            View::errorMessageNeedStart();
-            exit;
         }
+
+        $this->report[] = $winner . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
+        $carsOrdered = RaceController::orderCars($this->dataCars);
+
+        Model::overtake($carsOrdered, $this->report);
+
+        View::successMessageOvertaking($winner, $lost['Piloto']);
     }
 
-    public static function orderCars($cars)
+    public static function orderCars(array $cars): array
     {
+        sort($cars);
+
         $sortArray = array();
         foreach ($cars as $car) {
             foreach ($car as $key => $value) {
@@ -110,22 +67,18 @@ class RaceController
                 $sortArray[$key][] = $value;
             }
         }
-        $orderBy = "Posicao";
-        array_multisort($sortArray[$orderBy], SORT_ASC, $cars);
+
+        array_multisort($sortArray['Posicao'], SORT_ASC, $cars);
 
         return $cars;
     }
 
     public function getReport()
     {
-        View::logo();
+        ValidationController::existsReports($this->report);
 
-        if (!empty($this->report)) {
-            foreach ($this->report as $item) {
-                View::report($item);
-            }
-        } else {
-            View::errorMessageEmptyReport();
+        foreach ($this->report as $item) {
+            View::report($item);
         }
     }
 }

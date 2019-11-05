@@ -10,4 +10,4 @@ services:
       - COMPOSER_ALLOW_SUPERUSER=1
     tty: true
     volumes:
-      - /home/rhuan.santos@db1.com.br/Project/TG:/var/www/html
+      - .:/var/www/html
