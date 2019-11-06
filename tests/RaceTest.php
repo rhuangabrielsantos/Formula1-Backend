@@ -18,7 +18,7 @@ class RaceTest extends TestCase
         $car = new CarController();
         $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
         $car->newCar('TestePilotoDois', 'Mercedes', '500', 'Black', '2018');
-        $car->setPosition(false);
+        $car->setPosition();
 
         $start = JSON::getJson('dataRace');
         $this->assertEquals('off', $start['Start']);

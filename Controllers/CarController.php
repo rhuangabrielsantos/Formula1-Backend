@@ -12,15 +12,15 @@ class CarController
 
     public function newCar(string $pilot, string $make, string $model, string $color, int $year): void
     {
-        $this->validationRaceInProgress();
-        $this->validationPilotExists($pilot);
+        ValidationController::raceInProgress($this->dataRace['Start']);
+        ValidationController::pilotExists($pilot, $this->dataCars);
 
         $this->dataCars[] = [
             'Piloto' => $pilot,
-            'Marca' => $make,
+            'Marca'  => $make,
             'Modelo' => $model,
-            'Cor' => $color,
-            'Ano' => $year
+            'Cor'    => $color,
+            'Ano'    => $year
         ];
 
         Model::setCars($this->dataCars);
@@ -29,26 +29,27 @@ class CarController
 
     public function deleteCar(string $pilot): void
     {
-        $this->validationRaceInProgress();
-        $this->validationPilotIsNull($pilot);
+        ValidationController::raceInProgress($this->dataRace['Start']);
+        ValidationController::pilotIsNull($pilot);
 
         foreach ($this->dataCars as $id => $dataCar) {
             if (self::existsPilot($pilot, $dataCar['Piloto'])) {
                 unset($this->dataCars[$id]);
 
-                $this->ifExistsCarsThenSetPosition();
-
                 Model::setCars($this->dataCars);
                 View::successMessageDeleteCar();
+
+                $this->ifExistsCarsThenSetPosition();
+
                 return;
             }
         }
         View::errorMessageNotFoundCar();
     }
 
-    public function setPosition($msg = true): void
+    public function setPosition(): void
     {
-        $this->validationCarsExists();
+        ValidationController::carsExists($this->dataCars);
 
         $position = 1;
 
@@ -60,47 +61,15 @@ class CarController
         $carsOrdered = RaceController::orderCars($this->dataCars);
         Model::setCars($carsOrdered);
 
-        if ($msg == true) {
-            View::successMessageSetPosition();
-        }
+        View::successMessageSetPosition();
     }
 
     public function showCars(): void
     {
-        $this->validationCarsExists();
+        ValidationController::carsExists($this->dataCars);
 
         foreach ($this->dataCars as $car) {
             View::showCar($car);
-        }
-    }
-
-    private function validationRaceInProgress(): void
-    {
-        if ($this->dataRace['Start'] == 'on') {
-            View::errorMessageNewCarRaceStart();
-            exit;
-        }
-    }
-
-    public function validationPilotExists(string $pilot): void
-    {
-        if (empty($this->dataCars)) {
-            return;
-        }
-
-        foreach ($this->dataCars as $car) {
-            if ($pilot == $car['Piloto']) {
-                View::errorMessageNewCarExistPilot();
-                exit;
-            }
-        }
-    }
-
-    private function validationPilotIsNull(string $pilot): void
-    {
-        if (empty($pilot)) {
-            View::errorMessageDeleteCar();
-            exit;
         }
     }
 
@@ -112,15 +81,7 @@ class CarController
     private function ifExistsCarsThenSetPosition(): void
     {
         if (count($this->dataCars) > 0) {
-            $this->setPosition(false);
-        }
-    }
-
-    private function validationCarsExists(): void
-    {
-        if (empty($this->dataCars)) {
-            View::errorMessageEmpty();
-            exit;
+            $this->setPosition();
         }
     }
 }

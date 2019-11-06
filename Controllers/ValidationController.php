@@ -55,4 +55,38 @@ class ValidationController
             exit;
         }
     }
+
+    public static function raceInProgress(string $race): void
+    {
+        if ($race == 'on') {
+            View::errorMessageNewCarRaceStart();
+            exit;
+        }
+    }
+
+    public static function pilotExists(string $pilot, array $cars): void
+    {
+        foreach ($cars as $car) {
+            if ($pilot == $car['Piloto']) {
+                View::errorMessageNewCarExistPilot();
+                exit;
+            }
+        }
+    }
+
+    public static function pilotIsNull(string $pilot): void
+    {
+        if (empty($pilot)) {
+            View::errorMessageDeleteCar();
+            exit;
+        }
+    }
+
+    public static function carsExists(array $cars): void
+    {
+        if (empty($cars)) {
+            View::errorMessageEmpty();
+            exit;
+        }
+    }
 }
