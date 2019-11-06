@@ -236,4 +236,9 @@ class View
             . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
             . "\e[00;37m";
     }
+
+    public static function errorMessageNotInteger()
+    {
+        echo "\e[00;33mÉ necessário que o ano seja um numero inteiro\e[00;37m" . PHP_EOL;
+    }
 }
