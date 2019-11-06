@@ -2,6 +2,7 @@
   "autoload": {
     "psr-4": {
       "Controllers\\": "Controllers/",
+      "Helper\\": "Helper/",
       "Lib\\": "Lib/",
       "Models\\": "Models/",
       "Traits\\": "Traits",

@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Helper\Validation;
 use Models\Model;
 use Traits\TraitGetData;
 use View\View;
@@ -12,8 +13,8 @@ class CarController
 
     public function newCar(string $pilot, string $make, string $model, string $color, int $year): void
     {
-        ValidationController::raceInProgress($this->dataRace['Start']);
-        ValidationController::pilotExists($pilot, $this->dataCars);
+        Validation::raceInProgress($this->dataRace['Start']);
+        Validation::pilotExists($pilot, $this->dataCars);
 
         $this->dataCars[] = [
             'Piloto' => $pilot,
@@ -29,8 +30,8 @@ class CarController
 
     public function deleteCar(string $pilot): void
     {
-        ValidationController::raceInProgress($this->dataRace['Start']);
-        ValidationController::pilotIsNull($pilot);
+        Validation::raceInProgress($this->dataRace['Start']);
+        Validation::pilotIsNull($pilot);
 
         foreach ($this->dataCars as $id => $dataCar) {
             if (self::existsPilot($pilot, $dataCar['Piloto'])) {
@@ -49,7 +50,7 @@ class CarController
 
     public function setPosition(): void
     {
-        ValidationController::carsExists($this->dataCars);
+        Validation::carsExists($this->dataCars);
 
         $position = 1;
 
@@ -66,7 +67,7 @@ class CarController
 
     public function showCars(): void
     {
-        ValidationController::carsExists($this->dataCars);
+        Validation::carsExists($this->dataCars);
 
         foreach ($this->dataCars as $car) {
             View::showCar($car);

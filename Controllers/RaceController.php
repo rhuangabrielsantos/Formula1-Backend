@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Helper\Validation;
 use Models\Model;
 use Traits\TraitGetData;
 use View\View;
@@ -12,9 +13,9 @@ class RaceController
 
     public function startRace(): void
     {
-        ValidationController::raceAlreadyStarted($this->dataRace['Start']);
-        ValidationController::existsMoreOneCar($this->dataCars);
-        ValidationController::positionsAreSet($this->dataCars);
+        Validation::raceAlreadyStarted($this->dataRace['Start']);
+        Validation::existsMoreOneCar($this->dataCars);
+        Validation::positionsAreSet($this->dataCars);
 
         Model::startRace();
 
@@ -23,7 +24,7 @@ class RaceController
 
     public function finishRace(): void
     {
-        ValidationController::raceNotStarted($this->dataRace['Start']);
+        Validation::raceNotStarted($this->dataRace['Start']);
 
         Model::finishRace();
 
@@ -32,12 +33,12 @@ class RaceController
 
     public function overtake(string $winner): void
     {
-        ValidationController::raceNotStarted($this->dataRace['Start']);
+        Validation::raceNotStarted($this->dataRace['Start']);
         $lost = null;
 
         foreach ($this->dataCars as $key => $car) {
             if ($car['Piloto'] == $winner) {
-                ValidationController::carIsTheFirst($car);
+                Validation::carIsTheFirst($car);
 
                 $carLost = $key - 1;
                 $this->dataCars[$key]['Posicao'] -= 1;
@@ -75,7 +76,7 @@ class RaceController
 
     public function getReport()
     {
-        ValidationController::existsReports($this->report);
+        Validation::existsReports($this->report);
 
         foreach ($this->report as $item) {
             View::report($item);
