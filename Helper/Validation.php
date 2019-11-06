@@ -1,10 +1,10 @@
 <?php
 
-namespace Controllers;
+namespace Helper;
 
 use View\View;
 
-class ValidationController
+class Validation
 {
     public static function raceAlreadyStarted(string $race): void
     {
