@@ -14,6 +14,7 @@ class RaceController
     public function startRace(): void
     {
         Validation::raceAlreadyStarted($this->dataRace['Start']);
+        Validation::carsExists($this->dataCars);
         Validation::existsMoreOneCar($this->dataCars);
         Validation::positionsAreSet($this->dataCars);
 

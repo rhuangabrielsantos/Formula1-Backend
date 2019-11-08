@@ -8,7 +8,7 @@ class Validation
 {
     public static function raceAlreadyStarted(string $race): void
     {
-        if ($race == 'on') {
+        if ($race === 'on') {
             View::errorMessageStartAgain();
             exit;
         }
@@ -16,7 +16,7 @@ class Validation
 
     public static function existsMoreOneCar(array $cars): void
     {
-        if (count($cars) == 1) {
+        if (count($cars) === 1) {
             View::errorMessageOneCar();
             exit;
         }
@@ -34,7 +34,7 @@ class Validation
 
     public static function raceNotStarted(string $race): void
     {
-        if ($race == 'off') {
+        if ($race === 'off') {
             View::errorMessageNeedStart();
             exit;
         }
@@ -42,7 +42,7 @@ class Validation
 
     public static function carIsTheFirst(array $car): void
     {
-        if ($car['Posicao'] == 1) {
+        if ($car['Posicao'] === 1) {
             View::errorMessageOvertakingFirsPlace($car['Piloto']);
             exit;
         }
@@ -58,7 +58,7 @@ class Validation
 
     public static function raceInProgress(string $race): void
     {
-        if ($race == 'on') {
+        if ($race === 'on') {
             View::errorMessageNewCarRaceStart();
             exit;
         }
@@ -67,7 +67,7 @@ class Validation
     public static function pilotExists(string $pilot, array $cars): void
     {
         foreach ($cars as $car) {
-            if ($pilot == $car['Piloto']) {
+            if ($pilot === $car['Piloto']) {
                 View::errorMessageNewCarExistPilot();
                 exit;
             }
