@@ -51,6 +51,7 @@ class CarController
     public function setPosition(): void
     {
         Validation::carsExists($this->dataCars);
+        Validation::raceAlreadyStarted($this->dataRace['Start']);
 
         $position = 1;
 
