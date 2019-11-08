@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
 use Controllers\RaceController;
-use View\View;
+use Views\View;
 
 $input = $_SERVER['argv'];
 

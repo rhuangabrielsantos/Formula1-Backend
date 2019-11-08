@@ -1,6 +1,6 @@
 <?php
 
-namespace View;
+namespace Views;
 
 class View
 {

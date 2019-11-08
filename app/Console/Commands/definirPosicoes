@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
 use Controllers\CarController;
 
 $car = new CarController();
-$car->showCars();
+$car->setPosition();
