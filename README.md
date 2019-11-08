@@ -1,6 +1,6 @@
 # Projeto F1
 
-Bem vindo ao Repositório do Projeto F1,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo F1, dentro da pasta Rules.
+Bem vindo ao Repositório do Projeto F1,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo F1.pdf.
 
 Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se não tiver instalado acesse o link abaixo e faça a instalação. Lembrando que se estiver usando linux é necessário o download do docker-compose também. <br>
 
@@ -32,7 +32,7 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 - Entre na pasta dos comandos da corrida:
 
-<pre>cd actions</pre>
+<pre>cd app/Console/Commands</pre>
 
 - Você já pode testar a aplicação rodando o comando
 

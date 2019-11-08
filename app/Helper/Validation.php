@@ -2,7 +2,7 @@
 
 namespace Helper;
 
-use View\View;
+use views\View;
 
 class Validation
 {

@@ -5,7 +5,7 @@ namespace Controllers;
 use Helper\Validation;
 use Models\Model;
 use Traits\TraitGetData;
-use View\View;
+use Views\View;
 
 class CarController
 {

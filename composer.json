@@ -1,15 +1,18 @@
 {
   "autoload": {
     "psr-4": {
-      "Controllers\\": "Controllers/",
-      "Helper\\": "Helper/",
-      "Lib\\": "Lib/",
-      "Models\\": "Models/",
-      "Traits\\": "Traits",
-      "View\\": "View/"
+      "Controllers\\": "app/Controllers/",
+      "Helper\\": "app/Helper/",
+      "Lib\\": "app/Lib/",
+      "Models\\": "app/Models/",
+      "Traits\\": "app/Traits",
+      "Views\\": "resources/views/"
     }
   },
   "require-dev": {
     "phpunit/phpunit": "^8"
+  },
+  "require": {
+    "ext-json": "*"
   }
 }
