@@ -3,7 +3,7 @@ version: '3'
 services:
   php:
     build: .
-    container_name: ProjetoTG
+    container_name: ProjetoF1
     ports:
       - 8080:80
     environment:
