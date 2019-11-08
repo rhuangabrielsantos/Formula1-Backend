@@ -239,6 +239,6 @@ class View
 
     public static function errorMessageNotInteger()
     {
-        echo "\e[00;33mÉ necessário que o ano seja um numero inteiro\e[00;37m" . PHP_EOL;
+        echo "\e[00;33mÉ necessário que o ano seja um numero positivo e inteiro\e[00;37m" . PHP_EOL;
     }
 }

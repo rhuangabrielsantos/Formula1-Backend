@@ -20,5 +20,10 @@ if (!empty($input[6])) {
     exit;
 }
 
+if (!is_int($input[5]) || $input[5] < 0) {
+    View::errorMessageNotInteger();
+    exit;
+}
+
 $car = new CarController();
 $car->newCar($input[1], $input[2], $input[3], $input[4], $input[5]);
