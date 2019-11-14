@@ -19,6 +19,8 @@
     "ext-json": "*"
   },
   "scripts": {
+    "composer": "composer install",
+    "autoload": "composer dumpautoload",
     "tests": "vendor/bin/phpunit tests"
   }
 }

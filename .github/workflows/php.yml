@@ -14,4 +14,10 @@ jobs:
       run: composer validate
 
     - name: Run tests suite
+      run: composer run-script composer
+
+    - name: Run tests suite
+      run: composer run-script autoload
+
+    - name: Run tests suite
       run: composer run-script tests
