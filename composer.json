@@ -17,5 +17,9 @@
   },
   "require": {
     "ext-json": "*"
+  },
+  "scripts": {
+    "tests": "phpunit",
+    "testsVerbose": "@tests -vvv"
   }
 }
