@@ -19,7 +19,6 @@
     "ext-json": "*"
   },
   "scripts": {
-    "tests": "phpunit tests",
-    "testsVerbose": "@tests -vvv"
+    "tests": "vendor/bin/phpunit tests"
   }
 }
