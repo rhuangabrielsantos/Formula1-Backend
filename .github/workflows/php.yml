@@ -13,11 +13,5 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    - name: Run tests cars
-      run: composer run-script phpunit UnitTest tests/CarTest.php
-
-    - name: Run tests race
-      run: composer run-script phpunit UnitTest tests/RaceTest.php
+    - name: Run tests suite
+      run: composer run-script tests

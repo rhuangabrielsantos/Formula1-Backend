@@ -19,7 +19,7 @@
     "ext-json": "*"
   },
   "scripts": {
-    "tests": "phpunit",
+    "tests": "phpunit tests",
     "testsVerbose": "@tests -vvv"
   }
 }
