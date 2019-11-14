@@ -13,10 +13,10 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Run tests suite
+    - name: Run Composer Install
       run: composer run-script composer
 
-    - name: Run tests suite
+    - name: Update Autoload
       run: composer run-script autoload
 
     - name: Run tests suite
