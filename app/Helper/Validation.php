@@ -2,10 +2,13 @@
 
 namespace Helper;
 
-use views\View;
+use Views\View;
 
 class Validation
 {
+    const PARAM_PILOT = 2;
+    const PARAM_YEAR  = 6;
+
     public static function raceAlreadyStarted(string $race): void
     {
         if ($race === 'on') {
@@ -74,9 +77,9 @@ class Validation
         }
     }
 
-    public static function pilotIsNull(string $pilot): void
+    public static function pilotIsNull(array $pilot): void
     {
-        if (empty($pilot)) {
+        if (empty($pilot[self::PARAM_PILOT])) {
             View::errorMessageDeleteCar();
             exit;
         }
@@ -86,6 +89,22 @@ class Validation
     {
         if (empty($cars)) {
             View::errorMessageEmpty();
+            exit;
+        }
+    }
+
+    public static function yearIsValid(array $input)
+    {
+        if ($input[self::PARAM_YEAR] < 0) {
+            View::errorMessageNotInteger();
+            exit;
+        }
+    }
+
+    public static function paramsAreValid(array $input): void
+    {
+        if (count($input) != 7) {
+            View::errorMessageNewCar();
             exit;
         }
     }
