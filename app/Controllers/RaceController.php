@@ -3,13 +3,24 @@
 namespace Controllers;
 
 use Helper\Validation;
-use Models\Model;
-use Traits\TraitGetData;
+use Lib\JSON;
+use Models\Race;
 use Views\View;
 
 class RaceController
 {
-    use TraitGetData;
+    const PARAM_PILOT = 2;
+
+    public $dataRace;
+    public $dataCars;
+    public $report;
+
+    public function __construct()
+    {
+        $this->dataRace = JSON::getJson('dataRace');
+        $this->dataCars = JSON::getJson('dataCars');
+        $this->report = JSON::getJson('report');
+    }
 
     public function startRace(): void
     {
@@ -18,7 +29,7 @@ class RaceController
         Validation::existsMoreOneCar($this->dataCars);
         Validation::positionsAreSet($this->dataCars);
 
-        Model::startRace();
+        Race::start();
 
         View::successMessageStartRace();
     }
@@ -27,18 +38,22 @@ class RaceController
     {
         Validation::raceNotStarted($this->dataRace['Start']);
 
-        Model::finishRace();
+        Race::finish();
 
         View::podium($this->dataCars);
     }
 
-    public function overtake(string $winner): void
+    public function overtake(array $input): void
     {
+        if (!$input[self::PARAM_PILOT]) {
+            View::errorMessageOvertakeNull();
+        }
+
         Validation::raceNotStarted($this->dataRace['Start']);
         $lost = null;
 
         foreach ($this->dataCars as $key => $car) {
-            if ($car['Piloto'] == $winner) {
+            if ($car['Piloto'] == $input[self::PARAM_PILOT]) {
                 Validation::carIsTheFirst($car);
 
                 $carLost = $key - 1;
@@ -48,12 +63,12 @@ class RaceController
             }
         }
 
-        $this->report[] = $winner . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
+        $this->report[] = $input[self::PARAM_PILOT] . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
         $carsOrdered = RaceController::orderCars($this->dataCars);
 
-        Model::overtake($carsOrdered, $this->report);
+        Race::overtake($carsOrdered, $this->report);
 
-        View::successMessageOvertaking($winner, $lost['Piloto']);
+        View::successMessageOvertaking($input[self::PARAM_PILOT], $lost['Piloto']);
     }
 
     public static function orderCars(array $cars): array
