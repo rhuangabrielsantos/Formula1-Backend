@@ -4,14 +4,9 @@ namespace Models;
 
 use Lib\JSON;
 
-class Model
+class Race
 {
-    public static function setCars(array $data)
-    {
-        JSON::setJson('dataCars', $data);
-    }
-
-    public static function startRace()
+    public static function start()
     {
         $emptyArray = [];
         $start = [
@@ -28,7 +23,7 @@ class Model
         JSON::setJson('report', $report);
     }
 
-    public static function finishRace()
+    public static function finish()
     {
         $finish = [
             "Start" => 'off'

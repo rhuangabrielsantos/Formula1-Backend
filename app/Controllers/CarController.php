@@ -3,41 +3,54 @@
 namespace Controllers;
 
 use Helper\Validation;
-use Models\Model;
-use Traits\TraitGetData;
+use Lib\JSON;
+use Models\Car;
 use Views\View;
 
 class CarController
 {
-    use TraitGetData;
+    const PARAM_PILOT = 2;
+    const PARAM_MAKE  = 3;
+    const PARAM_MODEL = 4;
+    const PARAM_COLOR = 5;
+    const PARAM_YEAR  = 6;
 
-    public function newCar(string $pilot, string $make, string $model, string $color, int $year): void
+    public $dataCars;
+
+    public function __construct()
     {
-        Validation::raceInProgress($this->dataRace['Start']);
-        Validation::pilotExists($pilot, $this->dataCars);
+        $this->dataCars = JSON::getJson('dataCars');
+    }
+
+    public function newCar(array $input): void
+    {
+        Validation::paramsAreValid($input);
+        Validation::yearIsValid($input);
+        Validation::raceInProgress(JSON::getJson('dataRace')['Start']);
+        Validation::pilotExists($input[self::PARAM_PILOT], $this->dataCars);
 
         $this->dataCars[] = [
-            'Piloto' => $pilot,
-            'Marca'  => $make,
-            'Modelo' => $model,
-            'Cor'    => $color,
-            'Ano'    => $year
+            'Piloto' => $input[self::PARAM_PILOT],
+            'Marca'  => $input[self::PARAM_MAKE],
+            'Modelo' => $input[self::PARAM_MODEL],
+            'Cor'    => $input[self::PARAM_COLOR],
+            'Ano'    => $input[self::PARAM_YEAR]
         ];
 
-        Model::setCars($this->dataCars);
+        Car::setCars($this->dataCars);
         View::successMessageNewCar();
     }
 
-    public function deleteCar(string $pilot): void
+    public function deleteCar(array $input): void
     {
-        Validation::raceInProgress($this->dataRace['Start']);
-        Validation::pilotIsNull($pilot);
+        Validation::raceInProgress(JSON::getJson('dataRace')['Start']);
+        Validation::pilotIsNull($input);
 
         foreach ($this->dataCars as $id => $dataCar) {
-            if (self::existsPilot($pilot, $dataCar['Piloto'])) {
+            if (self::existsPilot($input[self::PARAM_PILOT], $dataCar['Piloto'])) {
                 unset($this->dataCars[$id]);
 
-                Model::setCars($this->dataCars);
+                Car::setCars($this->dataCars);
                 View::successMessageDeleteCar();
 
                 $this->ifExistsCarsThenSetPosition();
@@ -50,8 +63,8 @@ class CarController
 
     public function setPosition(): void
     {
+        Validation::raceInProgress(JSON::getJson('dataRace')['Start']);
         Validation::carsExists($this->dataCars);
-        Validation::raceAlreadyStarted($this->dataRace['Start']);
 
         $position = 1;
 
@@ -61,7 +74,7 @@ class CarController
         }
 
         $carsOrdered = RaceController::orderCars($this->dataCars);
-        Model::setCars($carsOrdered);
+        Car::setCars($carsOrdered);
 
         View::successMessageSetPosition();
     }

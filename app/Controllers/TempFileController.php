@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Lib\JSON;
-use Models\Model;
+use Models\Car;
 
 class TempFileController
 {
@@ -22,6 +22,6 @@ class TempFileController
         $emptyArray = [];
 
         JSON::setJson('dataCars', $emptyArray);
-        Model::setCars(self::$temp);
+        Car::setCars(self::$temp);
     }
 }

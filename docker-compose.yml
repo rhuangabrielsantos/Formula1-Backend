@@ -2,7 +2,7 @@ version: '3'
 
 services:
   php:
-    build: .
+    build: ./.docker/
     container_name: ProjetoF1
     ports:
       - 8080:80

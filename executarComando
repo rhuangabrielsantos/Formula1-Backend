@@ -1,0 +1,48 @@
+#!/usr/bin/env php
+<?php
+
+use Controllers\CarController;
+use Controllers\RaceController;
+use Views\View;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+$input = $_SERVER['argv'];
+$race  = new RaceController();
+$car   = new CarController();
+
+switch ($input[1]) {
+    case 'adicionarCarro':
+        $car->newCar($input);
+        break;
+
+    case 'excluirCarro':
+        $car->deleteCar($input);
+        break;
+
+    case 'definirPosicoes':
+        $car->setPosition();
+        break;
+
+    case 'exibirCarros':
+        $car->showCars();
+        break;
+
+    case 'iniciarCorrida':
+        $race->startRace();
+        break;
+
+    case 'finalizarCorrida':
+        $race->finishRace();
+        break;
+
+    case 'ultrapassar':
+        $race->overtake($input);
+        break;
+
+    case 'relatorioUltrapassagens':
+        $race->getReport();
+        break;
+}
+
+View::errorMessageCommands();
