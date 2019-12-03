@@ -30,10 +30,6 @@ Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se n
 
 <pre>composer install</pre>
 
-- Entre na pasta dos comandos da corrida:
-
-<pre>cd app/Console/Commands</pre>
-
 - Você já pode testar a aplicação rodando o comando
 
 <pre>php verificarComandos</pre>
