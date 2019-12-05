@@ -3,46 +3,52 @@
 
 use Controllers\CarController;
 use Controllers\RaceController;
+use Lib\JSON;
 use Views\View;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
 $input = $_SERVER['argv'];
-$race  = new RaceController();
-$car   = new CarController();
+$race = new RaceController();
+$car = new CarController();
+
+$dataCars = JSON::getJson('dataCars');
+$statusRace = JSON::getJson('dataRace')['Start'];
+$reports = JSON::getJson('report');
 
 switch ($input[1]) {
     case 'adicionarCarro':
-        $car->newCar($input);
+        $car->newCar($input, $dataCars, $statusRace);
         break;
 
     case 'excluirCarro':
-        $car->deleteCar($input);
+        $car->deleteCar($input, $dataCars, $statusRace);
         break;
 
     case 'definirPosicoes':
-        $car->setPosition();
+        $car->setPosition($dataCars, $statusRace);
         break;
 
     case 'exibirCarros':
-        $car->showCars();
+        $car->showCars($dataCars);
         break;
 
     case 'iniciarCorrida':
-        $race->startRace();
+        $race->startRace($statusRace, $dataCars);
         break;
 
     case 'finalizarCorrida':
-        $race->finishRace();
+        $race->finishRace($statusRace, $dataCars);
         break;
 
     case 'ultrapassar':
-        $race->overtake($input);
+        $race->overtake($input, $statusRace, $dataCars, $reports);
         break;
 
     case 'relatorioUltrapassagens':
-        $race->getReport();
+        $race->getReport($reports);
         break;
-}
 
-View::errorMessageCommands();
+    default:
+        View::errorMessageCommands();
+}
