@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Helper\Validation;
-use Lib\JSON;
 use Models\Race;
 use Views\View;
 
@@ -11,62 +10,51 @@ class RaceController
 {
     const PARAM_PILOT = 2;
 
-    public $dataRace;
-    public $dataCars;
-    public $report;
-
-    public function __construct()
+    public function startRace(string $statusRace, array $cars): void
     {
-        $this->dataRace = JSON::getJson('dataRace');
-        $this->dataCars = JSON::getJson('dataCars');
-        $this->report = JSON::getJson('report');
-    }
-
-    public function startRace(): void
-    {
-        Validation::raceAlreadyStarted($this->dataRace['Start']);
-        Validation::carsExists($this->dataCars);
-        Validation::existsMoreOneCar($this->dataCars);
-        Validation::positionsAreSet($this->dataCars);
+        Validation::raceAlreadyStarted($statusRace);
+        Validation::carsExists($cars);
+        Validation::existsMoreOneCar($cars);
+        Validation::positionsAreSet($cars);
 
         Race::start();
 
         View::successMessageStartRace();
     }
 
-    public function finishRace(): void
+    public function finishRace(string $statusRace, array $cars): void
     {
-        Validation::raceNotStarted($this->dataRace['Start']);
+        Validation::raceNotStarted($statusRace);
 
         Race::finish();
 
-        View::podium($this->dataCars);
+        View::podium($cars);
     }
 
-    public function overtake(array $input): void
+    public function overtake(array $input, string $statusRace, array $dataCars, array $reports): void
     {
         if (!$input[self::PARAM_PILOT]) {
             View::errorMessageOvertakeNull();
         }
 
-        Validation::raceNotStarted($this->dataRace['Start']);
+        Validation::raceNotStarted($statusRace);
         $lost = null;
 
-        foreach ($this->dataCars as $key => $car) {
+        foreach ($dataCars as $key => $car) {
             if ($car['Piloto'] == $input[self::PARAM_PILOT]) {
                 Validation::carIsTheFirst($car);
 
                 $carLost = $key - 1;
-                $this->dataCars[$key]['Posicao'] -= 1;
-                $this->dataCars[$carLost]['Posicao'] += 1;
-                $lost = $this->dataCars[$carLost];
+                $dataCars[$key]['Posicao'] -= 1;
+                $dataCars[$carLost]['Posicao'] += 1;
+                $lost = $dataCars[$carLost];
             }
         }
 
-        $this->report[] = $input[self::PARAM_PILOT] . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
-        $carsOrdered = RaceController::orderCars($this->dataCars);
+        $reports[] = $input[self::PARAM_PILOT] . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
+        $carsOrdered = RaceController::orderCars($dataCars);
 
-        Race::overtake($carsOrdered, $this->report);
+        Race::overtake($carsOrdered, $reports);
 
         View::successMessageOvertaking($input[self::PARAM_PILOT], $lost['Piloto']);
     }
@@ -90,12 +78,12 @@ class RaceController
         return $cars;
     }
 
-    public function getReport()
+    public function getReport(array $reports): void
     {
-        Validation::existsReports($this->report);
+        Validation::existsReports($reports);
 
-        foreach ($this->report as $item) {
-            View::report($item);
+        foreach ($reports as $report) {
+            View::report($report);
         }
     }
 }
