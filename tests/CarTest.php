@@ -3,85 +3,164 @@
 require __DIR__ . "/../vendor/autoload.php";
 
 use Controllers\CarController;
-use Lib\JSON;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Controllers\TempFileController;
 
 class CarTest extends TestCase
 {
-    public $dataCars;
-
-    public function testNewCar()
+    /**
+     * @dataProvider providerCarsForNewCarTests
+     * @param array $newCars
+     */
+    public static function testIfTheReturnedCarIsValid(array $newCars): void
     {
-        ob_start();
-        TempFileController::setTempFiles();
+        $emptyDataCars = [];
 
-        $car = new CarController();
-        $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
-        $car->newCar('TestePilotoDois', 'Mercedes', '500', 'Black', '2018');
+        $carExpected = [
+            0 => [
+                'Piloto' => 'PilotOne',
+                'Marca' => 'AA',
+                'Modelo' => 'BB',
+                'Cor' => 'Black',
+                'Ano' => 1998
+            ]
+        ];
 
-        $this->dataCars = JSON::getJson('dataCars');
+        $carController = new CarController();
+        $returnedCard = $carController->newCar($newCars, $emptyDataCars, 'off');
 
-        $this->assertEquals(2, count($this->dataCars));
-
-        $this->assertEquals('TestePilotoUm', $this->dataCars[0]['Piloto']);
-        $this->assertEquals('Ferrari', $this->dataCars[0]['Marca']);
-        $this->assertEquals('450', $this->dataCars[0]['Modelo']);
-        $this->assertEquals('Red', $this->dataCars[0]['Cor']);
-        $this->assertEquals('2018', $this->dataCars[0]['Ano']);
-
-        $this->assertEquals('TestePilotoDois', $this->dataCars[1]['Piloto']);
-        $this->assertEquals('Mercedes', $this->dataCars[1]['Marca']);
-        $this->assertEquals('500', $this->dataCars[1]['Modelo']);
-        $this->assertEquals('Black', $this->dataCars[1]['Cor']);
-        $this->assertEquals('2018', $this->dataCars[1]['Ano']);
-
-        TempFileController::getTempFiles();
-        ob_end_clean();
+        Assert::assertEquals($carExpected, $returnedCard);
     }
 
-    public function testDeleteCar()
+    /**
+     * @dataProvider providerCarsForNewCarTests
+     * @param array $newCars
+     */
+    public function testIfTheYearOfCarIsInteger(array $newCars)
     {
-        ob_start();
-        TempFileController::setTempFiles();
+        $emptyDataCars = [];
 
-        $car = new CarController();
-        $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
+        $carController = new CarController();
+        $returnedCars = $carController->newCar($newCars, $emptyDataCars, 'off');
 
-        $this->dataCars = JSON::getJson('dataCars');
-
-        $this->assertEquals(1, count($this->dataCars));
-        $this->assertEquals('TestePilotoUm', $this->dataCars[0]['Piloto']);
-
-        $car->deleteCar('TestePilotoUm');
-
-        $this->dataCars = JSON::getJson('dataCars');
-
-        $this->assertEquals(0, count($this->dataCars));
-
-        TempFileController::getTempFiles();
-        ob_end_clean();
+        Assert::assertIsInt($returnedCars[0]['Ano']);
     }
 
-    public function testSetPosition()
+    /**
+     * @dataProvider providerCarsForDeleteCarTests
+     * @param array $dataCars
+     */
+    public function testDeleteCar(array $dataCars): void
     {
-        ob_start();
-        TempFileController::setTempFiles();
+        $inputCommand = ['PilotOne'];
 
-        $car = new CarController();
-        $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
+        $carController = new CarController();
+        $returnedCars = $carController->deleteCar($inputCommand, $dataCars, 'off');
 
-        $this->dataCars = JSON::getJson('dataCars');
+        Assert::assertEmpty($returnedCars);
+    }
 
-        $this->assertEquals(1, count($this->dataCars));
+    /**
+     * @dataProvider providerCarsForSetPositionTests
+     * @param array $cars
+     */
+    public function testSetPositionWithTwoCars(array $cars): void
+    {
+        $carController = new CarController();
+        $returnedCars = $carController->setPosition($cars, 'off');
 
-        $car->setPosition();
+        Assert::assertEquals('1', $returnedCars[0]['Posicao']);
+        Assert::assertEquals('2', $returnedCars[1]['Posicao']);
+    }
 
-        $this->dataCars = JSON::getJson('dataCars');
+    /**
+     * @dataProvider providerCarsForTestDeleteCarsAfterDefinePositions
+     * @param array $cars
+     */
+    public function testDeleteCarsAfterDefinePositions(array $cars): void
+    {
+        $inputCommand = ['PilotOne'];
 
-        $this->assertEquals('1', $this->dataCars[0]['Posicao']);
+        $carController = new CarController();
+        $returnedCars = $carController->deleteCar($inputCommand, $cars, 'off');
 
-        TempFileController::getTempFiles();
-        ob_end_clean();
+        Assert::assertEquals('PilotTwo', $returnedCars[0]['Piloto']);
+        Assert::assertEquals('1', $returnedCars[0]['Posicao']);
+    }
+
+    public function providerCarsForNewCarTests(): array
+    {
+        return [
+            [
+                ['PilotOne', 'AA', 'BB', 'Black', 1998]
+            ]
+        ];
+    }
+
+    public function providerCarsForDeleteCarTests(): array
+    {
+        return [
+            [
+                [
+                    0 => [
+                        'Piloto' => 'PilotOne',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 1998
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    public function providerCarsForSetPositionTests()
+    {
+        return [
+            [
+                [
+                    0 => [
+                        'Piloto' => 'PilotOne',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 1998
+                    ],
+                    1 => [
+                        'Piloto' => 'PilotTwo',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 2000
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    public function providerCarsForTestDeleteCarsAfterDefinePositions()
+    {
+        return [
+            [
+                [
+                    0 => [
+                        'Piloto' => 'PilotOne',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 1998,
+                        'Posicao' => '1'
+                    ],
+                    1 => [
+                        'Piloto' => 'PilotTwo',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 1998,
+                        'Posicao' => '2'
+                    ]
+                ]
+            ]
+        ];
     }
 }

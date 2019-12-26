@@ -2,12 +2,14 @@
 
 namespace Helper;
 
+use InvalidArgumentException;
 use Views\View;
 
 class Validation
 {
-    const PARAM_PILOT = 2;
-    const PARAM_YEAR  = 6;
+    const PARAM_PILOT = 0;
+    const PARAM_YEAR = 4;
+    const NUMBER_PARAMS = 7;
 
     public static function raceAlreadyStarted(string $race): void
     {
@@ -93,17 +95,18 @@ class Validation
         }
     }
 
-    public static function yearIsValid(array $input)
+    public static function yearIsValid($input): bool
     {
-        if ($input[self::PARAM_YEAR] < 0) {
+        if ($input == 0 || $input < 0) {
             View::errorMessageNotInteger();
             exit;
         }
+        return true;
     }
 
-    public static function paramsAreValid(array $input): void
+    public static function paramsAreValid(array $input)
     {
-        if (count($input) != 7) {
+        if (count($input) != self::NUMBER_PARAMS) {
             View::errorMessageNewCar();
             exit;
         }

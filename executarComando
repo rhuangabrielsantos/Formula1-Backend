@@ -1,52 +1,66 @@
 #!/usr/bin/env php
 <?php
 
-use Controllers\CarController;
-use Controllers\RaceController;
-use Lib\JSON;
-use Views\View;
-
 require_once __DIR__ . "/vendor/autoload.php";
 
-$input = $_SERVER['argv'];
-$race = new RaceController();
-$car = new CarController();
+use Controllers\CarController;
+use Controllers\RaceController;
+use Helper\FormatEntry;
+use Lib\JSON;
+use Models\Car;
+use Models\Race;
+use Views\View;
 
-$dataCars = JSON::getJson('dataCars');
+$raceController = new RaceController();
+$carController  = new CarController();
+
+$dataCars   = JSON::getJson('dataCars');
 $statusRace = JSON::getJson('dataRace')['Start'];
-$reports = JSON::getJson('report');
+$reports    = JSON::getJson('report');
 
-switch ($input[1]) {
+switch (FormatEntry::returnCommand($_SERVER['argv'])) {
     case 'adicionarCarro':
-        $car->newCar($input, $dataCars, $statusRace);
+        $returnedCars = $carController->newCar(FormatEntry::returnNewCars($_SERVER['argv']), $dataCars, $statusRace);
+        Car::setCars($returnedCars);
+        View::successMessageNewCar();
         break;
 
     case 'excluirCarro':
-        $car->deleteCar($input, $dataCars, $statusRace);
+        $returnedCars = $carController->deleteCar(FormatEntry::returnDeleteCar($_SERVER['argv']), $dataCars, $statusRace);
+        Car::setCars($returnedCars);
+        View::successMessageDeleteCar();
         break;
 
     case 'definirPosicoes':
-        $car->setPosition($dataCars, $statusRace);
+        $returnedCars = $carController->setPosition($dataCars, $statusRace);
+        Car::setCars($returnedCars);
+        View::successMessageSetPosition();
         break;
 
     case 'exibirCarros':
-        $car->showCars($dataCars);
+        $carController->showCars($dataCars);
         break;
 
     case 'iniciarCorrida':
-        $race->startRace($statusRace, $dataCars);
+        $returnedStatusRace = $raceController->startRace($statusRace, $dataCars);
+        Race::setReports([]);
+        Race::setStatusRace($returnedStatusRace);
+        View::successMessageStartRace();
         break;
 
     case 'finalizarCorrida':
-        $race->finishRace($statusRace, $dataCars);
+        $returnedStatusRace = $raceController->finishRace($statusRace, $dataCars);
+        Race::setStatusRace($returnedStatusRace);
+        View::podium($dataCars);
         break;
 
     case 'ultrapassar':
-        $race->overtake($input, $statusRace, $dataCars, $reports);
+        $returnedCars = $raceController->overtake(FormatEntry::returnOvertakeCars($_SERVER['argv']), $statusRace, $dataCars, $reports);
+        Race::overtake($returnedCars);
         break;
 
     case 'relatorioUltrapassagens':
-        $race->getReport($reports);
+        $raceController->getReport($reports);
         break;
 
     default:

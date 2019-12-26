@@ -10,28 +10,24 @@ class RaceController
 {
     const PARAM_PILOT = 2;
 
-    public function startRace(string $statusRace, array $cars): void
+    public function startRace(string $statusRace, array $cars): array
     {
         Validation::raceAlreadyStarted($statusRace);
         Validation::carsExists($cars);
         Validation::existsMoreOneCar($cars);
         Validation::positionsAreSet($cars);
 
-        Race::start();
-
-        View::successMessageStartRace();
+        return ['Start' => 'on'];
     }
 
-    public function finishRace(string $statusRace, array $cars): void
+    public function finishRace(string $statusRace, array $cars): array
     {
         Validation::raceNotStarted($statusRace);
 
-        Race::finish();
-
-        View::podium($cars);
+        return ['Start' => 'off'];
     }
 
-    public function overtake(array $input, string $statusRace, array $dataCars, array $reports): void
+    public function overtake(array $input, string $statusRace, array $dataCars, array $reports): array
     {
         if (!$input[self::PARAM_PILOT]) {
             View::errorMessageOvertakeNull();
@@ -54,9 +50,10 @@ class RaceController
         $reports[] = $input[self::PARAM_PILOT] . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
         $carsOrdered = RaceController::orderCars($dataCars);
 
-        Race::overtake($carsOrdered, $reports);
-
+        Race::setReports($reports);
         View::successMessageOvertaking($input[self::PARAM_PILOT], $lost['Piloto']);
+
+        return $carsOrdered;
     }
 
     public static function orderCars(array $cars): array
