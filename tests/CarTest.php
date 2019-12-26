@@ -66,9 +66,6 @@ class CarTest extends TestCase
      */
     public function testSetPositionWithTwoCars(array $cars): void
     {
-        Assert::assertEmpty($cars[0]['Posicao']);
-        Assert::assertEmpty($cars[1]['Posicao']);
-
         $carController = new CarController();
         $returnedCars = $carController->setPosition($cars, 'off');
 
