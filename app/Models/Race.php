@@ -6,29 +6,18 @@ use Lib\JSON;
 
 class Race
 {
-    public static function start()
+    public static function setStatusRace($statusRace): void
     {
-        $emptyArray = [];
-        $start = [
-            "Start" => 'on'
-        ];
-
-        JSON::setJson('report', $emptyArray);
-        JSON::setJson('dataRace', $start);
+        JSON::setJson('dataRace', $statusRace);
     }
 
-    public static function overtake($array, $report)
+    public static function overtake($array): void
     {
         JSON::setJson('dataCars', $array);
-        JSON::setJson('report', $report);
     }
 
-    public static function finish()
+    public static function setReports($report): void
     {
-        $finish = [
-            "Start" => 'off'
-        ];
-
-        JSON::setJson('dataRace', $finish);
+        JSON::setJson('report', $report);
     }
 }

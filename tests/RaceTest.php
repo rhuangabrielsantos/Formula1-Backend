@@ -1,63 +1,84 @@
 <?php
 
-use Controllers\CarController;
 use Controllers\RaceController;
-use Controllers\TempFileController;
-use Lib\JSON;
+use Models\Race;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 class RaceTest extends TestCase
 {
     public $dataCars;
 
-    public function testStartRace()
+    /**
+     * @dataProvider providerCarsForRaceTests
+     * @param array $cars
+     */
+    public static function testStartRace($cars): void
+    {
+        $raceController = new RaceController();
+        $returnedStatus = $raceController->startRace('off', $cars);
+
+        $exceptedStatus = ['Start' => 'on'];
+
+        Assert::assertEquals($exceptedStatus, $returnedStatus);
+    }
+
+    /**
+     * @dataProvider providerCarsForRaceTests
+     * @param array $cars
+     */
+    public static function testFinishRace($cars): void
+    {
+        $raceController = new RaceController();
+        $returnedStatus = $raceController->finishRace('on', $cars);
+
+        $exceptedStatus = ['Start' => 'off'];
+
+        Assert::assertEquals($exceptedStatus, $returnedStatus);
+    }
+
+    /**
+     * @dataProvider providerCarsForRaceTests
+     * @param array $cars
+     */
+    public static function testOvertake($cars): void
     {
         ob_start();
-        TempFileController::setTempFiles();
+        $input = ['executarComando', 'overtake', 'PilotTwo'];
 
-        $car = new CarController();
-        $car->newCar('TestePilotoUm', 'Ferrari', '450', 'Red', '2018');
-        $car->newCar('TestePilotoDois', 'Mercedes', '500', 'Black', '2018');
-        $car->setPosition();
+        Assert::assertEquals('PilotOne', $cars[0]['Piloto']);
 
-        $start = JSON::getJson('dataRace');
-        $this->assertEquals('off', $start['Start']);
+        $raceController = new RaceController();
+        $returnedCars = $raceController->overtake($input, 'on', $cars, []);
+        Race::setReports([]);
 
-        $race = new RaceController();
-        $race->startRace();
-
-        $start = JSON::getJson('dataRace');
-        $this->assertEquals('on', $start['Start']);
+        Assert::assertEquals('PilotTwo', $returnedCars[0]['Piloto']);
         ob_end_clean();
     }
 
-    public function testOvertake()
+    public function providerCarsForRaceTests(): array
     {
-        ob_start();
-        $this->dataCars = JSON::getJson('dataCars');
-        $this->assertEquals('TestePilotoUm', $this->dataCars[0]['Piloto']);
-
-        $race = new RaceController();
-        $race->overtake('TestePilotoDois');
-
-        $this->dataCars = JSON::getJson('dataCars');
-        $this->assertEquals('TestePilotoDois', $this->dataCars[0]['Piloto']);
-        ob_end_clean();
-    }
-
-    public function testFinishRace()
-    {
-        ob_start();
-        $race = new RaceController();
-        $race->finishRace();
-
-        $start = JSON::getJson('dataRace');
-        $this->assertEquals('off', $start['Start']);
-
-        $empty = [];
-
-        JSON:: setJson('report', $empty);
-        TempFileController::getTempFiles();
-        ob_end_clean();
+        return [
+            [
+                [
+                    0 => [
+                        'Piloto' => 'PilotOne',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 1998,
+                        'Posicao' => '1'
+                    ],
+                    1 => [
+                        'Piloto' => 'PilotTwo',
+                        'Marca' => 'AA',
+                        'Modelo' => 'BB',
+                        'Cor' => 'Black',
+                        'Ano' => 1998,
+                        'Posicao' => '2'
+                    ]
+                ]
+            ]
+        ];
     }
 }

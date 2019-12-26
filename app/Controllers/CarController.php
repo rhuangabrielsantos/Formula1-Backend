@@ -8,32 +8,29 @@ use Views\View;
 
 class CarController
 {
-    const PARAM_PILOT = 2;
-    const PARAM_MAKE  = 3;
-    const PARAM_MODEL = 4;
-    const PARAM_COLOR = 5;
-    const PARAM_YEAR  = 6;
+    const PARAM_PILOT = 0;
+    const PARAM_MAKE  = 1;
+    const PARAM_MODEL = 2;
+    const PARAM_COLOR = 3;
+    const PARAM_YEAR  = 4;
 
-    public function newCar(array $input, array $cars, string $statusRace): void
+    public function newCar(array $newCar, array $dataCars, string $statusRace): array
     {
-        Validation::paramsAreValid($input);
-        Validation::yearIsValid($input);
         Validation::raceInProgress($statusRace);
-        Validation::pilotExists($input[self::PARAM_PILOT], $cars);
+        Validation::pilotExists($newCar[self::PARAM_PILOT], $dataCars);
 
-        $cars[] = [
-            'Piloto' => $input[self::PARAM_PILOT],
-            'Marca'  => $input[self::PARAM_MAKE],
-            'Modelo' => $input[self::PARAM_MODEL],
-            'Cor'    => $input[self::PARAM_COLOR],
-            'Ano'    => $input[self::PARAM_YEAR]
+        $dataCars[] = [
+            'Piloto' => $newCar[self::PARAM_PILOT],
+            'Marca'  => $newCar[self::PARAM_MAKE],
+            'Modelo' => $newCar[self::PARAM_MODEL],
+            'Cor'    => $newCar[self::PARAM_COLOR],
+            'Ano'    => $newCar[self::PARAM_YEAR]
         ];
 
-        Car::setCars($cars);
-        View::successMessageNewCar();
+        return $dataCars;
     }
 
-    public function deleteCar(array $input, array $cars, string $statusRace): void
+    public function deleteCar(array $input, array $cars, string $statusRace): array
     {
         Validation::raceInProgress($statusRace);
         Validation::pilotIsNull($input);
@@ -42,18 +39,14 @@ class CarController
             if (self::existsPilot($input[self::PARAM_PILOT], $car['Piloto'])) {
                 unset($cars[$id]);
 
-                Car::setCars($cars);
-                View::successMessageDeleteCar();
-
-                $this->ifExistsCarsThenSetPosition($cars, $statusRace);
-
-                return;
+                return $this->ifExistsCarsThenSetPosition($cars, $statusRace);
             }
         }
         View::errorMessageNotFoundCar();
+        return [];
     }
 
-    public function setPosition(array $cars, string $statusRace): void
+    public function setPosition(array $cars, string $statusRace): array
     {
         Validation::raceInProgress($statusRace);
         Validation::carsExists($cars);
@@ -65,10 +58,7 @@ class CarController
             $position++;
         }
 
-        $carsOrdered = RaceController::orderCars($cars);
-        Car::setCars($carsOrdered);
-
-        View::successMessageSetPosition();
+        return RaceController::orderCars($cars);
     }
 
     public function showCars(array $cars): void
@@ -85,10 +75,14 @@ class CarController
         return $pilot == $data;
     }
 
-    private function ifExistsCarsThenSetPosition(array $cars, string $statusRace): void
+    private function ifExistsCarsThenSetPosition(array $cars, string $statusRace): array
     {
+        $returnedCars = [];
+
         if (count($cars) > 0) {
-            $this->setPosition($cars, $statusRace);
+            $returnedCars = $this->setPosition($cars, $statusRace);
         }
+
+        return $returnedCars;
     }
 }
