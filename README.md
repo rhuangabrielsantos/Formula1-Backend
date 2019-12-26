@@ -1,5 +1,7 @@
 # Projeto F1
 
+[![Build Status](https://travis-ci.org/rhuangabrielsantos/F1-Project.svg?branch=master)](https://travis-ci.org/rhuangabrielsantos/F1-Project)
+
 Bem vindo ao Repositório do Projeto F1,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo F1.pdf.
 
 Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se não tiver instalado acesse o link abaixo e faça a instalação. Lembrando que se estiver usando linux é necessário o download do docker-compose também. <br>
