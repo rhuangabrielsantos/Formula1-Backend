@@ -4,9 +4,11 @@
 
 Bem vindo ao Repositório do Projeto F1,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo F1.pdf.
 
-Para rodar o projeto, você precisa ter o docker instalado em sua máquina, se não tiver instalado acesse o link abaixo e faça a instalação. Lembrando que se estiver usando linux é necessário o download do docker-compose também. <br>
+Para rodar o projeto em sua maquina local, você precisa ter o docker instalado, se não tiver instalado acesse o link abaixo e faça a instalação. Lembrando que se estiver usando linux é necessário o download do docker-compose também, ou use o Gitpod :) <br>
 
 <a>https://docs.docker.com/install/</a>
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rhuangabrielsantos/F1-Project)
 
 # Configurando Ambiente
 
