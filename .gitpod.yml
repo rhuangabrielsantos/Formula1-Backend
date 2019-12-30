@@ -1,0 +1,5 @@
+tasks:
+  - command: docker-compose up -d
+  - command: docker-compose exec -it ProjetoF1 bash
+  - command: composer install
+  - command: php verificarComandos
