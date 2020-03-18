@@ -14,7 +14,7 @@ class HelperFormatEntryTest extends TestCase
      */
     public static function testIfReturnedNewCarsAreValid($arguments)
     {
-        $returnedCars = FormatEntryAlias::returnNewCars($arguments);
+        $returnedCars = (new FormatEntryAlias())->returnNewCars($arguments);
 
         $expectedCars = [
             'PilotOne',
@@ -33,7 +33,7 @@ class HelperFormatEntryTest extends TestCase
      */
     public static function testIfReturnedYearIsInt($arguments)
     {
-        $returnedCars = FormatEntryAlias::returnNewCars($arguments);
+        $returnedCars = (new FormatEntryAlias())->returnNewCars($arguments);
 
         Assert::assertIsInt($returnedCars[4]);
     }
