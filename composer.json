@@ -4,6 +4,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
+      "Commands\\": "app/Commands",
       "Controllers\\": "app/Controllers/",
       "Helper\\": "app/Helper/",
       "Lib\\": "app/Lib/",

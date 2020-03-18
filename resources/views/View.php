@@ -205,7 +205,7 @@ class View
         echo "\e[00;31mDescricao:" . PHP_EOL
             . " \e[00;33m- Esse comando exibe um relatorio com todas as ultrapassagens da corrida." . PHP_EOL . PHP_EOL
             . "\e[00;31mComo usar:" . PHP_EOL
-            . " \e[00;33m- php executarComando relatorioUltrapassagens\e[00;37m" . PHP_EOL;
+            . " \e[00;33m- php executarComando relatorio\e[00;37m" . PHP_EOL;
     }
 
     public static function descDeleteCar(): void
@@ -227,7 +227,7 @@ class View
             . " - iniciarCorrida" . PHP_EOL
             . " - finalizarCorrida" . PHP_EOL
             . " - ultrapassar" . PHP_EOL
-            . " - relatorioUltrapassagens" . PHP_EOL . PHP_EOL
+            . " - relatorio" . PHP_EOL . PHP_EOL
             . "\e[00;37m";
     }
 

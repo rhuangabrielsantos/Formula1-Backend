@@ -2,8 +2,6 @@
 
 namespace Helper;
 
-use Views\View;
-
 class FormatEntry
 {
     const COMMAND = 1;
@@ -15,11 +13,11 @@ class FormatEntry
     const YEAR = 6;
 
     const FIRST_PILOT = 2;
-    const SECOND_PILOT = 3;
 
-    public static function returnNewCars(array $inputArguments): array
+    public function returnNewCars(array $inputArguments): array
     {
-        Validation::paramsAreValid($inputArguments);
+        $validation = new Validation();
+        $validation->paramsAreValid($inputArguments);
 
         return [
             $inputArguments[self::PILOT],
@@ -30,25 +28,26 @@ class FormatEntry
         ];
     }
 
-    public static function returnCommand(array $inputArguments): string
+    public function returnCommand(?array $inputArguments): ?string
     {
         return $inputArguments[self::COMMAND];
     }
 
-    private static function returnYearFormatted($year): int
+    private function returnYearFormatted($year): int
     {
-        Validation::yearIsValid($year);
+        $validation = new Validation();
+        $validation->yearIsValid($year);
 
         return $year;
     }
 
-    public static function returnDeleteCar(array $arguments): array
+    public function returnDeleteCar(array $arguments): ?string
     {
-        return [$arguments(self::PILOT)];
+        return $arguments[self::PILOT];
     }
 
-    public static function returnOvertakeCars(array $arguments): array
+    public function returnOvertakeCars(array $arguments): string
     {
-        return [$arguments(self::FIRST_PILOT), $arguments(self::SECOND_PILOT)];
+        return $arguments[self::FIRST_PILOT];
     }
 }

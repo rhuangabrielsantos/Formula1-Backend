@@ -2,12 +2,12 @@
 
 namespace Models;
 
-use Lib\JSON;
+use Lib\StorageFactory;
 
 class Car
 {
-    public static function setCars(array $data)
+    public function setCars(StorageFactory $storage, array $data)
     {
-        JSON::setJson('dataCars', $data);
+        $storage->setData('dataCars', $data);
     }
 }

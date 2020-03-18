@@ -3,42 +3,46 @@
 namespace Controllers;
 
 use Helper\Validation;
-use Models\Race;
 use Views\View;
 
 class RaceController
 {
-    const PARAM_PILOT = 2;
+    private $validation;
+
+    public function __construct()
+    {
+        $this->validation = new Validation();
+    }
 
     public function startRace(string $statusRace, array $cars): array
     {
-        Validation::raceAlreadyStarted($statusRace);
-        Validation::carsExists($cars);
-        Validation::existsMoreOneCar($cars);
-        Validation::positionsAreSet($cars);
+        $this->validation->raceAlreadyStarted($statusRace);
+        $this->validation->carsExists($cars);
+        $this->validation->existsMoreOneCar($cars);
+        $this->validation->positionsAreSet($cars);
 
         return ['Start' => 'on'];
     }
 
-    public function finishRace(string $statusRace, array $cars): array
+    public function finishRace(string $statusRace): array
     {
-        Validation::raceNotStarted($statusRace);
+        $this->validation->raceNotStarted($statusRace);
 
         return ['Start' => 'off'];
     }
 
-    public function overtake(array $input, string $statusRace, array $dataCars, array $reports): array
+    public function overtake(string $pilotName, string $statusRace, array $dataCars, array $reports): array
     {
-        if (!$input[self::PARAM_PILOT]) {
+        if (!$pilotName) {
             View::errorMessageOvertakeNull();
         }
 
-        Validation::raceNotStarted($statusRace);
+        $this->validation->raceNotStarted($statusRace);
         $lost = null;
 
         foreach ($dataCars as $key => $car) {
-            if ($car['Piloto'] == $input[self::PARAM_PILOT]) {
-                Validation::carIsTheFirst($car);
+            if ($car['Piloto'] == $pilotName) {
+                $this->validation->carIsTheFirst($car);
 
                 $carLost = $key - 1;
                 $dataCars[$key]['Posicao'] -= 1;
@@ -47,13 +51,12 @@ class RaceController
             }
         }
 
-        $reports[] = $input[self::PARAM_PILOT] . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
+        $reports[] = $pilotName . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
         $carsOrdered = RaceController::orderCars($dataCars);
 
-        Race::setReports($reports);
-        View::successMessageOvertaking($input[self::PARAM_PILOT], $lost['Piloto']);
+        View::successMessageOvertaking($pilotName, $lost['Piloto']);
 
-        return $carsOrdered;
+        return [$carsOrdered, $reports];
     }
 
     public static function orderCars(array $cars): array
@@ -77,7 +80,7 @@ class RaceController
 
     public function getReport(array $reports): void
     {
-        Validation::existsReports($reports);
+        $this->validation->existsReports($reports);
 
         foreach ($reports as $report) {
             View::report($report);

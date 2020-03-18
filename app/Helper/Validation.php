@@ -2,7 +2,6 @@
 
 namespace Helper;
 
-use InvalidArgumentException;
 use Views\View;
 
 class Validation
@@ -11,7 +10,7 @@ class Validation
     const PARAM_YEAR = 4;
     const NUMBER_PARAMS = 7;
 
-    public static function raceAlreadyStarted(string $race): void
+    public function raceAlreadyStarted(string $race): void
     {
         if ($race === 'on') {
             View::errorMessageStartAgain();
@@ -19,7 +18,7 @@ class Validation
         }
     }
 
-    public static function existsMoreOneCar(array $cars): void
+    public function existsMoreOneCar(array $cars): void
     {
         if (count($cars) === 1) {
             View::errorMessageOneCar();
@@ -27,7 +26,7 @@ class Validation
         }
     }
 
-    public static function positionsAreSet(array $cars): void
+    public function positionsAreSet(array $cars): void
     {
         foreach ($cars as $car) {
             if (empty($car['Posicao'])) {
@@ -37,7 +36,7 @@ class Validation
         }
     }
 
-    public static function raceNotStarted(string $race): void
+    public function raceNotStarted(string $race): void
     {
         if ($race === 'off') {
             View::errorMessageNeedStart();
@@ -45,7 +44,7 @@ class Validation
         }
     }
 
-    public static function carIsTheFirst(array $car): void
+    public function carIsTheFirst(array $car): void
     {
         if ($car['Posicao'] === 1) {
             View::errorMessageOvertakingFirsPlace($car['Piloto']);
@@ -53,7 +52,7 @@ class Validation
         }
     }
 
-    public static function existsReports($reports)
+    public function existsReports($reports)
     {
         if (empty($reports)) {
             View::errorMessageEmptyReport();
@@ -61,7 +60,7 @@ class Validation
         }
     }
 
-    public static function raceInProgress(string $race): void
+    public function raceInProgress(string $race): void
     {
         if ($race === 'on') {
             View::errorMessageNewCarRaceStart();
@@ -69,7 +68,7 @@ class Validation
         }
     }
 
-    public static function pilotExists(string $pilot, array $cars): void
+    public function pilotExists(string $pilot, array $cars): void
     {
         foreach ($cars as $car) {
             if ($pilot === $car['Piloto']) {
@@ -79,15 +78,15 @@ class Validation
         }
     }
 
-    public static function pilotIsNull(array $pilot): void
+    public function pilotIsNull($pilotName): void
     {
-        if (empty($pilot[self::PARAM_PILOT])) {
+        if (empty($pilotName)) {
             View::errorMessageDeleteCar();
             exit;
         }
     }
 
-    public static function carsExists(array $cars): void
+    public function carsExists(array $cars): void
     {
         if (empty($cars)) {
             View::errorMessageEmpty();
@@ -95,7 +94,7 @@ class Validation
         }
     }
 
-    public static function yearIsValid($input): bool
+    public function yearIsValid($input): bool
     {
         if ($input == 0 || $input < 0) {
             View::errorMessageNotInteger();
@@ -104,7 +103,7 @@ class Validation
         return true;
     }
 
-    public static function paramsAreValid(array $input)
+    public function paramsAreValid(array $input)
     {
         if (count($input) != self::NUMBER_PARAMS) {
             View::errorMessageNewCar();

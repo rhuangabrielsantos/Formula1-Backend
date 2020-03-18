@@ -3,66 +3,43 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use Controllers\CarController;
-use Controllers\RaceController;
+use Commands\DefinePosition;
+use Commands\DeleteCar;
+use Commands\FinishRace;
+use Commands\NewCar;
+use Commands\OvertakeCar;
+use Commands\ShowCars;
+use Commands\ShowReports;
+use Commands\StartRace;
 use Helper\FormatEntry;
 use Lib\JSON;
-use Models\Car;
-use Models\Race;
+use Lib\StorageFactory;
 use Views\View;
 
-$raceController = new RaceController();
-$carController  = new CarController();
+$storage = new StorageFactory(new JSON());
 
-$dataCars   = JSON::getJson('dataCars');
-$statusRace = JSON::getJson('dataRace')['Start'];
-$reports    = JSON::getJson('report');
+$dataCars = $storage->getData('dataCars');
+$statusRace = $storage->getData('dataRace')['Start'];
+$reports = $storage->getData('report');
 
-switch (FormatEntry::returnCommand($_SERVER['argv'])) {
-    case 'adicionarCarro':
-        $returnedCars = $carController->newCar(FormatEntry::returnNewCars($_SERVER['argv']), $dataCars, $statusRace);
-        Car::setCars($returnedCars);
-        View::successMessageNewCar();
-        break;
+$registeredCommands = [
+    'adicionarCarro' => new NewCar($_SERVER['argv'], $dataCars, $statusRace, $storage),
+    'excluirCarro' => new DeleteCar($_SERVER['argv'], $dataCars, $statusRace, $storage),
+    'definirPosicoes' => new DefinePosition($dataCars, $statusRace, $storage),
+    'exibirCarros' => new ShowCars($dataCars),
+    'iniciarCorrida' => new StartRace($dataCars, $statusRace, $storage),
+    'finalizarCorrida' => new FinishRace($dataCars, $statusRace, $storage),
+    'ultrapassar' => new OvertakeCar($_SERVER['argv'], $dataCars, $statusRace, $reports, $storage),
+    'relatorio' => new ShowReports($reports)
+];
 
-    case 'excluirCarro':
-        $returnedCars = $carController->deleteCar(FormatEntry::returnDeleteCar($_SERVER['argv']), $dataCars, $statusRace);
-        Car::setCars($returnedCars);
-        View::successMessageDeleteCar();
-        break;
+foreach ($registeredCommands as $registeredCommand => $class) {
+    $userCommand = (new FormatEntry())->returnCommand($_SERVER['argv']);
 
-    case 'definirPosicoes':
-        $returnedCars = $carController->setPosition($dataCars, $statusRace);
-        Car::setCars($returnedCars);
-        View::successMessageSetPosition();
-        break;
-
-    case 'exibirCarros':
-        $carController->showCars($dataCars);
-        break;
-
-    case 'iniciarCorrida':
-        $returnedStatusRace = $raceController->startRace($statusRace, $dataCars);
-        Race::setReports([]);
-        Race::setStatusRace($returnedStatusRace);
-        View::successMessageStartRace();
-        break;
-
-    case 'finalizarCorrida':
-        $returnedStatusRace = $raceController->finishRace($statusRace, $dataCars);
-        Race::setStatusRace($returnedStatusRace);
-        View::podium($dataCars);
-        break;
-
-    case 'ultrapassar':
-        $returnedCars = $raceController->overtake(FormatEntry::returnOvertakeCars($_SERVER['argv']), $statusRace, $dataCars, $reports);
-        Race::overtake($returnedCars);
-        break;
-
-    case 'relatorioUltrapassagens':
-        $raceController->getReport($reports);
-        break;
-
-    default:
-        View::errorMessageCommands();
+    if ($userCommand == $registeredCommand) {
+        $class->runCommand();
+        exit;
+    }
 }
+
+(new View())->errorMessageCommands();

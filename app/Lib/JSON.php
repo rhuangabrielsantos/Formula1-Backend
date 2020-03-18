@@ -2,16 +2,16 @@
 
 namespace Lib;
 
-class JSON
+class JSON implements Storage
 {
-    public static function getJson($file)
+    public function getData(string $fileName)
     {
-        return json_decode(file_get_contents(__DIR__ . '/../../database/' . $file . '.json'), true);
+        return json_decode(file_get_contents(__DIR__ . '/../../database/' . $fileName . '.json'), true);
     }
 
-    public static function setJson(string $file, array $data)
+    public function setData(string $fileName, array $data)
     {
-        $path = __DIR__ . "/../../database/" . $file . ".json";
+        $path = __DIR__ . "/../../database/" . $fileName . ".json";
         $json = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents($path, $json);
     }

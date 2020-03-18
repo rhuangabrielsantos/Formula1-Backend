@@ -1,7 +1,8 @@
 <?php
 
 use Controllers\RaceController;
-use Models\Race;
+use Lib\JSON;
+use Lib\StorageFactory;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
@@ -23,14 +24,10 @@ class RaceTest extends TestCase
         Assert::assertEquals($exceptedStatus, $returnedStatus);
     }
 
-    /**
-     * @dataProvider providerCarsForRaceTests
-     * @param array $cars
-     */
-    public static function testFinishRace($cars): void
+    public static function testFinishRace(): void
     {
         $raceController = new RaceController();
-        $returnedStatus = $raceController->finishRace('on', $cars);
+        $returnedStatus = $raceController->finishRace('on');
 
         $exceptedStatus = ['Start' => 'off'];
 
@@ -44,15 +41,14 @@ class RaceTest extends TestCase
     public static function testOvertake($cars): void
     {
         ob_start();
-        $input = ['executarComando', 'overtake', 'PilotTwo'];
 
         Assert::assertEquals('PilotOne', $cars[0]['Piloto']);
 
         $raceController = new RaceController();
-        $returnedCars = $raceController->overtake($input, 'on', $cars, []);
-        Race::setReports([]);
+        $returnedCars = $raceController->overtake('PilotTwo', 'on', $cars, []);
+        (new StorageFactory(new JSON()))->setData('report', []);
 
-        Assert::assertEquals('PilotTwo', $returnedCars[0]['Piloto']);
+        Assert::assertEquals('PilotTwo', $returnedCars[0][0]['Piloto']);
         ob_end_clean();
     }
 

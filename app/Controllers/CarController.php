@@ -3,53 +3,59 @@
 namespace Controllers;
 
 use Helper\Validation;
-use Models\Car;
 use Views\View;
 
 class CarController
 {
     const PARAM_PILOT = 0;
-    const PARAM_MAKE  = 1;
+    const PARAM_MAKE = 1;
     const PARAM_MODEL = 2;
     const PARAM_COLOR = 3;
-    const PARAM_YEAR  = 4;
+    const PARAM_YEAR = 4;
+
+    private $validation;
+
+    public function __construct()
+    {
+        $this->validation = new Validation();
+    }
 
     public function newCar(array $newCar, array $dataCars, string $statusRace): array
     {
-        Validation::raceInProgress($statusRace);
-        Validation::pilotExists($newCar[self::PARAM_PILOT], $dataCars);
+        $this->validation->raceInProgress($statusRace);
+        $this->validation->pilotExists($newCar[self::PARAM_PILOT], $dataCars);
 
         $dataCars[] = [
             'Piloto' => $newCar[self::PARAM_PILOT],
-            'Marca'  => $newCar[self::PARAM_MAKE],
+            'Marca' => $newCar[self::PARAM_MAKE],
             'Modelo' => $newCar[self::PARAM_MODEL],
-            'Cor'    => $newCar[self::PARAM_COLOR],
-            'Ano'    => $newCar[self::PARAM_YEAR]
+            'Cor' => $newCar[self::PARAM_COLOR],
+            'Ano' => $newCar[self::PARAM_YEAR]
         ];
 
         return $dataCars;
     }
 
-    public function deleteCar(array $input, array $cars, string $statusRace): array
+    public function deleteCar(?string $pilotName, array $cars, string $statusRace): array
     {
-        Validation::raceInProgress($statusRace);
-        Validation::pilotIsNull($input);
+        $this->validation->raceInProgress($statusRace);
+        $this->validation->pilotIsNull($pilotName);
 
         foreach ($cars as $id => $car) {
-            if (self::existsPilot($input[self::PARAM_PILOT], $car['Piloto'])) {
+            if (self::existsPilot($pilotName, $car['Piloto'])) {
                 unset($cars[$id]);
 
                 return $this->ifExistsCarsThenSetPosition($cars, $statusRace);
             }
         }
         View::errorMessageNotFoundCar();
-        return [];
+        exit;
     }
 
     public function setPosition(array $cars, string $statusRace): array
     {
-        Validation::raceInProgress($statusRace);
-        Validation::carsExists($cars);
+        $this->validation->raceInProgress($statusRace);
+        $this->validation->carsExists($cars);
 
         $position = 1;
 
@@ -63,7 +69,7 @@ class CarController
 
     public function showCars(array $cars): void
     {
-        Validation::carsExists($cars);
+        $this->validation->carsExists($cars);
 
         foreach ($cars as $car) {
             View::showCar($car);

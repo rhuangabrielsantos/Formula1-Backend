@@ -52,10 +52,10 @@ class CarTest extends TestCase
      */
     public function testDeleteCar(array $dataCars): void
     {
-        $inputCommand = ['PilotOne'];
+        $pilotName = 'PilotOne';
 
         $carController = new CarController();
-        $returnedCars = $carController->deleteCar($inputCommand, $dataCars, 'off');
+        $returnedCars = $carController->deleteCar($pilotName, $dataCars, 'off');
 
         Assert::assertEmpty($returnedCars);
     }
@@ -79,7 +79,7 @@ class CarTest extends TestCase
      */
     public function testDeleteCarsAfterDefinePositions(array $cars): void
     {
-        $inputCommand = ['PilotOne'];
+        $inputCommand = 'PilotOne';
 
         $carController = new CarController();
         $returnedCars = $carController->deleteCar($inputCommand, $cars, 'off');

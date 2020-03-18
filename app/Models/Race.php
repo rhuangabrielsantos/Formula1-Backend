@@ -2,22 +2,22 @@
 
 namespace Models;
 
-use Lib\JSON;
+use Lib\StorageFactory;
 
 class Race
 {
-    public static function setStatusRace($statusRace): void
+    public function setStatusRace(StorageFactory $storage, $statusRace): void
     {
-        JSON::setJson('dataRace', $statusRace);
+        $storage->setData('dataRace', $statusRace);
     }
 
-    public static function overtake($array): void
+    public function overtake(StorageFactory $storage, $array): void
     {
-        JSON::setJson('dataCars', $array);
+        $storage->setData('dataCars', $array);
     }
 
-    public static function setReports($report): void
+    public function setReports(StorageFactory $storage, array $reports): void
     {
-        JSON::setJson('report', $report);
+        $storage->setData('report', $reports);
     }
 }
