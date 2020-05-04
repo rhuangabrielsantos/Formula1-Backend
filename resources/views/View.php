@@ -4,86 +4,98 @@ namespace Views;
 
 class View
 {
-    public static function errorMessageNewCarRaceStart(): void
+    public static function errorMessageNewCarRaceStart(): string
     {
-        echo "\e[00;31mA corrida foi Iniciada, para adicionar ou deletar novos carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
+        return "\e[00;31mA corrida foi Iniciada, para adicionar ou deletar novos carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara encerrar uma corrida digite 'php executarComando finalizarCorrida'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNewCarExistPilot(): void
+    public static function errorMessageNewCarExistPilot(): string
     {
-        echo "\e[00;31mO Piloto já existe!" . PHP_EOL . PHP_EOL
+        return "\e[00;31mO Piloto já existe!" . PHP_EOL . PHP_EOL
             . "\e[00;33mVerifique os pilotos existentes com o comando 'php executarComando exibirCarros'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageCommands(): void
+    public static function errorMessageCommands(): string
     {
-        echo "\e[00;31mComando nao encontrado" . PHP_EOL . PHP_EOL
+        return "\e[00;31mComando nao encontrado" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara para verificar comandos disponiveis digite 'php verificarComandos'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNewCar(): void
+    public static function errorMessageNewCar(): string
     {
-        echo "\e[00;31mAdicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
+        return "\e[00;31mAdicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
             . "\e[00;33mComando: 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOvertakeNull(): void
+    public static function errorMessageOvertakeNull(): string
     {
-        echo "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL . PHP_EOL
+        return "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL . PHP_EOL
             . "\e[00;33mComando: 'php executarComando ultrapassager [Piloto]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageEmpty(): void
+    public static function errorMessageEmpty(): string
     {
-        echo "\e[00;31mNao existem carros." . PHP_EOL . PHP_EOL
+        return "\e[00;31mNao existem carros." . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNotFoundCar(): void
+    public static function errorMessageNotFoundCar(): string
     {
-        echo "\e[00;31mNenhum carro encontrado" . PHP_EOL . PHP_EOL
+        return "\e[00;31mNenhum carro encontrado sendo dirigido por esse piloto" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOneCar(): void
+    public static function errorMessageOneCar(): string
     {
-        echo "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL . PHP_EOL
+        return "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNeedDefinePosition(): void
+    public static function errorMessageNeedDefinePosition(): string
     {
-        echo "\e[00;31mPara iniciar a corrida, os carros precisam de posicoes definidas" . PHP_EOL . PHP_EOL
+        return "\e[00;31mPara iniciar a corrida, os carros precisam de posicoes definidas" . PHP_EOL . PHP_EOL
             . "\e[00;33mDefina as posicoes com o comando 'php executarComando definirPosicoes' \e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageStartAgain(): void
+    public static function errorMessageStartAgain(): string
     {
-        echo "\e[00;31mVoce ja iniciou a corrida!\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;31mVoce ja iniciou a corrida!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNeedStart(): void
+    public static function errorMessageNeedStart(): string
     {
-        echo "\e[00;31mVoce precisa iniciar a corrida!" . PHP_EOL . PHP_EOL
+        return "\e[00;31mVoce precisa iniciar a corrida!" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara iniciar uma corrida use o comando 'php executarComando iniciarCorrida'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOvertakingFirsPlace(string $pilot): void
+    public static function errorMessageOvertakingFirsPlace(string $pilot): string
     {
-        echo "\e[00;31m" . $pilot . " esta em primeiro lugar\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;31m" . $pilot . " esta em primeiro lugar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageDeleteCar(): void
+    public static function errorMessageDeleteCar(): string
     {
-        echo "\e[00;31mDigite o nome do piloto!" . PHP_EOL . PHP_EOL
+        return "\e[00;31mDigite o nome do piloto!" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara executar esse comando digite 'php executarComando excluirCarro [Piloto]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageEmptyReport(): void
+    public static function errorMessageEmptyReport(): string
     {
-        echo "\e[00;31mRelatorio vazio!" . PHP_EOL . PHP_EOL
+        return "\e[00;31mRelatorio vazio!" . PHP_EOL . PHP_EOL
             . "\e[00;33mNenhuma ultrapassagem realizada, use o comando 'php executarComando ultrapassar [Piloto]' para ultrapassagens\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
+    public static function errorMessageNotInteger(): string
+    {
+        return "\e[00;33mÉ necessário que o ano seja um numero positivo e inteiro\e[00;37m" . PHP_EOL;
+    }
+
+    public static function errorMessagePilotNameIsEmpty(): string
+    {
+        return "\e[00;31mNome do Piloto vazio!" . PHP_EOL . PHP_EOL
+            . "\e[00;33mPara executar esse comando digite 'php executarComando ultrapassar [Nome do Piloto]'\e[00;37m" . PHP_EOL
+            . "\e[00;33mVerifique o nome dos pilotos com o comando 'php executarComando exibirCarros'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
     public static function successMessageNewCar(): void
@@ -229,10 +241,5 @@ class View
             . " - ultrapassar" . PHP_EOL
             . " - relatorio" . PHP_EOL . PHP_EOL
             . "\e[00;37m";
-    }
-
-    public static function errorMessageNotInteger()
-    {
-        echo "\e[00;33mÉ necessário que o ano seja um numero positivo e inteiro\e[00;37m" . PHP_EOL;
     }
 }

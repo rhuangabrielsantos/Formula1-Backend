@@ -2,6 +2,9 @@
 
 namespace Helper;
 
+use Exception;
+use Views\View;
+
 class FormatEntry
 {
     const COMMAND = 1;
@@ -16,9 +19,6 @@ class FormatEntry
 
     public function returnNewCars(array $inputArguments): array
     {
-        $validation = new Validation();
-        $validation->paramsAreValid($inputArguments);
-
         return [
             $inputArguments[self::PILOT],
             $inputArguments[self::MARK],
@@ -41,13 +41,16 @@ class FormatEntry
         return $year;
     }
 
-    public function returnDeleteCar(array $arguments): ?string
+    public function returnPilotName(array $arguments): ?string
     {
         return $arguments[self::PILOT];
     }
 
-    public function returnOvertakeCars(array $arguments): string
+    public function returnPilotNameForOvertakeCars(array $arguments): string
     {
-        return $arguments[self::FIRST_PILOT];
+        if (!empty($arguments[self::FIRST_PILOT])) {
+            return $arguments[self::FIRST_PILOT];
+        }
+        throw new Exception(View::errorMessagePilotNameIsEmpty());
     }
 }

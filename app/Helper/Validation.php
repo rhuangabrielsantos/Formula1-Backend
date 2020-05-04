@@ -2,27 +2,24 @@
 
 namespace Helper;
 
+use Exception;
 use Views\View;
 
 class Validation
 {
-    const PARAM_PILOT = 0;
-    const PARAM_YEAR = 4;
     const NUMBER_PARAMS = 7;
 
     public function raceAlreadyStarted(string $race): void
     {
         if ($race === 'on') {
-            View::errorMessageStartAgain();
-            exit;
+            throw new Exception(View::errorMessageStartAgain());
         }
     }
 
     public function existsMoreOneCar(array $cars): void
     {
         if (count($cars) === 1) {
-            View::errorMessageOneCar();
-            exit;
+            throw new Exception(View::errorMessageOneCar());
         }
     }
 
@@ -30,8 +27,7 @@ class Validation
     {
         foreach ($cars as $car) {
             if (empty($car['Posicao'])) {
-                View::errorMessageNeedDefinePosition();
-                exit;
+                throw new Exception(View::errorMessageNeedDefinePosition());
             }
         }
     }
@@ -39,32 +35,28 @@ class Validation
     public function raceNotStarted(string $race): void
     {
         if ($race === 'off') {
-            View::errorMessageNeedStart();
-            exit;
+            throw new Exception(View::errorMessageNeedStart());
         }
     }
 
     public function carIsTheFirst(array $car): void
     {
         if ($car['Posicao'] === 1) {
-            View::errorMessageOvertakingFirsPlace($car['Piloto']);
-            exit;
+            throw new Exception(View::errorMessageOvertakingFirsPlace($car['Piloto']));
         }
     }
 
-    public function existsReports($reports)
+    public function existsReports($reports): void
     {
         if (empty($reports)) {
-            View::errorMessageEmptyReport();
-            exit;
+            throw new Exception(View::errorMessageEmptyReport());
         }
     }
 
     public function raceInProgress(string $race): void
     {
         if ($race === 'on') {
-            View::errorMessageNewCarRaceStart();
-            exit;
+            throw new Exception(View::errorMessageNewCarRaceStart());
         }
     }
 
@@ -72,8 +64,7 @@ class Validation
     {
         foreach ($cars as $car) {
             if ($pilot === $car['Piloto']) {
-                View::errorMessageNewCarExistPilot();
-                exit;
+                throw new Exception(View::errorMessageNewCarExistPilot());
             }
         }
     }
@@ -81,33 +72,28 @@ class Validation
     public function pilotIsNull($pilotName): void
     {
         if (empty($pilotName)) {
-            View::errorMessageDeleteCar();
-            exit;
+            throw new Exception(View::errorMessageDeleteCar());
         }
     }
 
     public function carsExists(array $cars): void
     {
         if (empty($cars)) {
-            View::errorMessageEmpty();
-            exit;
+            throw new Exception(View::errorMessageEmpty());
         }
     }
 
-    public function yearIsValid($input): bool
+    public function yearIsValid($input): void
     {
         if ($input == 0 || $input < 0) {
-            View::errorMessageNotInteger();
-            exit;
+            throw new Exception(View::errorMessageNotInteger());
         }
-        return true;
     }
 
     public function paramsAreValid(array $input)
     {
         if (count($input) != self::NUMBER_PARAMS) {
-            View::errorMessageNewCar();
-            exit;
+            throw new Exception(View::errorMessageNewCar());
         }
     }
 }

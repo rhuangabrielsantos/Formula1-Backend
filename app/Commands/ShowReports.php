@@ -3,6 +3,8 @@
 namespace Commands;
 
 use Controllers\RaceController;
+use Exception;
+use Helper\Validation;
 
 class ShowReports implements Command
 {
@@ -15,6 +17,11 @@ class ShowReports implements Command
 
     public function runCommand()
     {
-        (new RaceController())->getReport($this->reports);
+        try {
+            (new Validation())->existsReports($this->reports);
+            (new RaceController())->getReport($this->reports);
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

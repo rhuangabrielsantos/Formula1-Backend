@@ -10,14 +10,10 @@ class RaceTest extends TestCase
 {
     public $dataCars;
 
-    /**
-     * @dataProvider providerCarsForRaceTests
-     * @param array $cars
-     */
-    public static function testStartRace($cars): void
+    public static function testStartRace(): void
     {
         $raceController = new RaceController();
-        $returnedStatus = $raceController->startRace('off', $cars);
+        $returnedStatus = $raceController->startRace();
 
         $exceptedStatus = ['Start' => 'on'];
 
@@ -27,7 +23,7 @@ class RaceTest extends TestCase
     public static function testFinishRace(): void
     {
         $raceController = new RaceController();
-        $returnedStatus = $raceController->finishRace('on');
+        $returnedStatus = $raceController->finishRace();
 
         $exceptedStatus = ['Start' => 'off'];
 
@@ -45,7 +41,7 @@ class RaceTest extends TestCase
         Assert::assertEquals('PilotOne', $cars[0]['Piloto']);
 
         $raceController = new RaceController();
-        $returnedCars = $raceController->overtake('PilotTwo', 'on', $cars, []);
+        $returnedCars = $raceController->overtake('PilotTwo', $cars, []);
         (new StorageFactory(new JSON()))->setData('report', []);
 
         Assert::assertEquals('PilotTwo', $returnedCars[0][0]['Piloto']);
