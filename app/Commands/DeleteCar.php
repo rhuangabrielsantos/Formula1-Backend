@@ -3,7 +3,9 @@
 namespace Commands;
 
 use Controllers\CarController;
+use Exception;
 use Helper\FormatEntry;
+use Helper\Validation;
 use Lib\StorageFactory;
 use Models\Car;
 use Views\View;
@@ -25,13 +27,19 @@ class DeleteCar implements Command
 
     public function runCommand()
     {
-        $returnedCars = (new CarController())->deleteCar(
-            (new FormatEntry())->returnDeleteCar($this->input),
-            $this->dataCars,
-            $this->statusRace
-        );
+        try {
+            $pilotName = (new FormatEntry())->returnPilotName($this->input);
 
-        (new Car())->setCars($this->storage, $returnedCars);
-        (new View())->successMessageDeleteCar();
+            $validation = new Validation();
+            $validation->raceInProgress($this->statusRace);
+            $validation->pilotIsNull($pilotName);
+
+            $returnedCars = (new CarController())->deleteCar($pilotName, $this->dataCars);
+
+            (new Car())->setCars($this->storage, $returnedCars);
+            (new View())->successMessageDeleteCar();
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

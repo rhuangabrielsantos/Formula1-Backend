@@ -14,30 +14,18 @@ class RaceController
         $this->validation = new Validation();
     }
 
-    public function startRace(string $statusRace, array $cars): array
+    public function startRace(): array
     {
-        $this->validation->raceAlreadyStarted($statusRace);
-        $this->validation->carsExists($cars);
-        $this->validation->existsMoreOneCar($cars);
-        $this->validation->positionsAreSet($cars);
-
         return ['Start' => 'on'];
     }
 
-    public function finishRace(string $statusRace): array
+    public function finishRace(): array
     {
-        $this->validation->raceNotStarted($statusRace);
-
         return ['Start' => 'off'];
     }
 
-    public function overtake(string $pilotName, string $statusRace, array $dataCars, array $reports): array
+    public function overtake(string $pilotName, array $dataCars, array $reports): array
     {
-        if (!$pilotName) {
-            View::errorMessageOvertakeNull();
-        }
-
-        $this->validation->raceNotStarted($statusRace);
         $lost = null;
 
         foreach ($dataCars as $key => $car) {
@@ -80,8 +68,6 @@ class RaceController
 
     public function getReport(array $reports): void
     {
-        $this->validation->existsReports($reports);
-
         foreach ($reports as $report) {
             View::report($report);
         }

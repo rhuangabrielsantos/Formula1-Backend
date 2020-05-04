@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Exception;
 use Helper\Validation;
 use Views\View;
 
@@ -20,11 +21,8 @@ class CarController
         $this->validation = new Validation();
     }
 
-    public function newCar(array $newCar, array $dataCars, string $statusRace): array
+    public function newCar(array $newCar, array $dataCars): array
     {
-        $this->validation->raceInProgress($statusRace);
-        $this->validation->pilotExists($newCar[self::PARAM_PILOT], $dataCars);
-
         $dataCars[] = [
             'Piloto' => $newCar[self::PARAM_PILOT],
             'Marca' => $newCar[self::PARAM_MAKE],
@@ -36,27 +34,21 @@ class CarController
         return $dataCars;
     }
 
-    public function deleteCar(?string $pilotName, array $cars, string $statusRace): array
+    public function deleteCar(?string $pilotName, array $cars): array
     {
-        $this->validation->raceInProgress($statusRace);
-        $this->validation->pilotIsNull($pilotName);
-
         foreach ($cars as $id => $car) {
             if (self::existsPilot($pilotName, $car['Piloto'])) {
                 unset($cars[$id]);
 
-                return $this->ifExistsCarsThenSetPosition($cars, $statusRace);
+                return $this->ifExistsCarsThenSetPosition($cars);
             }
         }
-        View::errorMessageNotFoundCar();
-        exit;
+
+        throw new Exception(View::errorMessageNotFoundCar());
     }
 
-    public function setPosition(array $cars, string $statusRace): array
+    public function setPosition(array $cars): array
     {
-        $this->validation->raceInProgress($statusRace);
-        $this->validation->carsExists($cars);
-
         $position = 1;
 
         foreach ($cars as $id => $dataCar) {
@@ -69,8 +61,6 @@ class CarController
 
     public function showCars(array $cars): void
     {
-        $this->validation->carsExists($cars);
-
         foreach ($cars as $car) {
             View::showCar($car);
         }
@@ -81,12 +71,12 @@ class CarController
         return $pilot == $data;
     }
 
-    private function ifExistsCarsThenSetPosition(array $cars, string $statusRace): array
+    private function ifExistsCarsThenSetPosition(array $cars): array
     {
         $returnedCars = [];
 
         if (count($cars) > 0) {
-            $returnedCars = $this->setPosition($cars, $statusRace);
+            $returnedCars = $this->setPosition($cars);
         }
 
         return $returnedCars;

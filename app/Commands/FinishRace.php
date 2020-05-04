@@ -3,6 +3,8 @@
 namespace Commands;
 
 use Controllers\RaceController;
+use Exception;
+use Helper\Validation;
 use Lib\StorageFactory;
 use Models\Race;
 use Views\View;
@@ -22,12 +24,14 @@ class FinishRace implements Command
 
     public function runCommand()
     {
-        $returnedStatusRace = (new RaceController())->finishRace(
-            $this->statusRace
-        );
+        try {
+            (new Validation())->raceNotStarted($this->statusRace);
+            $returnedStatusRace = (new RaceController())->finishRace();
 
-        (new Race())->setStatusRace($this->storage, $returnedStatusRace);
-
-        (new View())->podium($this->dataCars);
+            (new Race())->setStatusRace($this->storage, $returnedStatusRace);
+            (new View())->podium($this->dataCars);
+        } catch (Exception $exception) {
+            $exception->getMessage();
+        }
     }
 }

@@ -27,7 +27,7 @@ class CarTest extends TestCase
         ];
 
         $carController = new CarController();
-        $returnedCard = $carController->newCar($newCars, $emptyDataCars, 'off');
+        $returnedCard = $carController->newCar($newCars, $emptyDataCars);
 
         Assert::assertEquals($carExpected, $returnedCard);
     }
@@ -41,7 +41,7 @@ class CarTest extends TestCase
         $emptyDataCars = [];
 
         $carController = new CarController();
-        $returnedCars = $carController->newCar($newCars, $emptyDataCars, 'off');
+        $returnedCars = $carController->newCar($newCars, $emptyDataCars);
 
         Assert::assertIsInt($returnedCars[0]['Ano']);
     }
@@ -55,7 +55,7 @@ class CarTest extends TestCase
         $pilotName = 'PilotOne';
 
         $carController = new CarController();
-        $returnedCars = $carController->deleteCar($pilotName, $dataCars, 'off');
+        $returnedCars = $carController->deleteCar($pilotName, $dataCars);
 
         Assert::assertEmpty($returnedCars);
     }
@@ -67,7 +67,7 @@ class CarTest extends TestCase
     public function testSetPositionWithTwoCars(array $cars): void
     {
         $carController = new CarController();
-        $returnedCars = $carController->setPosition($cars, 'off');
+        $returnedCars = $carController->setPosition($cars);
 
         Assert::assertEquals('1', $returnedCars[0]['Posicao']);
         Assert::assertEquals('2', $returnedCars[1]['Posicao']);
@@ -82,7 +82,7 @@ class CarTest extends TestCase
         $inputCommand = 'PilotOne';
 
         $carController = new CarController();
-        $returnedCars = $carController->deleteCar($inputCommand, $cars, 'off');
+        $returnedCars = $carController->deleteCar($inputCommand, $cars);
 
         Assert::assertEquals('PilotTwo', $returnedCars[0]['Piloto']);
         Assert::assertEquals('1', $returnedCars[0]['Posicao']);

@@ -3,6 +3,8 @@
 namespace Commands;
 
 use Controllers\CarController;
+use Exception;
+use Helper\Validation;
 use Lib\StorageFactory;
 use Models\Car;
 use Views\View;
@@ -22,12 +24,17 @@ class DefinePosition implements Command
 
     public function runCommand()
     {
-        $returnedCars = (new CarController())->setPosition(
-            $this->dataCars,
-            $this->statusRace
-        );
+        try {
+            $validation = new Validation();
+            $validation->raceInProgress($this->statusRace);
+            $validation->carsExists($this->dataCars);
 
-        (new Car())->setCars($this->storage, $returnedCars);
-        (new View())->successMessageNewCar();
+            $returnedCars = (new CarController())->setPosition($this->dataCars);
+
+            (new Car())->setCars($this->storage, $returnedCars);
+            (new View())->successMessageSetPosition();
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

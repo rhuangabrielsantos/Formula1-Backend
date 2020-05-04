@@ -3,6 +3,8 @@
 namespace Commands;
 
 use Controllers\RaceController;
+use Exception;
+use Helper\Validation;
 use Lib\StorageFactory;
 use Models\Race;
 use Views\View;
@@ -22,15 +24,22 @@ class StartRace implements Command
 
     public function runCommand()
     {
-        $returnedStatusRace = (new RaceController())->startRace(
-            $this->statusRace,
-            $this->dataCars
-        );
+        try {
+            $validation = new Validation();
+            $validation->raceAlreadyStarted($this->statusRace);
+            $validation->carsExists($this->dataCars);
+            $validation->existsMoreOneCar($this->dataCars);
+            $validation->positionsAreSet($this->dataCars);
 
-        $race = new Race();
-        $race->setReports($this->storage, []);
-        $race->setStatusRace($this->storage, $returnedStatusRace);
+            $returnedStatusRace = (new RaceController())->startRace();
 
-        (new View())->successMessageStartRace();
+            $race = new Race();
+            $race->setReports($this->storage, []);
+            $race->setStatusRace($this->storage, $returnedStatusRace);
+
+            (new View())->successMessageStartRace();
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

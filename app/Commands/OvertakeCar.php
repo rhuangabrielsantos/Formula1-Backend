@@ -3,7 +3,9 @@
 namespace Commands;
 
 use Controllers\RaceController;
+use Exception;
 use Helper\FormatEntry;
+use Helper\Validation;
 use Lib\StorageFactory;
 use Models\Race;
 
@@ -29,14 +31,18 @@ class OvertakeCar implements Command
 
     public function runCommand()
     {
-        $returnedValues = (new RaceController())->overtake(
-            (new FormatEntry())->returnOvertakeCars($this->input),
-            $this->statusRace,
-            $this->dataCars,
-            $this->reports
-        );
+        try {
+            $pilotName = (new FormatEntry())->returnPilotNameForOvertakeCars($this->input);
 
-        (new Race())->overtake($this->storage, $returnedValues[self::CARS]);
-        (new Race())->setReports($this->storage, $returnedValues[self::REPORT]);
+            $validation = new Validation();
+            $validation->raceNotStarted($this->statusRace);
+
+            $returnedValues = (new RaceController())->overtake($pilotName, $this->dataCars, $this->reports);
+
+            (new Race())->overtake($this->storage, $returnedValues[self::CARS]);
+            (new Race())->setReports($this->storage, $returnedValues[self::REPORT]);
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

@@ -3,7 +3,9 @@
 namespace Commands;
 
 use Controllers\CarController;
+use Exception;
 use Helper\FormatEntry;
+use Helper\Validation;
 use Lib\StorageFactory;
 use Models\Car;
 use Views\View;
@@ -25,13 +27,21 @@ class NewCar implements Command
 
     public function runCommand()
     {
-        $returnedCars = (new CarController())->newCar(
-            (new FormatEntry)->returnNewCars($this->input),
-            $this->dataCars,
-            $this->statusRace
-        );
+        try {
+            $validation = new Validation();
+            $validation->paramsAreValid($this->input);
 
-        (new Car())->setCars($this->storage, $returnedCars);
-        (new View())->successMessageNewCar();
+            $inputCarFormatted = (new FormatEntry)->returnNewCars($this->input);
+
+            $validation->raceInProgress($this->statusRace);
+            $validation->pilotExists($inputCarFormatted[CarController::PARAM_PILOT], $this->dataCars);
+
+            $returnedCars = (new CarController())->newCar($inputCarFormatted, $this->dataCars);
+
+            (new Car())->setCars($this->storage, $returnedCars);
+            (new View())->successMessageNewCar();
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }

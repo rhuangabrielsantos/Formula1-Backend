@@ -3,6 +3,8 @@
 namespace Commands;
 
 use Controllers\CarController;
+use Exception;
+use Helper\Validation;
 
 class ShowCars implements Command
 {
@@ -15,6 +17,14 @@ class ShowCars implements Command
 
     public function runCommand()
     {
-        (new CarController())->showCars($this->dataCars);
+        try {
+            $validation = new Validation();
+            $validation->carsExists($this->dataCars);
+
+            (new CarController())->showCars($this->dataCars);
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+        }
+
     }
 }
