@@ -1,39 +1,39 @@
-# Projeto F1
+# Formula1 Backend
 
 [![Build Status](https://travis-ci.org/rhuangabrielsantos/F1-Project.svg?branch=master)](https://travis-ci.org/rhuangabrielsantos/F1-Project)
 
-Bem vindo ao Repositório do Projeto F1,esse projeto consiste em uma corrida de carros, as regras da corrida estão no arquivo F1.pdf.
+Welcome to the "Formula 1 Backend" Project Repository, this project consists of a car race, the rules of the race are in the F1.pdf file.
 
-Para rodar o projeto em sua maquina local, você precisa ter o docker instalado, se não tiver instalado acesse o link abaixo e faça a instalação. Lembrando que se estiver usando linux é necessário o download do docker-compose também, ou use o Gitpod :) <br>
+To execute the project on your local machine, it is necessary to have the docker installed. If you have not installed it, click the link below and install. Remembering that if you are using linux, it is necessary to download the docker-composite as well or use Gitpod :) <br>
 
 <a>https://docs.docker.com/install/</a>
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rhuangabrielsantos/F1-Project)
 
-# Configurando Ambiente
+# Setting up environment
 
-- Abra o terminal e rode o comando abaixo para clonar o projeto:
+- Open the terminal and run the command below to clone the project:
 
 <pre>git clone https://github.com/rhuangabrielsantos/F1-Project.git</pre>
 
-- Pelo terminal entre na pasta do projeto e rode o comando:
+- Through the terminal enter the project folder and run the command:
 
 <pre>docker-compose up -d</pre>
 
-- Dê o comando abaixo para visualizar o container criado.
+- Run the command below to view the container created.
 
 <pre>docker ps</pre>
 
-- Agora pegue o ID do container e escreva o seguinte comando substituindo o ID CONTAINER: 
+- Run the command below to enter the created container 
 
-<pre>docker exec -it (ID CONTAINER) bash</pre>
+<pre>docker exec -it Formula1-Backend bash</pre>
 
-- Você está dentro do container! <br><br>
+- You are inside the container! <br><br>
 
-- Rode os comandos a seguir para instalar as dependências do projeto:
+- Run the following command to install the project dependencies:
 
 <pre>composer install</pre>
 
-- Você já pode testar a aplicação rodando o comando
+- You can now test the application by running the command
 
 <pre>php verificarComandos</pre>
