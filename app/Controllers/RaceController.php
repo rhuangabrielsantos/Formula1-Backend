@@ -66,7 +66,7 @@ class RaceController
         return $cars;
     }
 
-    public function getReport(array $reports): void
+    public function showReports(array $reports): void
     {
         foreach ($reports as $report) {
             View::report($report);

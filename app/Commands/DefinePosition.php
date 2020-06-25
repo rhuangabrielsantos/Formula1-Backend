@@ -5,33 +5,24 @@ namespace Commands;
 use Controllers\CarController;
 use Exception;
 use Helper\Validation;
-use Lib\StorageFactory;
-use Models\Car;
+use Lib\Storage;
 use Views\View;
 
-class DefinePosition implements Command
+class DefinePosition implements TerminalCommand
 {
-    private $dataCars;
-    private $statusRace;
-    private $storage;
-
-    public function __construct(array $dataCars, string $statusRace, StorageFactory $storage)
-    {
-        $this->dataCars = $dataCars;
-        $this->statusRace = $statusRace;
-        $this->storage = $storage;
-    }
-
     public function runCommand()
     {
         try {
+            $storage = new Storage();
+            $dataCars = $storage->getDataCars();
+
             $validation = new Validation();
-            $validation->raceInProgress($this->statusRace);
-            $validation->carsExists($this->dataCars);
+            $validation->raceInProgress($storage->getStatusRace());
+            $validation->carsExists($dataCars);
 
-            $returnedCars = (new CarController())->setPosition($this->dataCars);
+            $returnedCars = (new CarController())->setPosition($dataCars);
+            $storage->setDataCars($returnedCars);
 
-            (new Car())->setCars($this->storage, $returnedCars);
             (new View())->successMessageSetPosition();
         } catch (Exception $exception) {
             echo $exception->getMessage();

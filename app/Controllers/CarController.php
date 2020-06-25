@@ -34,7 +34,7 @@ class CarController
         return $dataCars;
     }
 
-    public function deleteCar(?string $pilotName, array $cars): array
+    public function deleteCar(string $pilotName, array $cars): array
     {
         foreach ($cars as $id => $car) {
             if (self::existsPilot($pilotName, $car['Piloto'])) {

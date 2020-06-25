@@ -4,39 +4,31 @@ namespace Commands;
 
 use Controllers\CarController;
 use Exception;
-use Helper\FormatEntry;
 use Helper\Validation;
-use Lib\StorageFactory;
-use Models\Car;
+use Lib\Storage;
 use Views\View;
 
-class DeleteCar implements Command
+class DeleteCar implements TerminalCommand
 {
-    private $dataCars;
-    private $statusRace;
-    private $input;
-    private $storage;
+    private $pilotName;
 
-    public function __construct(array $input, array $dataCars, string $statusRace, StorageFactory $storage)
+    public function __construct(array $input)
     {
-        $this->input = $input;
-        $this->dataCars = $dataCars;
-        $this->statusRace = $statusRace;
-        $this->storage = $storage;
+        $this->pilotName = $input[CarController::PARAM_PILOT];
     }
 
     public function runCommand()
     {
         try {
-            $pilotName = (new FormatEntry())->returnPilotName($this->input);
+            $storage = new Storage();
 
             $validation = new Validation();
-            $validation->raceInProgress($this->statusRace);
-            $validation->pilotIsNull($pilotName);
+            $validation->raceInProgress($storage->getStatusRace());
+            $validation->pilotIsNull($this->pilotName);
 
-            $returnedCars = (new CarController())->deleteCar($pilotName, $this->dataCars);
+            $returnedCars = (new CarController())->deleteCar($this->pilotName, $storage->getDataCars());
+            $storage->setDataCars($returnedCars);
 
-            (new Car())->setCars($this->storage, $returnedCars);
             (new View())->successMessageDeleteCar();
         } catch (Exception $exception) {
             echo $exception->getMessage();

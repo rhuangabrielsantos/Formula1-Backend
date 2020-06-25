@@ -1,8 +1,7 @@
 <?php
 
 use Controllers\RaceController;
-use Lib\JSON;
-use Lib\StorageFactory;
+use Models\Race;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
@@ -42,7 +41,7 @@ class RaceTest extends TestCase
 
         $raceController = new RaceController();
         $returnedCars = $raceController->overtake('PilotTwo', $cars, []);
-        (new StorageFactory(new JSON()))->setData('report', []);
+        (new Race())->cleanReports();
 
         Assert::assertEquals('PilotTwo', $returnedCars[0][0]['Piloto']);
         ob_end_clean();

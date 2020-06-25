@@ -2,22 +2,24 @@
 
 namespace Models;
 
-use Lib\StorageFactory;
+use Lib\Storage;
 
 class Race
 {
-    public function setStatusRace(StorageFactory $storage, $statusRace): void
+    private $storage;
+
+    public function __construct()
     {
-        $storage->setData('dataRace', $statusRace);
+        $this->storage = new Storage();
     }
 
-    public function overtake(StorageFactory $storage, $array): void
+    public function setStatusRace($statusRace): void
     {
-        $storage->setData('dataCars', $array);
+        $this->storage->setStatusRace($statusRace);
     }
 
-    public function setReports(StorageFactory $storage, array $reports): void
+    public function cleanReports()
     {
-        $storage->setData('report', $reports);
+        $this->storage->setReports([]);
     }
 }
