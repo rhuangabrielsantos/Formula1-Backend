@@ -5,23 +5,18 @@ namespace Commands;
 use Controllers\CarController;
 use Exception;
 use Helper\Validation;
+use Lib\Storage;
 
-class ShowCars implements Command
+class ShowCars implements TerminalCommand
 {
-    private $dataCars;
-
-    public function __construct(array $dataCars)
-    {
-        $this->dataCars = $dataCars;
-    }
-
     public function runCommand()
     {
         try {
-            $validation = new Validation();
-            $validation->carsExists($this->dataCars);
+            $dataCars = (new Storage())->getData('dataCars');
 
-            (new CarController())->showCars($this->dataCars);
+            (new Validation())->carsExists($dataCars);
+
+            (new CarController())->showCars($dataCars);
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }

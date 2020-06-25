@@ -3,6 +3,19 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use Controllers\ExecuteCommand;
+use Commands\ExecuteCommand;
+use Helper\FormatEntry;
+use Helper\Validation;
 
-(new ExecuteCommand())->run();
+try {
+    (new Validation())->terminalInputIsValid($_SERVER['argv']);
+
+    $formatEntry = new FormatEntry();
+
+    (new ExecuteCommand())->run(
+        $formatEntry->returnCommandNameFromTerminalInput($_SERVER['argv']),
+        $formatEntry->returnArgumentsFromTerminalInput($_SERVER['argv'])
+    );
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+}

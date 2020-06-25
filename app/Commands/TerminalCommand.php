@@ -2,7 +2,7 @@
 
 namespace Commands;
 
-interface Command
+interface TerminalCommand
 {
     public function runCommand();
 }

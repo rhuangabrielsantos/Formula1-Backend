@@ -98,6 +98,11 @@ class View
             . "\e[00;33mVerifique o nome dos pilotos com o comando 'php executarComando exibirCarros'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
+    public static function errorMessageCommandEmpty()
+    {
+        echo "\e[00;31mNome do Comando vazio!\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
     public static function successMessageNewCar(): void
     {
         echo "\e[00;32mCarro Salvo com Sucesso!" . PHP_EOL . PHP_EOL

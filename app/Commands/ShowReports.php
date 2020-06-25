@@ -5,21 +5,18 @@ namespace Commands;
 use Controllers\RaceController;
 use Exception;
 use Helper\Validation;
+use Lib\Storage;
 
-class ShowReports implements Command
+class ShowReports implements TerminalCommand
 {
-    private $reports;
-
-    public function __construct(array $reports)
-    {
-        $this->reports = $reports;
-    }
-
     public function runCommand()
     {
         try {
-            (new Validation())->existsReports($this->reports);
-            (new RaceController())->getReport($this->reports);
+            $reports = (new Storage())->getReports();
+
+            (new Validation())->existsReports($reports);
+
+            (new RaceController())->showReports($reports);
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }

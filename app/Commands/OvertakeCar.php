@@ -2,45 +2,41 @@
 
 namespace Commands;
 
+use Controllers\CarController;
 use Controllers\RaceController;
 use Exception;
-use Helper\FormatEntry;
 use Helper\Validation;
-use Lib\StorageFactory;
-use Models\Race;
+use Lib\Storage;
 
-class OvertakeCar implements Command
+class OvertakeCar implements TerminalCommand
 {
     const CARS = 0;
     const REPORT = 1;
 
-    private $dataCars;
-    private $statusRace;
-    private $storage;
-    private $input;
-    private $reports;
+    private $pilotName;
 
-    public function __construct(array $input, array $dataCars, string $statusRace, array $reports, StorageFactory $storage)
+    public function __construct(array $input)
     {
-        $this->input = $input;
-        $this->dataCars = $dataCars;
-        $this->statusRace = $statusRace;
-        $this->reports = $reports;
-        $this->storage = $storage;
+        $this->pilotName = $input[CarController::PARAM_PILOT];
     }
 
     public function runCommand()
     {
         try {
-            $pilotName = (new FormatEntry())->returnPilotNameForOvertakeCars($this->input);
+            $storage = new Storage();
 
             $validation = new Validation();
-            $validation->raceNotStarted($this->statusRace);
+            $validation->raceNotStarted($storage->getStatusRace());
+            $validation->pilotIsNullOvertake($this->pilotName);
 
-            $returnedValues = (new RaceController())->overtake($pilotName, $this->dataCars, $this->reports);
+            $returnedValues = (new RaceController())->overtake(
+                $this->pilotName,
+                $storage->getDataCars(),
+                $storage->getReports()
+            );
 
-            (new Race())->overtake($this->storage, $returnedValues[self::CARS]);
-            (new Race())->setReports($this->storage, $returnedValues[self::REPORT]);
+            $storage->setDataCars($returnedValues[self::CARS]);
+            $storage->setReports($returnedValues[self::REPORT]);
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }

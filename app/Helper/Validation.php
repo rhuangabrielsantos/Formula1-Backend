@@ -7,7 +7,7 @@ use Views\View;
 
 class Validation
 {
-    const NUMBER_PARAMS = 7;
+    const NUMBER_PARAMS = 5;
 
     public function raceAlreadyStarted(string $race): void
     {
@@ -76,6 +76,13 @@ class Validation
         }
     }
 
+    public function pilotIsNullOvertake($pilotName): void
+    {
+        if (empty($pilotName)) {
+            throw new Exception(View::errorMessagePilotNameIsEmpty());
+        }
+    }
+
     public function carsExists(array $cars): void
     {
         if (empty($cars)) {
@@ -94,6 +101,13 @@ class Validation
     {
         if (count($input) != self::NUMBER_PARAMS) {
             throw new Exception(View::errorMessageNewCar());
+        }
+    }
+
+    public function terminalInputIsValid(array $arguments)
+    {
+        if(count($arguments) == 1) {
+            throw new Exception(View::errorMessageCommandEmpty());
         }
     }
 }
