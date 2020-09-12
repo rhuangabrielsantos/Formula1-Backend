@@ -1,8 +1,8 @@
-version: '3'
+version: '3.5'
 
 services:
   php:
-    build: ./.docker/
+    build: ./.docker/php
     container_name: ProjetoF1
     ports:
       - 8080:80
