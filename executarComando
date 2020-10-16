@@ -12,10 +12,12 @@ try {
 
     $formatEntry = new FormatEntry();
 
-    (new ExecuteCommand())->run(
+    $response = (new ExecuteCommand())->run(
         $formatEntry->returnCommandNameFromTerminalInput($_SERVER['argv']),
         $formatEntry->returnArgumentsFromTerminalInput($_SERVER['argv'])
     );
+
+    echo $response['message'];
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }

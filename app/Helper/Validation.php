@@ -41,7 +41,7 @@ class Validation
 
     public function carIsTheFirst(array $car): void
     {
-        if ($car['Posicao'] === 1) {
+        if ($car['Posicao'] == 1) {
             throw new Exception(View::errorMessageOvertakingFirsPlace($car['Piloto']));
         }
     }
@@ -60,10 +60,10 @@ class Validation
         }
     }
 
-    public function pilotExists(string $pilot, array $cars): void
+    public function pilotExists(string $pilotName, array $dataCars): void
     {
-        foreach ($cars as $car) {
-            if ($pilot === $car['Piloto']) {
+        foreach ($dataCars as $dataCar) {
+            if ($pilotName == $dataCar['Piloto']) {
                 throw new Exception(View::errorMessageNewCarExistPilot());
             }
         }
@@ -100,14 +100,32 @@ class Validation
     public function paramsAreValid(array $input)
     {
         if (count($input) != self::NUMBER_PARAMS) {
-            throw new Exception(View::errorMessageNewCar());
+            throw new Exception(View::errorMessageInvalidCar());
+        }
+
+        foreach ($input as $item) {
+            if (empty($item)) {
+                throw new Exception(View::errorMessageInvalidCar());
+            }
         }
     }
 
     public function terminalInputIsValid(array $arguments)
     {
-        if(count($arguments) == 1) {
+        if (count($arguments) == 1) {
             throw new Exception(View::errorMessageCommandEmpty());
         }
+    }
+
+    public function pilotNameIsValid(string $pilotName, array $dataCars)
+    {
+        foreach ($dataCars as $dataCar) {
+            if ($dataCar['Piloto'] == $pilotName) {
+                return;
+            }
+        }
+
+        throw new Exception(View::errorMessagePilotNameIsInvalid());
+
     }
 }

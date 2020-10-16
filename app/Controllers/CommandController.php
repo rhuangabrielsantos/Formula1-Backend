@@ -13,17 +13,17 @@ use Commands\StartRace;
 
 class CommandController
 {
-    public function getRegisteredCommands($arguments): array
+    public function getRegisteredCommands(): array
     {
         return [
-            'adicionarCarro' => new NewCar($arguments),
-            'excluirCarro' => new DeleteCar($arguments),
-            'definirPosicoes' => new DefinePosition(),
-            'exibirCarros' => new ShowCars(),
-            'iniciarCorrida' => new StartRace(),
-            'finalizarCorrida' => new FinishRace(),
-            'ultrapassar' => new OvertakeCar($arguments),
-            'relatorio' => new ShowReports()
+            'adicionarCarro' => NewCar::class,
+            'excluirCarro' => DeleteCar::class,
+            'definirPosicoes' => DefinePosition::class,
+            'exibirCarros' => ShowCars::class,
+            'iniciarCorrida' => StartRace::class,
+            'finalizarCorrida' => FinishRace::class,
+            'ultrapassar' => OvertakeCar::class,
+            'relatorio' => ShowReports::class
         ];
     }
 }

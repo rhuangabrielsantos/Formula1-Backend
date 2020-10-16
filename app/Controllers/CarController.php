@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Exception;
 use Helper\Validation;
 use Views\View;
 
@@ -14,7 +13,7 @@ class CarController
     const PARAM_COLOR = 3;
     const PARAM_YEAR = 4;
 
-    private $validation;
+    private Validation $validation;
 
     public function __construct()
     {
@@ -44,7 +43,7 @@ class CarController
             }
         }
 
-        throw new Exception(View::errorMessageNotFoundCar());
+        return $cars;
     }
 
     public function setPosition(array $cars): array
@@ -59,11 +58,15 @@ class CarController
         return RaceController::orderCars($cars);
     }
 
-    public function showCars(array $cars): void
+    public function showCars(array $cars): string
     {
+        $carsList = '';
+
         foreach ($cars as $car) {
-            View::showCar($car);
+            $carsList .= View::showCar($car);
         }
+
+        return $carsList;
     }
 
     private static function existsPilot(string $pilot, string $data): bool

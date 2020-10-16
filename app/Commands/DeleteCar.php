@@ -4,34 +4,38 @@ namespace Commands;
 
 use Controllers\CarController;
 use Exception;
+use Helper\Status;
 use Helper\Validation;
 use Lib\Storage;
 use Views\View;
 
 class DeleteCar implements TerminalCommand
 {
-    private $pilotName;
-
-    public function __construct(array $input)
+    public static function runCommand(array $input): array
     {
-        $this->pilotName = $input[CarController::PARAM_PILOT];
-    }
+        $pilotName = $input[CarController::PARAM_PILOT];
 
-    public function runCommand()
-    {
         try {
             $storage = new Storage();
+            $dataCars = $storage->getDataCars();
 
             $validation = new Validation();
             $validation->raceInProgress($storage->getStatusRace());
-            $validation->pilotIsNull($this->pilotName);
+            $validation->pilotIsNull($pilotName);
+            $validation->pilotNameIsValid($pilotName, $dataCars);
 
-            $returnedCars = (new CarController())->deleteCar($this->pilotName, $storage->getDataCars());
+            $returnedCars = (new CarController())->deleteCar($pilotName, $dataCars);
             $storage->setDataCars($returnedCars);
 
-            (new View())->successMessageDeleteCar();
+            return [
+                'status' => Status::OK,
+                'message' => View::successMessageDeleteCar()
+            ];
         } catch (Exception $exception) {
-            echo $exception->getMessage();
+            return [
+                'status' => Status::ERROR,
+                'message' => $exception->getMessage()
+            ];
         }
     }
 }

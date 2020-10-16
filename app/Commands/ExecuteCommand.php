@@ -3,21 +3,24 @@
 namespace Commands;
 
 use Controllers\CommandController;
+use Helper\Status;
 use Views\View;
 
 class ExecuteCommand
 {
-    public function run(string $endPoint, array $arguments)
+    public function run(string $endPoint, array $arguments): array
     {
-        $registeredCommands = (new CommandController)->getRegisteredCommands($arguments);
+        $registeredCommands = (new CommandController)->getRegisteredCommands();
 
         foreach ($registeredCommands as $command => $classInstance) {
             if ($endPoint == $command) {
-                $classInstance->runCommand();
-                return;
+                return $classInstance::runCommand($arguments);
             }
         }
 
-        echo (new View())->errorMessageCommands();
+        return [
+            'status' => Status::ERROR,
+            'message' => (new View())->errorMessageCommands()
+        ];
     }
 }
