@@ -12,7 +12,7 @@ class ExecuteCommand
     {
         $registeredCommands = (new CommandController)->getRegisteredCommands();
 
-        if ($registeredCommands[$endPoint]) {
+        if (array_key_exists($endPoint, $registeredCommands)) {
             $classInstance = $registeredCommands[$endPoint];
             return $classInstance::runCommand($arguments);
         }
