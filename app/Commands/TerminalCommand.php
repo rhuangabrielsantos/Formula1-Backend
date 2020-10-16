@@ -4,5 +4,5 @@ namespace Commands;
 
 interface TerminalCommand
 {
-    public function runCommand();
+    public static function runCommand(array $arguments): array;
 }

@@ -5,40 +5,49 @@ namespace Commands;
 use Controllers\CarController;
 use Controllers\RaceController;
 use Exception;
+use Helper\Status;
 use Helper\Validation;
 use Lib\Storage;
+use Views\View;
 
 class OvertakeCar implements TerminalCommand
 {
     const CARS = 0;
     const REPORT = 1;
+    const LOST_PILOT = 2;
 
-    private $pilotName;
-
-    public function __construct(array $input)
+    public static function runCommand(array $input): array
     {
-        $this->pilotName = $input[CarController::PARAM_PILOT];
-    }
+        $pilotName = $input[CarController::PARAM_PILOT];
 
-    public function runCommand()
-    {
         try {
             $storage = new Storage();
+            $dataCars = $storage->getDataCars();
 
             $validation = new Validation();
+            $validation->pilotIsNullOvertake($pilotName);
             $validation->raceNotStarted($storage->getStatusRace());
-            $validation->pilotIsNullOvertake($this->pilotName);
+            $validation->pilotNameIsValid($pilotName, $dataCars);
+            $validation->carIsTheFirst($storage->getDataCarsByPilotName($pilotName));
 
             $returnedValues = (new RaceController())->overtake(
-                $this->pilotName,
-                $storage->getDataCars(),
+                $pilotName,
+                $dataCars,
                 $storage->getReports()
             );
 
             $storage->setDataCars($returnedValues[self::CARS]);
             $storage->setReports($returnedValues[self::REPORT]);
+
+            return [
+                'status' => Status::OK,
+                'message' => View::successMessageOvertaking($pilotName, $returnedValues[self::LOST_PILOT])
+            ];
         } catch (Exception $exception) {
-            echo $exception->getMessage();
+            return [
+                'status' => Status::ERROR,
+                'message' => $exception->getMessage()
+            ];
         }
     }
 }

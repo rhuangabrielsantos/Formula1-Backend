@@ -22,7 +22,7 @@ class View
             . "\e[00;33mPara para verificar comandos disponiveis digite 'php verificarComandos'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNewCar(): string
+    public static function errorMessageInvalidCar(): string
     {
         return "\e[00;31mAdicione todas as informacoes para adicionar um carro" . PHP_EOL . PHP_EOL
             . "\e[00;33mComando: 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
@@ -98,53 +98,61 @@ class View
             . "\e[00;33mVerifique o nome dos pilotos com o comando 'php executarComando exibirCarros'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageCommandEmpty()
+    public static function errorMessagePilotNameIsInvalid(): string
     {
-        echo "\e[00;31mNome do Comando vazio!\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;31mPiloto não existe!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageNewCar(): void
+    public static function errorMessageCommandEmpty(): string
     {
-        echo "\e[00;32mCarro Salvo com Sucesso!" . PHP_EOL . PHP_EOL
+        return "\e[00;31mNome do Comando vazio!\e[00;37m" . PHP_EOL . PHP_EOL;
+    }
+
+    public static function successMessageNewCar(): string
+    {
+        return "\e[00;32mCarro Salvo com Sucesso!" . PHP_EOL . PHP_EOL
             . "\e[00;33mLembre-se de definir a posicao do seu carro com o comando 'php executarComando definirPosicoes'\033[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageSetPosition(): void
+    public static function successMessageSetPosition(): string
     {
-        echo "\e[00;32mAs posicoes foram definidas com Sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;32mAs posicoes foram definidas com Sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageStartRace(): void
+    public static function successMessageStartRace(): string
     {
-        echo "\e[00;32mCorrida Iniciada!\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;32mCorrida Iniciada!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageOvertaking(string $win, string $lost): void
+    public static function successMessageOvertaking(string $win, string $lost): string
     {
-        echo "\e[00;32m" . $win . " ultrapassou " . $lost . "!\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;32m" . $win . " ultrapassou " . $lost . "!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function successMessageDeleteCar(): void
+    public static function successMessageDeleteCar(): string
     {
-        echo "\e[00;32mCarro deletado com sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
+        return "\e[00;32mCarro deletado com sucesso!\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function showCar(array $car): void
+    public static function showCar(array $car): string
     {
-        echo "-----------------------------" . PHP_EOL
+        $carInfo = "-----------------------------" . PHP_EOL
             . "Piloto - " . $car['Piloto'] . PHP_EOL
             . "Marca - " . $car['Marca'] . PHP_EOL
             . "Modelo - " . $car['Modelo'] . PHP_EOL
             . "Cor - " . $car['Cor'] . PHP_EOL
             . "Ano - " . $car['Ano'] . PHP_EOL;
+
         if (!empty($car['Posicao'])) {
-            echo "Posicao - " . $car['Posicao'] . PHP_EOL . PHP_EOL;
+            $carInfo .= "Posicao - " . $car['Posicao'] . PHP_EOL . PHP_EOL;
         } else {
-            echo PHP_EOL;
+            $carInfo .= PHP_EOL;
         }
+
+        return $carInfo;
     }
 
-    public static function podium(array $cars): void
+    public static function podium(array $cars): string
     {
         $p = 1;
 
@@ -154,19 +162,23 @@ class View
             2 => "\e[00;33m"
         ];
 
-        echo "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
-        echo "Ganhadores:" . PHP_EOL;
+        $podium = '';
+
+        $podium .= "Corrida Finalizada!" . PHP_EOL . PHP_EOL;
+        $podium .= "Ganhadores:" . PHP_EOL;
         for ($i = 0; $i < 3; $i++) {
             if (!empty($cars[$i])) {
-                echo $colors[$i] . $p . "- " . $cars[$i]['Piloto'] . "\e[00;37m" . PHP_EOL;
+                $podium .= $colors[$i] . $p . "- " . $cars[$i]['Piloto'] . "\e[00;37m" . PHP_EOL;
                 $p++;
             }
         }
+
+        return $podium;
     }
 
-    public static function report(string $item): void
+    public static function report(string $item): string
     {
-        echo "\e[00;36m" . $item . "\e[00;37m";
+        return "\e[00;36m" . $item . "\e[00;37m";
     }
 
     public static function descNewCar(): void

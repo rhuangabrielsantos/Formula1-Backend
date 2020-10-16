@@ -4,37 +4,37 @@ namespace Commands;
 
 use Controllers\CarController;
 use Exception;
+use Helper\Status;
 use Helper\Validation;
 use Lib\Storage;
 use Views\View;
 
 class NewCar implements TerminalCommand
 {
-    private $inputCars;
-
-    public function __construct(array $inputCars)
-    {
-        $this->inputCars = $inputCars;
-    }
-
-    public function runCommand()
+    public static function runCommand(array $inputCars): array
     {
         try {
             $storage = new Storage();
             $dataCars = $storage->getDataCars();
 
             $validation = new Validation();
-            $validation->paramsAreValid($this->inputCars);
+            $validation->paramsAreValid($inputCars);
             $validation->raceInProgress($storage->getStatusRace());
-            $validation->yearIsValid($this->inputCars[CarController::PARAM_YEAR]);
-            $validation->pilotExists($this->inputCars[CarController::PARAM_PILOT], $dataCars);
+            $validation->yearIsValid($inputCars[CarController::PARAM_YEAR]);
+            $validation->pilotExists($inputCars[CarController::PARAM_PILOT], $dataCars);
 
-            $returnedCars = (new CarController())->newCar($this->inputCars, $dataCars);
+            $returnedCars = (new CarController())->newCar($inputCars, $dataCars);
             $storage->setDataCars($returnedCars);
 
-            (new View())->successMessageNewCar();
+            return [
+                'status' => Status::CREATED,
+                'message' => View::successMessageNewCar()
+            ];
         } catch (Exception $exception) {
-            echo $exception->getMessage();
+            return [
+                'status' => Status::ERROR,
+                'message' => $exception->getMessage()
+            ];
         }
     }
 }
