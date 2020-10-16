@@ -12,10 +12,10 @@ class ExecuteCommand
     {
         $registeredCommands = (new CommandController)->getRegisteredCommands();
 
-        foreach ($registeredCommands as $command => $classInstance) {
-            if ($endPoint == $command) {
-                return $classInstance::runCommand($arguments);
-            }
+        $classInstance = $registeredCommands[$endPoint];
+
+        if ($classInstance) {
+            return $classInstance::runCommand($arguments);
         }
 
         return [

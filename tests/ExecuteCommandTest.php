@@ -1,8 +1,10 @@
 <?php
 
 use Commands\ExecuteCommand;
+use Helper\Status;
 use Lib\Storage;
 use PHPUnit\Framework\TestCase;
+use Views\View;
 
 class ExecuteCommandTest extends TestCase
 {
@@ -170,5 +172,14 @@ class ExecuteCommandTest extends TestCase
 
         $registeredCars = $storage->getDataCars();
         $this->assertEquals('PilotTwo', $registeredCars[0]['Piloto']);
+    }
+
+    /** @test */
+    public function givenInvalidCommand_shouldError(): void
+    {
+        $response = (new ExecuteCommand())->run('invalid', []);
+
+        $this->assertEquals(Status::ERROR, $response['status']);
+        $this->assertEquals((new View())->errorMessageCommands(), $response['message']);
     }
 }
