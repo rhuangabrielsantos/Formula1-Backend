@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Helper\Validation;
+use Lib\Storage;
 use Views\View;
 
 class RaceController
@@ -14,14 +15,14 @@ class RaceController
         $this->validation = new Validation();
     }
 
-    public function startRace(): array
+    public function startRace()
     {
-        return ['Start' => 'on'];
+        (new Storage())->setStatusRace(['Start' => 'on']);
     }
 
-    public function finishRace(): array
+    public function finishRace()
     {
-        return ['Start' => 'off'];
+        (new Storage())->setStatusRace(['Start' => 'off']);
     }
 
     public function overtake(string $pilotName, array $dataCars, array $reports): array
@@ -30,8 +31,6 @@ class RaceController
 
         foreach ($dataCars as $key => $car) {
             if ($car['Piloto'] == $pilotName) {
-                $this->validation->carIsTheFirst($car);
-
                 $carLost = $key - 1;
                 $dataCars[$key]['Posicao'] -= 1;
                 $dataCars[$carLost]['Posicao'] += 1;
@@ -42,9 +41,7 @@ class RaceController
         $reports[] = $pilotName . " ultrapassou " . $lost['Piloto'] . "!" . PHP_EOL;
         $carsOrdered = RaceController::orderCars($dataCars);
 
-        View::successMessageOvertaking($pilotName, $lost['Piloto']);
-
-        return [$carsOrdered, $reports];
+        return [$carsOrdered, $reports, $lost['Piloto']];
     }
 
     public static function orderCars(array $cars): array
@@ -66,10 +63,19 @@ class RaceController
         return $cars;
     }
 
-    public function showReports(array $reports): void
+    public function showReports(array $reports): string
     {
+        $formattedReport = '';
+
         foreach ($reports as $report) {
-            View::report($report);
+            $formattedReport .= View::report($report);
         }
+
+        return $formattedReport;
+    }
+
+    public function showPodium(): string
+    {
+        return View::podium((new Storage())->getDataCars());
     }
 }

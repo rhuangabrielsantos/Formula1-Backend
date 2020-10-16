@@ -4,21 +4,28 @@ namespace Commands;
 
 use Controllers\CarController;
 use Exception;
+use Helper\Status;
 use Helper\Validation;
 use Lib\Storage;
 
 class ShowCars implements TerminalCommand
 {
-    public function runCommand()
+    public static function runCommand(array $arguments): array
     {
         try {
-            $dataCars = (new Storage())->getData('dataCars');
+            $dataCars = (new Storage())->getDataCars();
 
             (new Validation())->carsExists($dataCars);
 
-            (new CarController())->showCars($dataCars);
+            return [
+                'status' => Status::OK,
+                'message' => (new CarController())->showCars($dataCars)
+            ];
         } catch (Exception $exception) {
-            echo $exception->getMessage();
+            return [
+                'status' => Status::ERROR,
+                'message' => $exception->getMessage()
+            ];
         }
 
     }

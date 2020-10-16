@@ -4,26 +4,31 @@ namespace Commands;
 
 use Controllers\RaceController;
 use Exception;
+use Helper\Status;
 use Helper\Validation;
 use Lib\Storage;
-use Models\Race;
-use Views\View;
 
 class FinishRace implements TerminalCommand
 {
-    public function runCommand()
+    public static function runCommand(array $arguments): array
     {
         try {
             $storage = new Storage();
 
             (new Validation())->raceNotStarted($storage->getStatusRace());
-            $returnedStatusRace = (new RaceController())->finishRace();
 
-            (new Race())->setStatusRace($returnedStatusRace);
+            $raceControllerInstance = new RaceController();
+            $raceControllerInstance->finishRace();
 
-            (new View())->podium($storage->getDataCars());
+            return [
+                'status' => Status::OK,
+                'message' => $raceControllerInstance->showPodium()
+            ];
         } catch (Exception $exception) {
-            $exception->getMessage();
+            return [
+                'status' => Status::ERROR,
+                'message' => $exception->getMessage()
+            ];
         }
     }
 }
