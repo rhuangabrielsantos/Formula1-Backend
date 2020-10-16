@@ -12,9 +12,8 @@ class ExecuteCommand
     {
         $registeredCommands = (new CommandController)->getRegisteredCommands();
 
-        $classInstance = $registeredCommands[$endPoint];
-
-        if ($classInstance) {
+        if ($registeredCommands[$endPoint]) {
+            $classInstance = $registeredCommands[$endPoint];
             return $classInstance::runCommand($arguments);
         }
 

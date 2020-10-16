@@ -14,6 +14,7 @@ class ExecuteCommandTest extends TestCase
         $storage = new Storage();
         $storage->setStatusRace(['Start' => 'off']);
         $storage->setDataCars([]);
+        $storage->setReports([]);
     }
 
     public function provideCarsWithNotPositions(): array
