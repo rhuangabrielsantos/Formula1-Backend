@@ -4,13 +4,13 @@ namespace Views;
 
 class View
 {
-    public static function errorMessageNewCarRaceStart(): string
+    public static function errorMessageRaceStarted(): string
     {
         return "\e[00;31mA corrida foi Iniciada, para adicionar ou deletar novos carros a corrida precisa ser encerrada" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara encerrar uma corrida digite 'php executarComando finalizarCorrida'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageNewCarExistPilot(): string
+    public static function errorMessageExistPilot(): string
     {
         return "\e[00;31mO Piloto já existe!" . PHP_EOL . PHP_EOL
             . "\e[00;33mVerifique os pilotos existentes com o comando 'php executarComando exibirCarros'\e[00;37m" . PHP_EOL . PHP_EOL;
@@ -28,13 +28,7 @@ class View
             . "\e[00;33mComando: 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOvertakeNull(): string
-    {
-        return "\e[00;31mVoce precisa identificar quem ultrapassou!" . PHP_EOL . PHP_EOL
-            . "\e[00;33mComando: 'php executarComando ultrapassager [Piloto]'\e[00;37m" . PHP_EOL . PHP_EOL;
-    }
-
-    public static function errorMessageEmpty(): string
+    public static function errorMessageDataCarsEmpty(): string
     {
         return "\e[00;31mNao existem carros." . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
@@ -46,7 +40,7 @@ class View
             . "\e[00;33mPara adicionar carros use o comando 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageOneCar(): string
+    public static function errorMessageOneCarImpossibleRace(): string
     {
         return "\e[00;31mImpossivel comecar corrida com apenas um carro" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara adicionar carros use o comando 'php executarComando adicionarCarro [Piloto] [Marca] [Modelo] [Cor] [Ano]'\e[00;37m" . PHP_EOL . PHP_EOL;
@@ -74,7 +68,7 @@ class View
         return "\e[00;31m" . $pilot . " esta em primeiro lugar\e[00;37m" . PHP_EOL . PHP_EOL;
     }
 
-    public static function errorMessageDeleteCar(): string
+    public static function errorMessageDeleteCarPilotNameIsNull(): string
     {
         return "\e[00;31mDigite o nome do piloto!" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara executar esse comando digite 'php executarComando excluirCarro [Piloto]'\e[00;37m" . PHP_EOL . PHP_EOL;
@@ -91,7 +85,7 @@ class View
         return "\e[00;33mÉ necessário que o ano seja um numero positivo e inteiro\e[00;37m" . PHP_EOL;
     }
 
-    public static function errorMessagePilotNameIsEmpty(): string
+    public static function errorMessageOvertakePilotNameIsEmpty(): string
     {
         return "\e[00;31mNome do Piloto vazio!" . PHP_EOL . PHP_EOL
             . "\e[00;33mPara executar esse comando digite 'php executarComando ultrapassar [Nome do Piloto]'\e[00;37m" . PHP_EOL

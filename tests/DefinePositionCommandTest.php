@@ -69,7 +69,7 @@ class DefinePositionCommandTest extends TestCase
         $response = DefinePosition::runCommand([]);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessageNewCarRaceStart(), $response['message']);
+        $this->assertEquals(View::errorMessageRaceStarted(), $response['message']);
     }
 
     /** @test */
@@ -78,6 +78,6 @@ class DefinePositionCommandTest extends TestCase
         $response = DefinePosition::runCommand([]);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessageEmpty(), $response['message']);
+        $this->assertEquals(View::errorMessageDataCarsEmpty(), $response['message']);
     }
 }

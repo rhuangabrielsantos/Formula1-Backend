@@ -80,7 +80,7 @@ class StartRaceCommandTest extends TestCase
         $response = StartRace::runCommand([]);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals((View::errorMessageEmpty()), $response['message']);
+        $this->assertEquals((View::errorMessageDataCarsEmpty()), $response['message']);
     }
 
     public function providerSingleCar(): array
@@ -112,7 +112,7 @@ class StartRaceCommandTest extends TestCase
         $response = StartRace::runCommand([]);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals((View::errorMessageOneCar()), $response['message']);
+        $this->assertEquals((View::errorMessageOneCarImpossibleRace()), $response['message']);
     }
 
     public function providerDataCarsWithTwoCarsNotDefinedPosition(): array

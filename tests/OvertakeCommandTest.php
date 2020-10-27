@@ -70,7 +70,7 @@ class OvertakeCommandTest extends TestCase
         $response = OvertakeCar::runCommand(['']);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessagePilotNameIsEmpty(), $response['message']);
+        $this->assertEquals(View::errorMessageOvertakePilotNameIsEmpty(), $response['message']);
     }
 
     /** @test */

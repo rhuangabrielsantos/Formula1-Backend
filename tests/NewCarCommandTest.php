@@ -72,7 +72,7 @@ class NewCarCommandTest extends TestCase
         $response = NewCar::runCommand($dataCar);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessageNewCarRaceStart(), $response['message']);
+        $this->assertEquals(View::errorMessageRaceStarted(), $response['message']);
     }
 
     public function providerCarYearIsString(): array
@@ -137,6 +137,6 @@ class NewCarCommandTest extends TestCase
         $response = NewCar::runCommand($newCar);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessageNewCarExistPilot(), $response['message']);
+        $this->assertEquals(View::errorMessageExistPilot(), $response['message']);
     }
 }

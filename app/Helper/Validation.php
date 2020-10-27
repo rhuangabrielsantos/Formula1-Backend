@@ -19,7 +19,7 @@ class Validation
     public function existsMoreOneCar(array $cars): void
     {
         if (count($cars) === 1) {
-            throw new Exception(View::errorMessageOneCar());
+            throw new Exception(View::errorMessageOneCarImpossibleRace());
         }
     }
 
@@ -56,7 +56,7 @@ class Validation
     public function raceInProgress(string $race): void
     {
         if ($race === 'on') {
-            throw new Exception(View::errorMessageNewCarRaceStart());
+            throw new Exception(View::errorMessageRaceStarted());
         }
     }
 
@@ -64,7 +64,7 @@ class Validation
     {
         foreach ($dataCars as $dataCar) {
             if ($pilotName == $dataCar['Piloto']) {
-                throw new Exception(View::errorMessageNewCarExistPilot());
+                throw new Exception(View::errorMessageExistPilot());
             }
         }
     }
@@ -72,21 +72,21 @@ class Validation
     public function pilotIsNull($pilotName): void
     {
         if (empty($pilotName)) {
-            throw new Exception(View::errorMessageDeleteCar());
+            throw new Exception(View::errorMessageDeleteCarPilotNameIsNull());
         }
     }
 
     public function pilotIsNullOvertake($pilotName): void
     {
         if (empty($pilotName)) {
-            throw new Exception(View::errorMessagePilotNameIsEmpty());
+            throw new Exception(View::errorMessageOvertakePilotNameIsEmpty());
         }
     }
 
     public function carsExists(array $cars): void
     {
         if (empty($cars)) {
-            throw new Exception(View::errorMessageEmpty());
+            throw new Exception(View::errorMessageDataCarsEmpty());
         }
     }
 

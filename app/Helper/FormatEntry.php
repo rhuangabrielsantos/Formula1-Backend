@@ -2,16 +2,13 @@
 
 namespace Helper;
 
-use Exception;
-use Views\View;
-
 class FormatEntry
 {
     const COMMAND = 1;
 
-    public function returnCommandNameFromTerminalInput(array $inputArguments): ?string
+    public function returnCommandNameFromTerminalInput(array $arguments)
     {
-        return $inputArguments[self::COMMAND];
+        return $arguments[self::COMMAND];
     }
 
     public function returnArgumentsFromTerminalInput(array $arguments)

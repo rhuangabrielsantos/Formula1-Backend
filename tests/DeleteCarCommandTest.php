@@ -60,7 +60,7 @@ class DeleteCarCommandTest extends TestCase
         $response = DeleteCar::runCommand(['PilotOne']);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessageNewCarRaceStart(), $response['message']);
+        $this->assertEquals(View::errorMessageRaceStarted(), $response['message']);
     }
 
     /** @test */
@@ -69,7 +69,7 @@ class DeleteCarCommandTest extends TestCase
         $response = DeleteCar::runCommand(['']);
 
         $this->assertEquals(Status::ERROR, $response['status']);
-        $this->assertEquals(View::errorMessageDeleteCar(), $response['message']);
+        $this->assertEquals(View::errorMessageDeleteCarPilotNameIsNull(), $response['message']);
     }
 
     /** @test */
