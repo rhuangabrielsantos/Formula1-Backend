@@ -1,6 +1,6 @@
-# Formula1 Backend
+![Formula1-Backend](https://socialify.git.ci/rhuangabrielsantos/Formula1-Backend/image?description=1&font=Inter&issues=1&logo=https%3A%2F%2Fimage.flaticon.com%2Ficons%2Fpng%2F512%2F55%2F55299.png&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light)
 
-[![Build Status](https://travis-ci.org/rhuangabrielsantos/F1-Project.svg?branch=master)](https://travis-ci.org/rhuangabrielsantos/F1-Project)
+[![Build Status](https://travis-ci.org/rhuangabrielsantos/Formula1-Backend.svg?branch=master)](https://travis-ci.org/rhuangabrielsantos/Formula1-Backend)
 
 Welcome to the "Formula 1 Backend" Project Repository, this project consists of a car race, the rules of the race are in the F1.pdf file.
 
