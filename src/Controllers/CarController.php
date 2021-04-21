@@ -17,7 +17,6 @@ use Doctrine\ORM\ORMException;
 
 final class CarController implements ControllerInterface
 {
-
     /**
      * @param int|null $id
      * @return \Core\Controller\ControllerResponse
@@ -26,6 +25,8 @@ final class CarController implements ControllerInterface
      */
     public function index(?int $id = null): ControllerResponse
     {
+        var_dump('teste HEROKU');
+        exit;
         if ($id !== 0 && $id !== null) {
             $car = (new CarRepository())->findById($id);
             $formattedCar = CarMessages::showCar($car);
