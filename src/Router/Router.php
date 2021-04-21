@@ -76,10 +76,9 @@ final class Router
             $requestMethod = $_SERVER["REQUEST_METHOD"];
             $requestURI = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-            // TODO: requestBody
-            $requestParams = json_decode(file_get_contents('php://input'), true);
+            $requestBody = json_decode(file_get_contents('php://input'), true);
 
-            $response = $this->dispatch($requestMethod, $requestURI, $requestParams);
+            $response = $this->dispatch($requestMethod, $requestURI, $requestBody);
 
             if ($response->getParams()) {
                 return json_encode($response->getParams());

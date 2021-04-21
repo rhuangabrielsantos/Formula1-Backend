@@ -1,6 +1,6 @@
 .idea
 vendor
-/src/database
+database
 
 .env
 composer.lock

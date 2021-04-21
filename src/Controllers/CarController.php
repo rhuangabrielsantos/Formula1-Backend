@@ -71,8 +71,7 @@ final class CarController implements ControllerInterface
      */
     public function update(int $id, array $requestArguments): ControllerResponse
     {
-        // TODO: Implement update() method.
-        return (new ControllerResponse(StatusEnum::OK, 'Car has been updated'));
+        return (new ControllerResponse(StatusEnum::NOT_FOUND, 'Car cannot be upgraded'));
     }
 
     /**

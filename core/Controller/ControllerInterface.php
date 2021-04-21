@@ -6,7 +6,7 @@ interface ControllerInterface
 {
     public function index(?int $id): ControllerResponse;
 
-    public function create(array $requestArguments): ControllerResponse;
+    public function create(array $requestBody): ControllerResponse;
 
     public function update(int $id, array $requestArguments): ControllerResponse;
 
