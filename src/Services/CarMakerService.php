@@ -25,16 +25,29 @@ final class CarMakerService implements ServiceInterface
      */
     public function exec(CommandInput $commandInput): CommandResponse
     {
-        $racingDriver = $commandInput->getArguments()[CommandInputEnum::RACING_DRIVER_NAME];
-
-        $dataCars = (new CarRepository())->findAll();
         $statusRace = (new StatusRaceRepository())->get();
 
         RaceValidator::runningIsInProgress($statusRace);
-        CarValidator::racingDriverExists($dataCars, $racingDriver);
 
-        (new CarController())->create($commandInput->getArguments());
+        $formattedArguments = self::prepareArguments($commandInput->getArguments());
+
+        (new CarController())->create($formattedArguments);
 
         return new CommandResponse(StatusEnum::CREATED, CarMessages::successMessage_CreatedCar());
+    }
+
+    /**
+     * @param array $arguments
+     * @return array
+     */
+    private static function prepareArguments(array $arguments): array
+    {
+        return [
+            'racing_driver' => $arguments[CommandInputEnum::RACING_DRIVER_NAME],
+            'brand' => $arguments[CommandInputEnum::CAR_BRAND],
+            'model' => $arguments[CommandInputEnum::CAR_MODEL],
+            'color' => $arguments[CommandInputEnum::CAR_COLOR],
+            'year' => $arguments[CommandInputEnum::CAR_YEAR]
+        ];
     }
 }

@@ -86,7 +86,10 @@ final class Router
 
             return $response->toJson();
         } catch (Exception $exception) {
-            return json_encode($exception->getMessage());
+            return json_encode([
+                'status' => StatusEnum::BAD_REQUEST,
+                'message' => $exception->getMessage()
+            ]);
         }
     }
 

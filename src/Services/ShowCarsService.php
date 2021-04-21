@@ -4,6 +4,7 @@ namespace Api\Services;
 
 use Api\Controllers\CarController;
 use Api\Enum\StatusEnum;
+use Api\Messages\CarMessages;
 use Core\Command\CommandInput;
 use Core\Command\CommandResponse;
 use Core\Service\ServiceInterface;
@@ -22,6 +23,12 @@ final class ShowCarsService implements ServiceInterface
     {
         $response = (new CarController())->index();
 
-        return new CommandResponse(StatusEnum::OK, $response->getMessage());
+        $carsList = '';
+
+        foreach ($response->getParams() as $car) {
+            $carsList .= CarMessages::showCar($car);
+        }
+
+        return new CommandResponse(StatusEnum::OK, $carsList);
     }
 }

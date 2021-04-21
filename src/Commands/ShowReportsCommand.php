@@ -42,7 +42,7 @@ final class ShowReportsCommand implements Command, ChainBuilder
             return $this->nextCommand->runCommand($commandInput);
         }
 
-        throw new InvalidArgumentException(CommandMessages::errorMessage_CommandNotFound(), StatusEnum::ERROR);
+        throw new InvalidArgumentException(CommandMessages::errorMessage_CommandNotFound(), StatusEnum::INTERNAL_ERROR);
     }
 
     /**

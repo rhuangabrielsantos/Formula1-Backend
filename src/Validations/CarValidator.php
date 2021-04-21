@@ -20,7 +20,7 @@ final class CarValidator
     public static function thereAreCars(array $cars): void
     {
         if (empty($cars)) {
-            throw new Exception(CarMessages::errorMessage_ThereAreNoCars(), StatusEnum::ERROR);
+            throw new Exception(CarMessages::errorMessage_ThereAreNoCars(), StatusEnum::INTERNAL_ERROR);
         }
     }
 
@@ -47,22 +47,6 @@ final class CarValidator
 
         if (empty($car)) {
             throw new Exception(RacingDriverMessages::errorMessage_NameIsInvalid());
-        }
-    }
-
-    /**
-     * @param string|null $racingDriverName
-     * @param array $dataCars
-     *
-     * @throws Exception
-     */
-    public static function racingDriverExists(array $dataCars, ?string $racingDriverName)
-    {
-        /** @var Car $dataCar */
-        foreach ($dataCars as $dataCar) {
-            if ($racingDriverName == $dataCar->getRacingDriver()) {
-                throw new Exception(RacingDriverMessages::errorMessage_RacingDriverAlreadyExists());
-            }
         }
     }
 

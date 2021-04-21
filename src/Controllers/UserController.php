@@ -30,7 +30,7 @@ final class UserController implements ControllerInterface
     {
         $userRepository = $this->DB->getRepository('Api\Entities\User');
 
-        if ($id !== null) {
+        if ($id !== 0 && $id !== null) {
             (new ControllerResponse(
                 StatusEnum::OK,
                 'Users list',
@@ -46,16 +46,16 @@ final class UserController implements ControllerInterface
     }
 
     /**
-     * @param array $requestArguments
+     * @param array $requestBody
      * @return \Core\Controller\ControllerResponse
      */
-    public function create(array $requestArguments): ControllerResponse
+    public function create(array $requestBody): ControllerResponse
     {
         try {
             $user = new User();
 
-            $user->setUsername($requestArguments['username']);
-            $user->setPassword($requestArguments['password']);
+            $user->setUsername($requestBody['username']);
+            $user->setPassword($requestBody['password']);
 
             $this->DB->persist($user);
             $this->DB->flush();
@@ -63,7 +63,7 @@ final class UserController implements ControllerInterface
 
             return (new ControllerResponse(StatusEnum::CREATED, 'User  was created.'));
         } catch (ORMException $exception) {
-            return (new ControllerResponse(StatusEnum::ERROR, $exception->getMessage()));
+            return (new ControllerResponse(StatusEnum::INTERNAL_ERROR, $exception->getMessage()));
         }
     }
 
@@ -89,7 +89,7 @@ final class UserController implements ControllerInterface
 
             return (new ControllerResponse(StatusEnum::OK, 'User has been updated.'));
         } catch (OptimisticLockException | TransactionRequiredException | ORMException $exception) {
-            return (new ControllerResponse(StatusEnum::ERROR, $exception->getMessage()));
+            return (new ControllerResponse(StatusEnum::INTERNAL_ERROR, $exception->getMessage()));
         }
     }
 
@@ -111,7 +111,7 @@ final class UserController implements ControllerInterface
 
             return (new ControllerResponse(StatusEnum::OK, 'User has been deleted.'));
         } catch (OptimisticLockException | TransactionRequiredException | ORMException $exception) {
-            return (new ControllerResponse(StatusEnum::ERROR, $exception->getMessage()));
+            return (new ControllerResponse(StatusEnum::INTERNAL_ERROR, $exception->getMessage()));
         }
     }
 }

@@ -38,7 +38,7 @@ final class TerminalCommandBuilder implements CommandBuilder
         $commandName = $inputData[CommandEnum::NAME];
 
         if (!$commandName) {
-            throw new InvalidArgumentException('Por favor, informe um comando.', StatusEnum::ERROR);
+            throw new InvalidArgumentException('Por favor, informe um comando.', StatusEnum::BAD_REQUEST);
         }
 
         return $commandName;

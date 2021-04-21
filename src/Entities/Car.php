@@ -5,10 +5,13 @@ namespace Api\Entities;
 use Api\Messages\CarMessages;
 use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cars")
+ * @ORM\Table(name="cars",
+ *     uniqueConstraints={ @UniqueConstraint(name="racing_driver_unique", columns={"racing_driver"}) }
+ * )
  */
 final class Car
 {
@@ -20,22 +23,22 @@ final class Car
     protected int $id;
 
     /** @ORM\Column(type="string") */
-    private string $racing_driver;
+    public string $racing_driver;
 
     /** @ORM\Column(type="string") */
-    private string $brand;
+    public string $brand;
 
     /** @ORM\Column(type="string") */
-    private string $model;
+    public string $model;
 
     /** @ORM\Column(type="string") */
-    private string $color;
+    public string $color;
 
     /** @ORM\Column(type="integer", nullable=true) */
-    private int $position;
+    public ?int $position;
 
     /** @ORM\Column(type="integer") */
-    private int $year;
+    public int $year;
 
     public function getId(): int
     {

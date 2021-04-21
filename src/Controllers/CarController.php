@@ -6,10 +6,13 @@ use Api\Entities\Car;
 use Api\Enum\CommandInputEnum;
 use Api\Enum\StatusEnum;
 use Api\Messages\CarMessages;
+use Api\Messages\RaceMessages;
+use Api\Messages\RacingDriverMessages;
 use Api\Repository\CarRepository;
 use Api\Validations\CarValidator;
 use Core\Controller\ControllerInterface;
 use Core\Controller\ControllerResponse;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\ORMException;
 
 final class CarController implements ControllerInterface
@@ -23,7 +26,7 @@ final class CarController implements ControllerInterface
      */
     public function index(?int $id = null): ControllerResponse
     {
-        if ($id !== null) {
+        if ($id !== 0 && $id !== null) {
             $car = (new CarRepository())->findById($id);
             $formattedCar = CarMessages::showCar($car);
 
@@ -34,32 +37,34 @@ final class CarController implements ControllerInterface
 
         CarValidator::thereAreCars($dataCars);
 
-        $carsList = '';
-
-        foreach ($dataCars as $car) {
-            $carsList .= CarMessages::showCar($car);
-        }
-
-        return (new ControllerResponse(StatusEnum::OK, $carsList));
+        return (new ControllerResponse(StatusEnum::OK, 'Cars list', $dataCars));
     }
 
     /**
-     * @param array $requestArguments
+     * @param array $requestBody
      * @return ControllerResponse
      *
-     * @throws ORMException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Exception
      */
-    public function create(array $requestArguments): ControllerResponse
+    public function create(array $requestBody): ControllerResponse
     {
         $car = new Car();
 
-        $car->setRacingDriver($requestArguments[CommandInputEnum::RACING_DRIVER_NAME]);
-        $car->setBrand($requestArguments[CommandInputEnum::CAR_BRAND]);
-        $car->setModel($requestArguments[CommandInputEnum::CAR_MODEL]);
-        $car->setColor($requestArguments[CommandInputEnum::CAR_COLOR]);
-        $car->setYear($requestArguments[CommandInputEnum::CAR_YEAR]);
+        $car->setRacingDriver($requestBody['racing_driver'] ?? null);
+        $car->setBrand($requestBody['brand'] ?? null);
+        $car->setModel($requestBody['model'] ?? null);
+        $car->setColor($requestBody['color'] ?? null);
+        $car->setYear($requestBody['year'] ?? null);
 
-        (new CarRepository())->create($car);
+        try {
+            (new CarRepository())->create($car);
+        } catch (UniqueConstraintViolationException $e) {
+            throw new \Exception(
+                RacingDriverMessages::errorMessage_RacingDriverAlreadyExists(),
+                StatusEnum::BAD_REQUEST
+            );
+        }
 
         return (new ControllerResponse(StatusEnum::CREATED, 'Car was created'));
     }

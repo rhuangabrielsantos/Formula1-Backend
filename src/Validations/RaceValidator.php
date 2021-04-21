@@ -17,7 +17,7 @@ final class RaceValidator
     public static function runningIsInProgress(string $statusRace): void
     {
         if ($statusRace === 'on') {
-            throw new Exception(RaceMessages::errorMessage_CannotCreateOrDeleteCarsRaceInProgress(), StatusEnum::ERROR);
+            throw new Exception(RaceMessages::errorMessage_CannotCreateOrDeleteCarsRaceInProgress(), StatusEnum::INTERNAL_ERROR);
         }
     }
 
