@@ -25,8 +25,6 @@ final class CarController implements ControllerInterface
      */
     public function index(?int $id = null): ControllerResponse
     {
-        var_dump('teste HEROKU');
-        exit;
         if ($id !== 0 && $id !== null) {
             $car = (new CarRepository())->findById($id);
             $formattedCar = CarMessages::showCar($car);
