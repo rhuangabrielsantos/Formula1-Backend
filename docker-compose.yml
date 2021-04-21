@@ -1,13 +1,31 @@
 version: '3.5'
 
 services:
-  php:
+  app:
     build: ./.docker/php
-    container_name: ProjetoF1
-    ports:
-      - 8080:80
+    container_name: app
+    restart: unless-stopped
+    tty: true
     environment:
       - COMPOSER_ALLOW_SUPERUSER=1
-    tty: true
     volumes:
-      - .:/var/www/html
+      - .:/var/www
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:latest
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

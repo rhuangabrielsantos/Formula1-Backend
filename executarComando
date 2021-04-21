@@ -1,23 +1,18 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . "/vendor/autoload.php";
+use Api\Builders\TerminalCommandBuilder;
+use Api\Messages\TerminalMessages;
+use Api\Services\CommandExecutorService;
 
-use Commands\ExecuteCommand;
-use Helper\FormatEntry;
-use Helper\Validation;
+require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/config/env.php";
 
 try {
-    (new Validation())->terminalInputIsValid($_SERVER['argv']);
+    $command = (new TerminalCommandBuilder($argv))->getCommand();
+    $response = (new CommandExecutorService())->run($command);
 
-    $formatEntry = new FormatEntry();
-
-    $response = (new ExecuteCommand())->run(
-        $formatEntry->returnCommandNameFromTerminalInput($_SERVER['argv']),
-        $formatEntry->returnArgumentsFromTerminalInput($_SERVER['argv'])
-    );
-
-    echo $response['message'];
+    TerminalMessages::successMessage($response->getMessage());
 } catch (Exception $exception) {
-    echo $exception->getMessage();
+    TerminalMessages::errorMessage($exception->getMessage());
 }
