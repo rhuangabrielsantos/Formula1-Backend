@@ -13,6 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install mysqli
+RUN apt-get update; \
+    apt-get install -y libpq5 libpq-dev; \
+    docker-php-ext-install pdo pdo_pgsql; \
+    apt-get autoremove --purge -y libpq-dev; \
+    apt-get clean ; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

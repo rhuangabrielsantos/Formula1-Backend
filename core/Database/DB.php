@@ -3,6 +3,7 @@
 namespace Core\Database;
 
 use Api\Database\Connection\Memory;
+use Api\Database\Connection\Postgres;
 use Api\Database\Connection\SQLite;
 use Api\Enum\StatusEnum;
 use Doctrine\ORM\EntityManager;
@@ -34,6 +35,7 @@ final class DB
     {
         return [
             'sqlite' => (new SQLite())->getEntity(),
+            'postgres' => (new Postgres())->getEntity(),
             'memory' => (new Memory())->getEntity()
         ];
     }
