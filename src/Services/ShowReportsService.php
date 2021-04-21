@@ -9,32 +9,28 @@ use Api\Validations\ReportValidator;
 use Core\Command\CommandInput;
 use Core\Command\CommandResponse;
 use Core\Service\ServiceInterface;
-use Exception;
 
 final class ShowReportsService implements ServiceInterface
 {
     /**
      * @param \Core\Command\CommandInput $commandInput
      * @return \Core\Command\CommandResponse
+     *
+     * @throws \Exception
      */
     public function exec(CommandInput $commandInput): CommandResponse
     {
-        try {
-            $reports = (new ReportRepository())->findAll();
+        $reports = (new ReportRepository())->findAll();
 
-            ReportValidator::existsReports($reports);
+        ReportValidator::existsReports($reports);
 
-            $formattedReport = '';
+        $formattedReport = '';
 
-            /** @var Report $report */
-            foreach ($reports as $report) {
-                $formattedReport .= $report->getRecord() . PHP_EOL;
-            }
-
-            return new CommandResponse(StatusEnum::OK, $formattedReport);
-        } catch (Exception $exception) {
-
-            return new CommandResponse(StatusEnum::ERROR, $exception->getMessage());
+        /** @var Report $report */
+        foreach ($reports as $report) {
+            $formattedReport .= $report->getRecord();
         }
+
+        return new CommandResponse(StatusEnum::OK, $formattedReport);
     }
 }

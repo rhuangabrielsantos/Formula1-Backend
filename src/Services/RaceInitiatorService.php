@@ -12,34 +12,31 @@ use Api\Validations\RaceValidator;
 use Core\Command\CommandInput;
 use Core\Command\CommandResponse;
 use Core\Service\ServiceInterface;
-use Exception;
 
 final class RaceInitiatorService implements ServiceInterface
 {
     /**
      * @param \Core\Command\CommandInput $commandInput
      * @return \Core\Command\CommandResponse
+     *
+     * @throws \Exception
      */
     public function exec(CommandInput $commandInput): CommandResponse
     {
-        try {
-            $dataCars = (new CarRepository())->findAll();
-            $statusRace = new StatusRaceRepository();
+        $dataCars = (new CarRepository())->findAll();
+        $statusRace = new StatusRaceRepository();
 
-            RaceValidator::alreadyStarted($statusRace->get());
+        RaceValidator::alreadyStarted($statusRace->get());
 
-            CarValidator::thereAreCars($dataCars);
-            CarValidator::existsMoreOneCar($dataCars);
-            CarValidator::positionsAreSet($dataCars);
+        CarValidator::thereAreCars($dataCars);
+        CarValidator::existsMoreOneCar($dataCars);
+        CarValidator::positionsAreSet($dataCars);
 
-            $statusRace->setStartRace();
+        $statusRace->setStartRace();
 
-            (new ReportRepository())->deleteAll();
+        (new ReportRepository())->deleteAll();
 
-            return new CommandResponse(StatusEnum::OK, RaceMessages::successMessage_RaceStarted());
-        } catch (Exception $exception) {
+        return new CommandResponse(StatusEnum::OK, RaceMessages::successMessage_RaceStarted());
 
-            return new CommandResponse(StatusEnum::ERROR, $exception->getMessage());
-        }
     }
 }

@@ -6,7 +6,7 @@ final class RaceMessages
 {
     public static function errorMessage_CannotCreateOrDeleteCarsRaceInProgress(): string
     {
-        return "A corrida está em andamento, para adicionar ou excluir novos carros a corrida precisa ser encerrada";
+        return "A corrida está em andamento, para adicionar ou excluir carros a corrida precisa ser encerrada";
     }
 
     public static function errorMessage_ImpossibleToStartTheRaceWithJustOneCar(): string
