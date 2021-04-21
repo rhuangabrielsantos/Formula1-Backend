@@ -3,4 +3,3 @@ vendor
 database
 
 .env
-composer.lock
