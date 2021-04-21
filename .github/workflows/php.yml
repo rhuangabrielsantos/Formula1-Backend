@@ -14,10 +14,10 @@ jobs:
       run: composer validate
 
     - name: Run Composer Install
-      run: composer run-script composer
+      run: composer install
 
     - name: Update Autoload
-      run: composer run-script autoload
+      run: composer dumpautoload
 
     - name: Run tests suite
-      run: composer run-script tests
+      run: composer tests

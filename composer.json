@@ -1,27 +1,28 @@
 {
-  "name": "rhuangabrielsantos/f1",
-  "description": "Project F1",
+  "name": "rhuangabrielsantos/formula-tg",
+  "description": "Github's Biggest Formula 1 Competition",
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Commands\\": "app/Commands",
-      "Controllers\\": "app/Controllers/",
-      "Helper\\": "app/Helper/",
-      "Lib\\": "app/Lib/",
-      "Models\\": "app/Models/",
-      "Traits\\": "app/Traits",
-      "Views\\": "resources/views/"
+      "Core\\": "core/",
+      "Api\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/src/"
     }
   },
   "require-dev": {
     "phpunit/phpunit": "^8"
   },
   "require": {
-    "ext-json": "*"
+    "ext-json": "*",
+    "doctrine/orm": "^2.8",
+    "rhuangabrielsantos/simple-routes": "^1.0",
+    "vlucas/phpdotenv": "^5.3"
   },
   "scripts": {
-    "composer": "composer install",
-    "autoload": "composer dumpautoload",
-    "tests": "vendor/bin/phpunit tests"
+    "tests": "phpunit --colors tests"
   }
 }

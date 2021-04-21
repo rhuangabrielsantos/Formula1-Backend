@@ -3,48 +3,49 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use Views\View;
+use Api\Messages\CommandMessages;
+use Api\Messages\View;
 
 $input = $_SERVER['argv'];
 
 if (!empty($input[1])) {
     switch ($input[1]) {
         case 'adicionarCarro':
-            View::descNewCar();
+            CommandMessages::descNewCar();
             break;
 
         case 'definirPosicoes':
-            View::descSetPosition();
+            CommandMessages::descSetPosition();
             break;
 
         case 'exibirCarros':
-            View::descShowCars();
+            CommandMessages::descShowCars();
             break;
 
         case 'iniciarCorrida':
-            View::descStartRace();
+            CommandMessages::descStartRace();
             break;
 
         case 'finalizarCorrida':
-            View::descFinishRace();
+            CommandMessages::descFinishRace();
             break;
 
         case 'ultrapassar':
-            View::descOvertake();
+            CommandMessages::descOvertake();
             break;
 
         case 'relatorioUltrapassagens':
-            View::descReport();
+            CommandMessages::descReport();
             break;
 
         case 'excluirCarro':
-            View::descDeleteCar();
+            CommandMessages::descDeleteCar();
             break;
 
         default:
-            View::errorMessageCommands();
+            echo CommandMessages::errorMessage_CommandNotFound();
             break;
     }
 } else {
-    View::defaultMessageCommands();
+    CommandMessages::defaultMessageCommands();
 }
