@@ -4,6 +4,7 @@ namespace Api\Entities;
 
 use Api\Messages\CarMessages;
 use InvalidArgumentException;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity

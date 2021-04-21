@@ -2,6 +2,8 @@
 
 namespace Api\Entities;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="status_race")
