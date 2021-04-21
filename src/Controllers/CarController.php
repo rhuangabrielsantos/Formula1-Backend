@@ -23,7 +23,7 @@ final class CarController implements ControllerInterface
      */
     public function index(?int $id = null): ControllerResponse
     {
-        if ($id) {
+        if ($id !== null) {
             $car = (new CarRepository())->findById($id);
             $formattedCar = CarMessages::showCar($car);
 

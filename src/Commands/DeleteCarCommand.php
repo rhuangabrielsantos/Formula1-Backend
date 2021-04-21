@@ -41,7 +41,7 @@ final class DeleteCarCommand implements Command, ChainBuilder
             return (new CarDeleterService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 

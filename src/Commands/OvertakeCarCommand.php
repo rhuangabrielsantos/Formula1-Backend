@@ -40,7 +40,7 @@ final class OvertakeCarCommand implements Command, ChainBuilder
             return (new OvertakeCarsService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 

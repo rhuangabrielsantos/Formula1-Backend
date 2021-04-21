@@ -40,7 +40,7 @@ final class ShowCarsCommand implements Command, ChainBuilder
             return (new ShowCarsService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 

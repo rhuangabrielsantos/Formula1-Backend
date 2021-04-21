@@ -38,7 +38,7 @@ final class FinishRaceCommand implements Command, ChainBuilder
             return (new RaceFinisherService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 

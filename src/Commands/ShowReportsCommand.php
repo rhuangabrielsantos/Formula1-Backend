@@ -38,7 +38,7 @@ final class ShowReportsCommand implements Command, ChainBuilder
             return (new ShowReportsService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 

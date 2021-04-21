@@ -41,7 +41,7 @@ final class NewCarCommand implements Command, ChainBuilder
             return (new CarMakerService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 

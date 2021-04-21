@@ -30,7 +30,7 @@ final class UserController implements ControllerInterface
     {
         $userRepository = $this->DB->getRepository('Api\Entities\User');
 
-        if ($id) {
+        if ($id !== null) {
             (new ControllerResponse(
                 StatusEnum::OK,
                 'Users list',

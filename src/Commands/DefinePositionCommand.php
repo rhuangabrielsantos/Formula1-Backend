@@ -41,7 +41,7 @@ final class DefinePositionCommand implements Command, ChainBuilder
             return (new PositionDefinerService())->exec($commandInput);
         }
 
-        if (self::hasNextCommand()) {
+        if ($this->hasNextCommand()) {
             return $this->nextCommand->runCommand($commandInput);
         }
 
