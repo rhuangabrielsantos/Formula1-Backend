@@ -40,6 +40,9 @@ final class Car
     /** @ORM\Column(type="integer") */
     public int $year;
 
+    /** @ORM\Column(type="string") */
+    private string $hashCar;
+
     public function getId(): int
     {
         return $this->id;
@@ -134,5 +137,30 @@ final class Car
         $this->position = $position;
 
         return $this;
+    }
+
+    public function setHashCar(string $hashUser): self
+    {
+        $this->hashCar = $hashUser;
+
+        return $this;
+    }
+
+    public function getHashCar(): string
+    {
+        return $this->hashCar;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'racing_driver' => $this->getRacingDriver(),
+            'brand' => $this->getBrand(),
+            'model' => $this->getModel(),
+            'color' => $this->getColor(),
+            'position' => $this->getPosition(),
+            'year' => $this->getYear()
+        ];
     }
 }

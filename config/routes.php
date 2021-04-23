@@ -8,7 +8,10 @@ use Api\Router\Router;
 $router = new Router();
 
 $router->get('/', AliveController::class, 'index');
+$router->get('/cars/hashCar', CarController::class, 'findByHashCar');
+
 $router->resource('/users', UserController::class);
+
 $router->resource('/cars', CarController::class);
 
 echo $router->handleRequest();

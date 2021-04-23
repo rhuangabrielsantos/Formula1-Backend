@@ -98,4 +98,9 @@ final class CarRepository
     {
         return $this->carRepository->findOneBy(['id' => $id]);
     }
+
+    public function findByHashCar(string $hashCar): Car
+    {
+        return $this->carRepository->findOneBy(['hashCar' => $hashCar]);
+    }
 }

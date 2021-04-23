@@ -126,6 +126,13 @@ final class Router
     {
         $requestURI = explode('/', $requestURI);
 
+        if(count($requestURI) > 3) {
+            return [
+                'endpoint' => '/' . $requestURI[1] . '/' . $requestURI[2],
+                'id' => $requestURI[3]
+            ];
+        }
+
         return [
             'endpoint' => '/' . $requestURI[1],
             'id' => $requestURI[2]

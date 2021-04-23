@@ -64,7 +64,7 @@ final class GetRequestMethodHandler implements RequestMethodHandler
     private static function createArrayArgumentsForGetRequestMethod(array $requestURI): array
     {
         return [
-            intval($requestURI['id'])
+            is_numeric($requestURI['id']) ? intval($requestURI['id']) : $requestURI['id']
         ];
     }
 

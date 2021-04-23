@@ -55,6 +55,7 @@ final class CarController implements ControllerInterface
         $car->setModel($requestBody['model'] ?? null);
         $car->setColor($requestBody['color'] ?? null);
         $car->setYear($requestBody['year'] ?? null);
+        $car->setHashCar(hash('sha512', $requestBody['racing_driver']) ?? null);
 
         try {
             (new CarRepository())->create($car);
@@ -65,7 +66,12 @@ final class CarController implements ControllerInterface
             );
         }
 
-        return (new ControllerResponse(StatusEnum::CREATED, 'Car was created'));
+        $paramsResponse = [
+            'status' => StatusEnum::CREATED,
+            'hashCar' => $car->getHashCar()
+        ];
+
+        return (new ControllerResponse(StatusEnum::CREATED, 'Car was created', $paramsResponse));
     }
 
     /**
@@ -94,6 +100,23 @@ final class CarController implements ControllerInterface
 
         $this->ifExistsCarsThenSetPosition();
         return (new ControllerResponse(StatusEnum::OK, 'Car has been deleted'));
+    }
+
+    /**
+     * @param string $hashCar
+     * @return \Core\Controller\ControllerResponse
+     */
+    public function findByHashCar(string $hashCar): ControllerResponse
+    {
+        $carRepository = new CarRepository();
+
+        $car = $carRepository->findByHashCar($hashCar);
+
+        if ($car) {
+            return (new ControllerResponse(StatusEnum::OK, 'Car found', $car->toArray()));
+        }
+
+        return (new ControllerResponse(StatusEnum::NOT_FOUND, 'Car not found'));
     }
 
     /**
