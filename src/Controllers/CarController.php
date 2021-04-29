@@ -197,16 +197,15 @@ final class CarController implements ControllerInterface
             $this->delete($car->getId());
         }
 
-        // b065e026527093f3e8f5995b8bdb18f3b16b75fb4544fa2c4b79a01c80539cc8138ae30f77b53c28eafcb3856e10691fe155c1dc79f415544f8567d2640820db
-
         /** @var Car $car */
-        foreach ($cars as $car) {
+        foreach ($cars as $index => $car) {
             $car = [
                 'racing_driver' => $car->getRacingDriver(),
                 'brand' => $car->getBrand(),
                 'model' => $car->getModel(),
                 'color' => $car->getColor(),
                 'year' => $car->getYear(),
+                'position' => $index + 1
             ];
 
             $this->create($car);
