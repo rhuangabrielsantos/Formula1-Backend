@@ -62,6 +62,7 @@ final class CarController implements ControllerInterface
         $car->setModel($requestBody['model'] ?? null);
         $car->setColor($requestBody['color'] ?? null);
         $car->setYear($requestBody['year'] ?? null);
+        $car->setPosition($requestBody['position'] ?? null);
         $car->setStatus('pending');
         $car->setHashCar(hash('sha512', $requestBody['racing_driver']) ?? null);
 
