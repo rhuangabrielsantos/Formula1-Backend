@@ -25,6 +25,11 @@ final class StatusRaceRepository
     {
         /** @var StatusRace $statusRace */
         $statusRace = $this->entityManager->find('Api\Entities\StatusRace', 1);
+
+        if (!$statusRace) {
+            $statusRace = new StatusRace();
+        }
+
         $statusRace->setStatus('on');
 
         $this->entityManager->persist($statusRace);
@@ -38,6 +43,11 @@ final class StatusRaceRepository
     {
         /** @var StatusRace $statusRace */
         $statusRace = $this->entityManager->find('Api\Entities\StatusRace', 1);
+
+        if (!$statusRace) {
+            $statusRace = new StatusRace();
+        }
+
         $statusRace->setStatus('off');
 
         $this->entityManager->persist($statusRace);

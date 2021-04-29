@@ -4,13 +4,28 @@ namespace Api\Controllers;
 
 use Api\Entities\Car;
 use Api\Entities\Report;
+use Api\Enum\StatusEnum;
 use Api\Messages\RaceMessages;
 use Api\Repository\CarRepository;
 use Api\Repository\ReportRepository;
+use Api\Repository\StatusRaceRepository;
+use Core\Controller\ControllerResponse;
 use Doctrine\ORM\ORMException;
 
 final class RaceController
 {
+    /**
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function startRace(): ControllerResponse
+    {
+        (new StatusRaceRepository())->setStartRace();
+
+        return (new ControllerResponse(StatusEnum::OK, 'Race was started'));
+    }
+
     /**
      * @param string $racingDriverName
      * @return string

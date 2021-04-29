@@ -3,10 +3,8 @@
 namespace Api\Controllers;
 
 use Api\Entities\Car;
-use Api\Enum\CommandInputEnum;
 use Api\Enum\StatusEnum;
 use Api\Messages\CarMessages;
-use Api\Messages\RaceMessages;
 use Api\Messages\RacingDriverMessages;
 use Api\Repository\CarRepository;
 use Api\Validations\CarValidator;
@@ -111,7 +109,6 @@ final class CarController implements ControllerInterface
 
         $carRepository->delete($car);
 
-        $this->ifExistsCarsThenSetPosition();
         return (new ControllerResponse(StatusEnum::OK, 'Car has been deleted'));
     }
 
@@ -216,19 +213,23 @@ final class CarController implements ControllerInterface
             $this->create($car);
         }
 
-        return (new ControllerResponse(StatusEnum::OK, 'Cars updated'));
+        return (new ControllerResponse(StatusEnum::OK, 'Cars has been updated'));
     }
 
     /**
-     * @throws ORMException
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
      */
-    private function ifExistsCarsThenSetPosition(): void
+    public function defineAllPositions(): ControllerResponse
     {
         $dataCars = (new CarRepository())->findAll();
 
         if (count($dataCars) > 0) {
             $this->setPosition($dataCars);
         }
+
+        return (new ControllerResponse(StatusEnum::OK, 'Cars has been updated'));
     }
 
     /**
