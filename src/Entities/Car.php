@@ -41,7 +41,13 @@ final class Car
     public int $year;
 
     /** @ORM\Column(type="string") */
-    private string $hashCar;
+    public string $hashCar;
+
+    /** @ORM\Column(type="string") */
+    public string $status;
+
+    /** @ORM\Column(type="integer", nullable=true) */
+    public ?int $number;
 
     public function getId(): int
     {
@@ -151,6 +157,30 @@ final class Car
         return $this->hashCar;
     }
 
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number ?? null;
+    }
+
     public function toArray(): array
     {
         return [
@@ -160,7 +190,10 @@ final class Car
             'model' => $this->getModel(),
             'color' => $this->getColor(),
             'position' => $this->getPosition(),
-            'year' => $this->getYear()
+            'year' => $this->getYear(),
+            'status' => $this->getStatus(),
+            'hashCar' => $this->getHashCar(),
+            'number' => $this->getNumber()
         ];
     }
 }

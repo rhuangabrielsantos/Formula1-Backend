@@ -36,7 +36,14 @@ final class CarController implements ControllerInterface
 
         CarValidator::thereAreCars($dataCars);
 
-        return (new ControllerResponse(StatusEnum::OK, 'Cars list', $dataCars));
+        $dataCarsFormatted = [];
+
+        /** @var Car $car */
+        foreach($dataCars as $car) {
+            $dataCarsFormatted[] = $car->toArray();
+        }
+
+        return (new ControllerResponse(StatusEnum::OK, 'Cars list', $dataCarsFormatted));
     }
 
     /**
@@ -55,10 +62,11 @@ final class CarController implements ControllerInterface
         $car->setModel($requestBody['model'] ?? null);
         $car->setColor($requestBody['color'] ?? null);
         $car->setYear($requestBody['year'] ?? null);
+        $car->setStatus('pending');
         $car->setHashCar(hash('sha512', $requestBody['racing_driver']) ?? null);
 
         try {
-            (new CarRepository())->create($car);
+            (new CarRepository())->save($car);
         } catch (UniqueConstraintViolationException $e) {
             throw new \Exception(
                 RacingDriverMessages::errorMessage_RacingDriverAlreadyExists(),
@@ -117,6 +125,94 @@ final class CarController implements ControllerInterface
         }
 
         return (new ControllerResponse(StatusEnum::NOT_FOUND, 'Car not found'));
+    }
+
+    /**
+     * @param int $carId
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function acceptRace(int $carId): ControllerResponse
+    {
+        $carRepository = new CarRepository();
+
+        $car = $carRepository->findById($carId);
+        $car->setStatus('accepted');
+
+        $carRepository->save($car);
+
+        return (new ControllerResponse(StatusEnum::OK, 'Car accept the race'));
+    }
+
+    /**
+     * @param int $carId
+     * @param array $requestArguments
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function updateNumber(int $carId, array $requestArguments): ControllerResponse
+    {
+        $carRepository = new CarRepository();
+
+        $car = $carRepository->findById($carId);
+        $car->setNumber($requestArguments['number']);
+
+        $carRepository->save($car);
+
+        return (new ControllerResponse(StatusEnum::OK, 'Car accept the race'));
+    }
+
+    /**
+     * @param int $carId
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function refuseRace(int $carId): ControllerResponse
+    {
+        $carRepository = new CarRepository();
+
+        $car = $carRepository->findById($carId);
+        $car->setStatus('pending');
+
+        $carRepository->save($car);
+
+        return (new ControllerResponse(StatusEnum::OK, 'Car accept the race'));
+    }
+
+    /**
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function updatePositions(): ControllerResponse
+    {
+        $carRepository = new CarRepository();
+        $cars = $carRepository->findAllOrderByNumber();
+
+        /** @var Car $car */
+        foreach ($cars as $car) {
+            $this->delete($car->getId());
+        }
+
+        // b065e026527093f3e8f5995b8bdb18f3b16b75fb4544fa2c4b79a01c80539cc8138ae30f77b53c28eafcb3856e10691fe155c1dc79f415544f8567d2640820db
+
+        /** @var Car $car */
+        foreach ($cars as $car) {
+            $car = [
+                'racing_driver' => $car->getRacingDriver(),
+                'brand' => $car->getBrand(),
+                'model' => $car->getModel(),
+                'color' => $car->getColor(),
+                'year' => $car->getYear(),
+            ];
+
+            $this->create($car);
+        }
+
+        return (new ControllerResponse(StatusEnum::OK, 'Cars updated'));
     }
 
     /**

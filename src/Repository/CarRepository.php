@@ -26,7 +26,7 @@ final class CarRepository
      *
      * @throws ORMException
      */
-    public function create(Car $car): void
+    public function save(Car $car): void
     {
         $this->entityManager->persist($car);
         $this->entityManager->flush();
@@ -74,33 +74,45 @@ final class CarRepository
 
     /**
      * @param string $name
-     * @return \Api\Entities\Car
+     * @return \Api\Entities\Car|null
      */
-    public function findByName(string $name): Car
+    public function findByName(string $name): ?Car
     {
         return $this->carRepository->findOneBy(['racing_driver' => $name]);
     }
 
     /**
      * @param int|null $position
-     * @return \Api\Entities\Car
+     * @return \Api\Entities\Car|null
      */
-    public function findByPosition(?int $position): Car
+    public function findByPosition(?int $position): ?Car
     {
         return $this->carRepository->findOneBy(['position' => $position]);
     }
 
     /**
      * @param int $id
-     * @return \Api\Entities\Car
+     * @return \Api\Entities\Car|null
      */
-    public function findById(int $id): Car
+    public function findById(int $id): ?Car
     {
         return $this->carRepository->findOneBy(['id' => $id]);
     }
 
-    public function findByHashCar(string $hashCar): Car
+    /**
+     * @param string $hashCar
+     * @return \Api\Entities\Car|null
+     */
+    public function findByHashCar(string $hashCar): ?Car
     {
         return $this->carRepository->findOneBy(['hashCar' => $hashCar]);
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllOrderByNumber(): array
+    {
+        return $this->carRepository->findBy([], ['number' => 'DESC']);
     }
 }
