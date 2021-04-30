@@ -10,8 +10,10 @@ $router = new Router();
 
 $router->get('/', AliveController::class, 'index');
 $router->get('/cars/hashCar', CarController::class, 'findByHashCar');
+$router->get('/statusRace', RaceController::class, 'getStatusRace');
 
 $router->post('/startRace', RaceController::class, 'startRace');
+$router->post('/finishRace', RaceController::class, 'finishRace');
 
 $router->put('/updatePositions', CarController::class, 'updatePositions');
 $router->put('/defineAllPositions', CarController::class, 'defineAllPositions');

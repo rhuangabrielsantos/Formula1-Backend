@@ -38,17 +38,17 @@ final class CarMessages
     }
 
 
-    public static function showCar(Car $car): string
+    public static function showCar(array $car): string
     {
         $carInfo = "-----------------------------" . PHP_EOL
-            . "Piloto - " . $car->getRacingDriver() . PHP_EOL
-            . "Marca - " . $car->getBrand() . PHP_EOL
-            . "Modelo - " . $car->getModel() . PHP_EOL
-            . "Cor - " . $car->getColor() . PHP_EOL
-            . "Ano - " . $car->getYear() . PHP_EOL;
+            . "Piloto - " . $car['racing_driver'] . PHP_EOL
+            . "Marca - " . $car['brand'] . PHP_EOL
+            . "Modelo - " . $car['model'] . PHP_EOL
+            . "Cor - " . $car['color'] . PHP_EOL
+            . "Ano - " . $car['year'] . PHP_EOL;
 
-        if (!empty($car->getPosition())) {
-            $carInfo .= "Posicao - " . $car->getPosition() . PHP_EOL;
+        if (!empty($car['position'])) {
+            $carInfo .= "Posicao - " . $car['position'] . PHP_EOL;
         }
 
         return $carInfo;

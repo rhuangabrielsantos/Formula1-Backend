@@ -23,7 +23,28 @@ final class RaceController
     {
         (new StatusRaceRepository())->setStartRace();
 
-        return (new ControllerResponse(StatusEnum::OK, 'Race was started'));
+        return (new ControllerResponse(StatusEnum::OK, 'Race was been started'));
+    }
+    /**
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function finishRace(): ControllerResponse
+    {
+        (new StatusRaceRepository())->setFinishRace();
+
+        return (new ControllerResponse(StatusEnum::OK, 'Race was been finished'));
+    }
+
+    /**
+     * @return \Core\Controller\ControllerResponse
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function getStatusRace(): ControllerResponse
+    {
+        return (new ControllerResponse(StatusEnum::OK, (new StatusRaceRepository())->get()));
     }
 
     /**
