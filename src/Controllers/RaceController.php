@@ -25,6 +25,7 @@ final class RaceController
 
         return (new ControllerResponse(StatusEnum::OK, 'Race was been started'));
     }
+
     /**
      * @return \Core\Controller\ControllerResponse
      *

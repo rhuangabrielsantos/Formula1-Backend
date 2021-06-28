@@ -1,12 +1,12 @@
 <?php
 
-namespace Api\Router;
+namespace Core\Router;
 
 use Api\Enum\StatusEnum;
-use Api\Router\RequestMethods\DeleteRequestMethodHandler;
-use Api\Router\RequestMethods\GetRequestMethodHandler;
-use Api\Router\RequestMethods\PostRequestMethodHandler;
-use Api\Router\RequestMethods\PutRequestMethodHandler;
+use Core\Router\RequestMethods\DeleteRequestMethodHandler;
+use Core\Router\RequestMethods\GetRequestMethodHandler;
+use Core\Router\RequestMethods\PostRequestMethodHandler;
+use Core\Router\RequestMethods\PutRequestMethodHandler;
 use Core\Controller\ControllerResponse;
 use Exception;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Router\RequestMethods;
+namespace Core\Router\RequestMethods;
 
 use Core\Controller\ControllerResponse;
 

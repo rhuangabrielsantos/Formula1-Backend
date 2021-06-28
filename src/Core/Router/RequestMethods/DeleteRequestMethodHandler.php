@@ -1,15 +1,15 @@
 <?php
 
-namespace Api\Router\RequestMethods;
+namespace Core\Router\RequestMethods;
 
 use Core\Controller\ControllerResponse;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
 
-final class PostRequestMethodHandler implements RequestMethodHandler
+final class DeleteRequestMethodHandler implements RequestMethodHandler
 {
-    const REQUEST_METHOD = 'POST';
+    const REQUEST_METHOD = 'DELETE';
 
     private ?RequestMethodHandler $nextRequestMethodHandler;
 
@@ -17,21 +17,23 @@ final class PostRequestMethodHandler implements RequestMethodHandler
      * @param string $requestMethod
      * @param array $requestURI
      * @param array $controllerReference
-     * @param array|null $requestArguments
+     * @param array|null $requestBody
      *
      * @return ControllerResponse
      * @throws ReflectionException
      * @throws Exception
      */
-    public function exec(string $requestMethod, array $requestURI, array $controllerReference, ?array $requestArguments): ControllerResponse
+    public function exec(string $requestMethod, array $requestURI, array $controllerReference, ?array $requestBody): ControllerResponse
     {
         if (self::canHandleRequestMethod($requestMethod)) {
+            $arguments = [intval($requestURI['id'])];
+
             $reflectedController = new ReflectionMethod(
                 $controllerReference['namespace'],
                 $controllerReference['method']
             );
 
-            return $reflectedController->invokeArgs(new $controllerReference['namespace'], [$requestArguments]);
+            return $reflectedController->invokeArgs(new $controllerReference['namespace'], $arguments);
         }
 
         if ($this->hasNextRequestMethod()) {
@@ -39,7 +41,7 @@ final class PostRequestMethodHandler implements RequestMethodHandler
                 $requestMethod,
                 $requestURI,
                 $controllerReference,
-                $requestArguments
+                $requestBody
             );
         }
 

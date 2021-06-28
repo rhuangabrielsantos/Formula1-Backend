@@ -81,7 +81,7 @@ final class CommandMessages
     public static function defaultMessageCommands(): void
     {
         echo "Lista dos comandos:" . PHP_EOL . PHP_EOL
-            . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando), lembre-se sempre de adicionar o php antes de cada comando" . PHP_EOL . PHP_EOL
+            . "Para ver detalhes de cada comando digite: verificarComandos (nome do comando)" . PHP_EOL . PHP_EOL
             . " - adicionarCarro" . PHP_EOL
             . " - excluirCarro" . PHP_EOL
             . " - definirPosicoes" . PHP_EOL

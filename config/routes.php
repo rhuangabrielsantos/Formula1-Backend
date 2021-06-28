@@ -4,7 +4,7 @@ use Api\Controllers\AliveController;
 use Api\Controllers\CarController;
 use Api\Controllers\RaceController;
 use Api\Controllers\UserController;
-use Api\Router\Router;
+use Core\Router\Router;
 
 $router = new Router();
 

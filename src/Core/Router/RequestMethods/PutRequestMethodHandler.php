@@ -1,15 +1,15 @@
 <?php
 
-namespace Api\Router\RequestMethods;
+namespace Core\Router\RequestMethods;
 
 use Core\Controller\ControllerResponse;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
 
-final class DeleteRequestMethodHandler implements RequestMethodHandler
+final class PutRequestMethodHandler implements RequestMethodHandler
 {
-    const REQUEST_METHOD = 'DELETE';
+    const REQUEST_METHOD = 'PUT';
 
     private ?RequestMethodHandler $nextRequestMethodHandler;
 
@@ -17,16 +17,16 @@ final class DeleteRequestMethodHandler implements RequestMethodHandler
      * @param string $requestMethod
      * @param array $requestURI
      * @param array $controllerReference
-     * @param array|null $requestBody
+     * @param array|null $requestArguments
      *
      * @return ControllerResponse
      * @throws ReflectionException
      * @throws Exception
      */
-    public function exec(string $requestMethod, array $requestURI, array $controllerReference, ?array $requestBody): ControllerResponse
+    public function exec(string $requestMethod, array $requestURI, array $controllerReference, ?array $requestArguments): ControllerResponse
     {
         if (self::canHandleRequestMethod($requestMethod)) {
-            $arguments = [intval($requestURI['id'])];
+            $arguments = [intval($requestURI['id']), $requestArguments];
 
             $reflectedController = new ReflectionMethod(
                 $controllerReference['namespace'],
@@ -41,7 +41,7 @@ final class DeleteRequestMethodHandler implements RequestMethodHandler
                 $requestMethod,
                 $requestURI,
                 $controllerReference,
-                $requestBody
+                $requestArguments
             );
         }
 
@@ -57,9 +57,6 @@ final class DeleteRequestMethodHandler implements RequestMethodHandler
         return $requestMethod === self::REQUEST_METHOD;
     }
 
-    /**
-     * @return bool
-     */
     private function hasNextRequestMethod(): bool
     {
         return !empty($this->nextRequestMethodHandler);

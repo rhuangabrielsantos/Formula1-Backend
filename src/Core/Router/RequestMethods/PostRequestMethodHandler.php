@@ -1,15 +1,15 @@
 <?php
 
-namespace Api\Router\RequestMethods;
+namespace Core\Router\RequestMethods;
 
 use Core\Controller\ControllerResponse;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
 
-final class GetRequestMethodHandler implements RequestMethodHandler
+final class PostRequestMethodHandler implements RequestMethodHandler
 {
-    const REQUEST_METHOD = 'GET';
+    const REQUEST_METHOD = 'POST';
 
     private ?RequestMethodHandler $nextRequestMethodHandler;
 
@@ -26,14 +26,12 @@ final class GetRequestMethodHandler implements RequestMethodHandler
     public function exec(string $requestMethod, array $requestURI, array $controllerReference, ?array $requestArguments): ControllerResponse
     {
         if (self::canHandleRequestMethod($requestMethod)) {
-            $arguments = self::createArrayArgumentsForGetRequestMethod($requestURI);
-
             $reflectedController = new ReflectionMethod(
                 $controllerReference['namespace'],
                 $controllerReference['method']
             );
 
-            return $reflectedController->invokeArgs(new $controllerReference['namespace'], $arguments);
+            return $reflectedController->invokeArgs(new $controllerReference['namespace'], [$requestArguments]);
         }
 
         if ($this->hasNextRequestMethod()) {
@@ -55,17 +53,6 @@ final class GetRequestMethodHandler implements RequestMethodHandler
     private static function canHandleRequestMethod(string $requestMethod): bool
     {
         return $requestMethod === self::REQUEST_METHOD;
-    }
-
-    /**
-     * @param array $requestURI
-     * @return array
-     */
-    private static function createArrayArgumentsForGetRequestMethod(array $requestURI): array
-    {
-        return [
-            is_numeric($requestURI['id']) ? intval($requestURI['id']) : $requestURI['id']
-        ];
     }
 
     /**

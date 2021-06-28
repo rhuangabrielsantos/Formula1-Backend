@@ -1,15 +1,15 @@
 <?php
 
-namespace Api\Router\RequestMethods;
+namespace Core\Router\RequestMethods;
 
 use Core\Controller\ControllerResponse;
 use Exception;
 use ReflectionException;
 use ReflectionMethod;
 
-final class PutRequestMethodHandler implements RequestMethodHandler
+final class GetRequestMethodHandler implements RequestMethodHandler
 {
-    const REQUEST_METHOD = 'PUT';
+    const REQUEST_METHOD = 'GET';
 
     private ?RequestMethodHandler $nextRequestMethodHandler;
 
@@ -26,7 +26,7 @@ final class PutRequestMethodHandler implements RequestMethodHandler
     public function exec(string $requestMethod, array $requestURI, array $controllerReference, ?array $requestArguments): ControllerResponse
     {
         if (self::canHandleRequestMethod($requestMethod)) {
-            $arguments = [intval($requestURI['id']), $requestArguments];
+            $arguments = self::createArrayArgumentsForGetRequestMethod($requestURI);
 
             $reflectedController = new ReflectionMethod(
                 $controllerReference['namespace'],
@@ -57,6 +57,20 @@ final class PutRequestMethodHandler implements RequestMethodHandler
         return $requestMethod === self::REQUEST_METHOD;
     }
 
+    /**
+     * @param array $requestURI
+     * @return array
+     */
+    private static function createArrayArgumentsForGetRequestMethod(array $requestURI): array
+    {
+        return [
+            is_numeric($requestURI['id']) ? intval($requestURI['id']) : $requestURI['id']
+        ];
+    }
+
+    /**
+     * @return bool
+     */
     private function hasNextRequestMethod(): bool
     {
         return !empty($this->nextRequestMethodHandler);
